@@ -1,0 +1,72 @@
+@startuml 
+entity "Student" as stud{
+    *StudentID: String <<generated>>
+    ---
+    *FirstName: String
+    *LastName: String
+    *Username: String 
+    *Password: String
+    *Email: String
+}
+
+entity "Course" as cour{
+    *CourseID: String <<generated>>
+    ---
+    *CourseName: String
+    *CourseDescription: String
+}
+
+entity "Course List" as coul1{
+    *CourseListID: String <<generated>>
+    ---
+    *CourseID: String
+    *StudentID: String
+}
+
+entity "Lecturer" as lect{
+    *LecturerID: String <<generated>>
+    ---
+    *FirstName: String
+    *LastName: String
+    *Username: String
+    *Password: String
+    *Email: String
+}
+
+entity "Course List" as coul2{
+    *CourseListID: String <<generated>>
+    ---
+    *CourseID: String
+    *LecturerID: String
+}
+
+entity "Assignment" as assi{
+    *AssignmentID: String <<generated>>
+    ---
+    *CourseID: String
+    *AssignmentName: String
+    *AssignmentDescription: String
+    *DueDate: Date
+    *Weight: int
+}
+
+entity "Events" as even{
+    *EventID: String <<generated>>
+    ---
+    *StartDate: Date
+    *EndDate: Date
+    *EventName: String
+    *EventDescription: String
+    *Location: String
+    *Completed: boolean
+}
+
+stud ||--o{ coul1
+cour ||--o{ coul1
+stud ||--o{ even
+lect ||--o{ coul2
+lect ||--o{ even
+cour ||--o{ coul2
+cour ||--o{ assi
+assi ||--o{ even
+@enduml
