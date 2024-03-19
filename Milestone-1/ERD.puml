@@ -1,4 +1,4 @@
-@startuml 
+@startuml Project-ERD
 entity "Student" as stud{
     *StudentID: String <<generated>>
     ---
