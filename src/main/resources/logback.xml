@@ -1,0 +1,45 @@
+<!-- logback logging configuration -->
+<configuration debug="false">
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+
+		<encoder>
+			<pattern>%d{HH:mm:ss} %-5level %logger - %msg%n %ex{full}</pattern>
+		</encoder>
+
+		<!-- send all except ERROR to stdout -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>ACCEPT</onMismatch>
+		</filter>
+
+		<target>System.out</target>
+	</appender>
+
+	<appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+
+		<encoder>
+			<pattern>%d{HH:mm:ss} %-5level %logger - %msg%n %ex{full}</pattern>
+		</encoder>
+
+		<!-- send only ERROR to stderr -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+
+		<target>System.err</target>
+
+	</appender>
+
+	<!-- set default logging level -->
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="STDERR" />
+	</root>
+
+	<logger name="com.zaxxer.hikari.pool.HikariPool" level="info" />
+
+</configuration>

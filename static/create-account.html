@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <title>Account Registration</title>
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+    </head>
+
+
+    <body>
+        <main>
+            <navmenu></navmenu>
+            <header>
+                <p id="title">Register</p>
+            </header>
+
+            <div class="input">
+                <fieldset>
+
+                    <legend>Account Details</legend>
+                    <form @submit.prevent="register(customer)" class="input">
+                        <label class="input">Username:</label><input class="input" type="text" v-model="customer.username" required/>
+                        <label class="input">First Name:</label><input class="input" type="text" v-model="customer.firstName" required/>
+                        <label class="input">Last Name:</label><input class="input" type="text" v-model="customer.surname" required/>
+                        <label class="input">Email: </label><input class="input" type="email" v-model="customer.emailAddress" required/>
+                        <label class="input">Address: </label><textarea class="input" type="text" v-model="customer.shippingAddress" id="formaddress" required></textarea>
+                        <label class="input">Password:</label><input class="input" type="password" v-model="customer.password" required/>
+
+                        <button class="input" type="submit">
+                            Sign-Up
+                        </button>
+                    </form>
+
+                </fieldset>
+            </div>
+        </main>
+        <script type="module" src="js/create-account.js"></script>
+
+    </body>
+</html>

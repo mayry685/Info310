@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <title>Product View</title>
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+    </head>
+    <body>
+        <main> 
+            <navmenu></navmenu>
+            <header>
+                <p id="title">Products</p>
+            </header>
+
+            <div class="category-buttons"><button @click.prevent="filterCategory('all')" class="category-button">All</button><button @click.prevent="filterCategory(category)" class="category-button" v-for="category in categories">{{category}}</button>
+            </div>
+            <table>
+                <thead>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr v-for="product in products">
+                    <td>{{product.productName}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.listPrice}}</td>
+                    <td>{{product.quantityInStock}}</td>
+                    <td>
+                        <button @click.prevent="buyProduct(product)" type="button" class="buy-button">Buy</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </main>
+        <script type="module" src="js/product-view.js"></script>
+    </body>
+
+</html>

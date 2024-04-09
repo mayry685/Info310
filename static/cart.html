@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <title>Cart</title>
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+    </head>
+    <body>
+        <main>
+            <navmenu></navmenu>
+            <header>
+                <p id="title">Register</p>
+            </header>
+            <div class="cart-container">
+            <table>
+                <thead>
+
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                </thead>
+                <tbody>
+                    <tr v-for="item in items">
+                        <td>{{item.product.productName}}</td>
+                        <td>{{formatCurrency(item.salePrice)}}</td>
+                        <td><button class="quantity-button" @click.prevent="increaseQuantity(item)">  +  </button>
+                        {{formatNumber(item.quantityPurchased)}}
+                        <button class="quantity-button" @click.prevent="decreaseQuantity(item)">  -  </button></td>
+                        <td>{{formatCurrency(item.quantityPurchased * item.salePrice)}}</td>
+
+                    </tr>
+                </tbody>
+                <tfoot>
+                <td>Total Cost</td>
+                <td colspan="5" id = "total">{{formatCurrency(getTotal())}}</td>
+                </tfoot>
+            </table>
+            <button class="checkout-button"  @click.prevent="checkOut()">Check Out Cart</button>
+            </div> 
+
+        </main>
+        <script type="module" src="js/cart.js"></script> 
+    </body>
+</html>
