@@ -1,49 +1,59 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Other/SQLTemplate.sql to edit this template
- */
-/**
- * Author:  Jarrad Marshall
- * Created: 23/08/2023
- */
-
-CREATE TABLE IF NOT EXISTS Products (
-    ProductID INTEGER PRIMARY KEY,
-    ProductName varchar(255) NOT NULL,
-    Description varchar(255),
-    Category varchar(255) NOT NULL,
-    ListPrice numeric(10,2) NOT NULL,
-    QuantityInStock integer NOT NULL DEFAULT '0',
-    CONSTRAINT CHK_NotNegative CHECK((ListPrice >=0) AND (QuantityInStock >=0))   
+CREATE TABLE Student (
+    StudentID SERIAL PRIMARY KEY,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    Username VARCHAR(255) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE  IF NOT EXISTS Customers (
-    CustomerID integer AUTO_INCREMENT (1000) PRIMARY KEY,
-    Username varchar(255) NOT NULL UNIQUE,
-    FirstName varchar(255) NOT NULL,
-    Surname varchar(255) NOT NULL,
-    Password varchar(255) NOT NULL,
-    EmailAddress varchar(255) NOT NULL UNIQUE,
-    ShippingAddress varchar(255) NOT NULL
+CREATE TABLE Course (
+    CourseID SERIAL PRIMARY KEY,
+    CourseName VARCHAR(255) NOT NULL,
+    CourseDescription TEXT
 );
 
-CREATE TABLE IF NOT EXISTS Sales (
-    SaleID integer AUTO_INCREMENT (10000) PRIMARY KEY,
-    Date DATETIME NOT NULL,
-    CustomerID integer,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
-    Status varchar(255) NOT NULL
+CREATE TABLE CourseList_Student (
+    CourseListID SERIAL PRIMARY KEY,
+    CourseID INT NOT NULL,
+    StudentID INT NOT NULL,
+    FOREIGN KEY (CourseID) REFERENCES Course(CourseID),
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
 );
 
-CREATE TABLE IF NOT EXISTS SaleItems (
-    ProductID integer,
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    SaleID integer, 
-    FOREIGN KEY (SaleID) REFERENCES Sales(SalesID),
-    CONSTRAINT PK_SaleItem PRIMARY KEY (SaleID, ProductID),
-    QuantityPurchased integer NOT NULL,
-    SalePrice numeric(10,2) NOT NULL
+CREATE TABLE Lecturer (
+    LecturerID SERIAL PRIMARY KEY,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    Username VARCHAR(255) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE CourseList_Lecturer (
+    CourseListID SERIAL PRIMARY KEY,
+    CourseID INT NOT NULL,
+    LecturerID INT NOT NULL,
+    FOREIGN KEY (CourseID) REFERENCES Course(CourseID),
+    FOREIGN KEY (LecturerID) REFERENCES Lecturer(LecturerID)
+);
 
+CREATE TABLE Assignment (
+    AssignmentID SERIAL PRIMARY KEY,
+    CourseID INT NOT NULL,
+    AssignmentName VARCHAR(255) NOT NULL,
+    AssignmentDescription TEXT,
+    DueDate DATE NOT NULL,
+    Weight INT NOT NULL,
+    FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+);
 
+CREATE TABLE Events (
+    EventID SERIAL PRIMARY KEY,
+    StartDate DATE NOT NULL,
+    EndDate DATE NOT NULL,
+    EventName VARCHAR(255) NOT NULL,
+    EventDescription TEXT,
+    Location VARCHAR(255),
+    Completed BOOLEAN NOT NULL
+);
