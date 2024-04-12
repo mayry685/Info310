@@ -1,10 +1,18 @@
-CREATE TABLE Student (
-    StudentID SERIAL PRIMARY KEY,
+DROP TABLE IF EXISTS CourseList;
+DROP TABLE IF EXISTS Events;
+DROP TABLE IF EXISTS Assignment;
+DROP TABLE IF EXISTS Course;
+DROP TABLE IF EXISTS Account;
+
+
+CREATE TABLE Account(
+    AccountID SERIAL PRIMARY KEY,
     FirstName VARCHAR(255) NOT NULL,
     LastName VARCHAR(255) NOT NULL,
     Username VARCHAR(255) NOT NULL,
     Password VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL
+    Email VARCHAR(255) NOT NULL,
+    Status VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Course (
@@ -13,29 +21,12 @@ CREATE TABLE Course (
     CourseDescription TEXT
 );
 
-CREATE TABLE CourseList_Student (
+CREATE TABLE CourseList(
     CourseListID SERIAL PRIMARY KEY,
     CourseID INT NOT NULL,
-    StudentID INT NOT NULL,
+    AccountID INT NOT NULL,
     FOREIGN KEY (CourseID) REFERENCES Course(CourseID),
-    FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
-);
-
-CREATE TABLE Lecturer (
-    LecturerID SERIAL PRIMARY KEY,
-    FirstName VARCHAR(255) NOT NULL,
-    LastName VARCHAR(255) NOT NULL,
-    Username VARCHAR(255) NOT NULL,
-    Password VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE CourseList_Lecturer (
-    CourseListID SERIAL PRIMARY KEY,
-    CourseID INT NOT NULL,
-    LecturerID INT NOT NULL,
-    FOREIGN KEY (CourseID) REFERENCES Course(CourseID),
-    FOREIGN KEY (LecturerID) REFERENCES Lecturer(LecturerID)
+    FOREIGN KEY (AccountID) REFERENCES Account(AccountID)
 );
 
 CREATE TABLE Assignment (
