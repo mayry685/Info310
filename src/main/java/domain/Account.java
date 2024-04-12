@@ -22,6 +22,9 @@ public class Account {
         this.Status = Status;
     }
 
+    public Account() {
+    }
+
     public int getAccountId() {
         return AccountId;
     }
