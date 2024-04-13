@@ -7,6 +7,10 @@ import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 
+/**
+ * 
+ * @Author Kevin Albert
+ */
 public interface EventsJdbiDAO extends CredentialsValidator {
 
     @SqlQuery("SELECT * FROM events ORDER BY EventID")
@@ -22,5 +26,5 @@ public interface EventsJdbiDAO extends CredentialsValidator {
     public void createEvent(@BindBean Event event);
     
     @SqlQuery("UPDATE events SET Completed = :Completed WHERE EventID = :EventID")
-    public void updateEvent(@BindBean Event event);
+    public void updateEvent(@BindBean Event event, Boolean Completed);
 }

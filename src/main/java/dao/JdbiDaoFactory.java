@@ -43,4 +43,11 @@ public class JdbiDaoFactory {
         return JDBI.onDemand(AccountJdbiDAO.class);
     }
 
+    public static EventsJdbiDAO getEventsDAO() {
+        if (HIKARI_DATA_SOURCE == null) {
+            initialisePool();
+        }
+        return JDBI.onDemand(EventsJdbiDAO.class);
+    }
+
 }
