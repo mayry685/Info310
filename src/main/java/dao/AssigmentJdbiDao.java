@@ -23,5 +23,5 @@ public interface AssigmentJdbiDao extends CredentialsValidator{
 
     @SqlQuery("SELECT * FROM assignment where CourseID=:CourseID")
     @RegisterBeanMapper(Assignment.class)
-    public Collection<Assignment> searchByCourseID(@Bind("CourseID") int CourseID);
+    public Assignment searchByCourseID(@Bind("CourseID") int CourseID);
 }
