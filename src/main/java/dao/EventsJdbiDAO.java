@@ -6,6 +6,7 @@ import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
+import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 /**
  * 
@@ -26,5 +27,11 @@ public interface EventsJdbiDAO extends CredentialsValidator {
     public void createEvent(@BindBean Event event);
     
     @SqlQuery("UPDATE events SET Completed = :Completed WHERE EventID = :EventID")
-    public void updateEvent(@BindBean Event event, Boolean Completed);
+    public void updateEventStatus(@BindBean Event event, Boolean Completed);
+
+    @SqlUpdate("UPDATE events SET StartDate = :StartDate, EndDate = :EndDate, EventName = :EventName, EventDescription = :EventDescription, Location = :Location, Completed = :Completed WHERE EventID = :EventID;")
+    public void updateEventDetails(@BindBean Event event);
+
+    @SqlUpdate("DELETE FROM events WHERE EventID = :EventID")
+    public void deleteEventByEventID(@Bind("EventID") int EventID);
 }
