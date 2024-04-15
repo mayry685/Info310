@@ -16,7 +16,6 @@ public class Server extends Jooby {
         
         
         Collection<Account> accounts = accountDao.getAccounts();
-        System.out.println(accounts);
 
         mount(new StaticAssetModule());
         install(new GsonModule());
