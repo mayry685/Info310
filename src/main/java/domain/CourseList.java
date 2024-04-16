@@ -8,7 +8,7 @@ package domain;
  *
  * @author chsur
  */
-class CourseList {
+public class CourseList {
     
     //datafields
     private int CourseListID;

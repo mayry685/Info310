@@ -1,6 +1,7 @@
 package dao;
 
 import domain.Course;
+import domain.CourseList;
 import java.util.Collection;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
@@ -33,4 +34,11 @@ public interface CoursesJdbiDAO extends CredentialsValidator {
     
     @SqlUpdate("DELETE FROM Course WHERE CourseID = :courseId")
     void deleteCourseById(@Bind("courseId") String courseId);
+
+    @SqlUpdate("INSERT INTO CourseList (CourseID, AccountId) VALUES (:courseID, :accountID)")
+    @RegisterBeanMapper(CourseList.class)
+    CourseList createCourseList(@Bind("courseID") String courseID, @Bind("accountID") String accountID);
+
+    @SqlUpdate("DELETE FROM CourseList WHERE CourseListID=:courseListId")
+    void deleteCourseListById(@Bind("courseListId") String courseListId);
 }
