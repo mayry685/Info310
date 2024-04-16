@@ -22,6 +22,7 @@ public class Server extends Jooby {
         
 //        install(new BasicAccessAuth(accountDao, Set.of("/api/.*"), Set.of("/api/register")));
         mount(new AccountModule(JdbiDaoFactory.getAccountDAO()));
+        mount(new CourseModule(JdbiDaoFactory.getCourseDAO()));
 
     }
 

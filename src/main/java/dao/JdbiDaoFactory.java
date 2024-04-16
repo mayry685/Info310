@@ -7,8 +7,8 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public class JdbiDaoFactory {
 
-    private static final String DB_USERNAME = "postgres.mkhskkghprbsdpnuniek";
-    private static final String DB_PASSWORD = "Info303Passcode";
+    private static final String DB_USERNAME = "postgres.lycknztdgdkgxdvbkdkj";
+    private static final String DB_PASSWORD = "Info310P@sscode";
 
     private static final String JDBC_URI = "jdbc:postgresql://aws-0-ap-southeast-2.pooler.supabase.com:5432/postgres";
 
@@ -32,5 +32,12 @@ public class JdbiDaoFactory {
             initialisePool();
         }
         return JDBI.onDemand(AccountJdbiDAO.class);
+    }
+    
+    public static CoursesJdbiDAO getCourseDAO() {
+        if (HIKARI_DATA_SOURCE == null) {
+            initialisePool();
+        }
+        return JDBI.onDemand(CoursesJdbiDAO.class);
     }
 }

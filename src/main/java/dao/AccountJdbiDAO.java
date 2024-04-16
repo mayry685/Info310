@@ -34,7 +34,9 @@ public interface AccountJdbiDAO extends CredentialsValidator {
 
     
     @SqlUpdate("UPDATE Account SET FirstName=:account.firstName, LastName=:account.lastName, Email=:account.email, Status=:account.status WHERE Username=:account.userName")
-    void updateAccount(@BindBean("account") Account account);
+    @GetGeneratedKeys
+    @RegisterBeanMapper(Account.class)
+    Account updateAccount(@BindBean("account") Account account);
     
     @SqlUpdate("DELETE FROM Account WHERE Username=:username")
     void deleteAccountByUsername(@Bind("username") String username);
