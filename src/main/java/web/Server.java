@@ -16,13 +16,13 @@ public class Server extends Jooby {
         
         
         Collection<Account> accounts = accountDao.getAccounts();
-        System.out.println(accounts);
 
         mount(new StaticAssetModule());
         install(new GsonModule());
         
         install(new BasicAccessAuth(accountDao, Set.of("/api/.*"), Set.of("/api/register")));
         mount(new AccountModule(JdbiDaoFactory.getAccountDAO()));
+        mount(new CourseModule(JdbiDaoFactory.getCourseDAO()));
 
     }
 
