@@ -33,11 +33,26 @@ public class JdbiDaoFactory {
         }
         return JDBI.onDemand(AccountJdbiDAO.class);
     }
-    
+
+    public static EventsJdbiDAO getEventsDAO() {
+        if (HIKARI_DATA_SOURCE == null) {
+            initialisePool();
+        }
+        return JDBI.onDemand(EventsJdbiDAO.class);
+    }
+
+    public static AssignmentsJdbiDAO getAssignmentsDAO() {
+        if (HIKARI_DATA_SOURCE == null) {
+            initialisePool();
+        }
+        return JDBI.onDemand(AssignmentsJdbiDAO.class);
+    }
+
     public static CoursesJdbiDAO getCourseDAO() {
         if (HIKARI_DATA_SOURCE == null) {
             initialisePool();
         }
         return JDBI.onDemand(CoursesJdbiDAO.class);
     }
+
 }
