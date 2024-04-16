@@ -11,21 +11,25 @@ package domain;
 public class Course {
     
     //datafields
-    private int CourseId;
+    private String CourseId;
     private String CourseName;
     private String CourseDescription;
 
-    public Course(int CourseId, String CourseName, String CourseDescription) {
+    public Course(String CourseId, String CourseName, String CourseDescription) {
         this.CourseId = CourseId;
         this.CourseName = CourseName;
         this.CourseDescription = CourseDescription;
     }
+    
+    public Course(){
+        
+    }
 
-    public int getCourseId() {
+    public String getCourseId() {
         return CourseId;
     }
 
-    public void setCourseId(int CourseId) {
+    public void setCourseId(String CourseId) {
         this.CourseId = CourseId;
     }
 
