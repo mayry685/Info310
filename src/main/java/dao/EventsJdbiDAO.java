@@ -1,7 +1,9 @@
 package dao;
 
 import domain.Event;
+
 import java.util.Collection;
+import java.time.LocalDateTime;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
@@ -22,11 +24,11 @@ public interface EventsJdbiDAO extends CredentialsValidator {
     @RegisterBeanMapper(Event.class)
     public Event searchByUsername(@Bind("EventName") String eventName);
 
-    @SqlQuery("INSERT INTO events (EventID, StartDate, EndDate, EventName, EventDescription, Location, Completed)\n" +
+    @SqlUpdate("INSERT INTO events (EventID, StartDate, EndDate, EventName, EventDescription, Location, Completed)\n" +
                 "VALUES (:EventID, :StartDate, :EndDate, :EventName, :EventDescription, :Location, :Completed);")
     public void createEvent(@BindBean Event event);
     
-    @SqlQuery("UPDATE events SET Completed = :Completed WHERE EventID = :EventID")
+    @SqlUpdate("UPDATE events SET Completed = :Completed WHERE EventID = :EventID")
     public void updateEventStatus(@BindBean Event event, Boolean Completed);
 
     @SqlUpdate("UPDATE events SET StartDate = :StartDate, EndDate = :EndDate, EventName = :EventName, EventDescription = :EventDescription, Location = :Location, Completed = :Completed WHERE EventID = :EventID;")

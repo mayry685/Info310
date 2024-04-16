@@ -14,8 +14,8 @@ public class EventModule extends Jooby{
             return eventsDAO.getEvents();
         });
 
-        get("/api/events/:EventName", ctx -> {
-            String eventName = ctx.path("EventName").value();
+        get("/api/events/searchByEventName", ctx -> {
+            String eventName = ctx.query("EventName").value();
             return eventsDAO.searchByUsername(eventName);
         });
 

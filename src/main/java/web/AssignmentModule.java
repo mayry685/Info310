@@ -13,13 +13,14 @@ public class AssignmentModule extends Jooby {
             return assignmentsDAO.getAssignments();
         });
 
-        get("/api/assignments/:AssignmentName", ctx -> {
-            String assignmentName = ctx.path("AssignmentName").value();
-            return assignmentsDAO.searchByUsername(assignmentName);
+        get("/api/assignments/searchByAssignmentName", ctx -> {
+            String assignmentName = ctx.query("AssignmentName").value();
+            return assignmentsDAO.searchByAssignmentName(assignmentName);
         });
 
         post("/api/CreateAssignment", ctx -> {
             Assignment assignment = ctx.body().to(Assignment.class);
+            System.out.println(assignment.getCourseID());
             assignmentsDAO.createAssignment(assignment);
             return ctx.send(StatusCode.OK);
         });
