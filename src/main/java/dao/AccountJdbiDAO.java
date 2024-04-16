@@ -29,4 +29,8 @@ public interface AccountJdbiDAO extends CredentialsValidator {
                 "VALUES (:FirstName, :LastName, :Username, :Password, :Email, :Status);")
     public Account createAccount(@BindBean Account account);
     
+    @Override
+    @SqlQuery("select exists (select * from Account where Username=:username and Password=:password)")
+    public Boolean credentialCheck(@Bind("username") String username, @Bind("password") String password);
+    
 }
