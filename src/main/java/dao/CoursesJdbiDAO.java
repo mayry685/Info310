@@ -39,6 +39,10 @@ public interface CoursesJdbiDAO extends CredentialsValidator {
     @RegisterBeanMapper(CourseList.class)
     CourseList createCourseList(@Bind("courseID") String courseID, @Bind("accountID") String accountID);
 
-    @SqlUpdate("DELETE FROM CourseList WHERE CourseListID=:courseListId")
+    @SqlUpdate("DELETE FROM CourseList WHERE CourseListID = :courseListId")
     void deleteCourseListById(@Bind("courseListId") String courseListId);
+
+    @SqlQuery("SELECT * FROM CourseList WHERE AccountId=:accountId");
+    @RegisterBeanMapper(Course.class)
+    Collection<CourseList> getCourseListsByAccount(@Bind("accountId") String accountId);
 }
