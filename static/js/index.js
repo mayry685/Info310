@@ -6,11 +6,11 @@ const app = Vue.createApp({
     },
     data() {
         return {
-            signedIn: this.customer!==null
+            signedIn: this.account!==null
         };
     },
     computed: Vuex.mapState({
-        customer: 'customer'
+        account: 'account'
     })
 });
 

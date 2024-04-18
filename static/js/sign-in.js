@@ -4,16 +4,15 @@
  */
 
 
-var productApi = '/api/products';
-var categoryApi = '/api/categories';
-var customerApi = '/api/customers/';
+var accountApi = '/api/accounts';
+var coursesApi = '/api/courses';
 
 // create the Vue controller
 const app = Vue.createApp({
     mixins: [BasicAccessAuthentication],
     data() {
         return {
-            customer: new Object()
+            account: new Object()
         };
     },
 
@@ -23,9 +22,9 @@ const app = Vue.createApp({
 
     methods: {
         signIn(){
-        if (this.customer !== null) {
-            this.createToken(this.customer.username, this.customer.password);
-            axios.get(customerApi + this.customer.username)
+        if (this.account !== null) {
+            this.createToken(this.account.username, this.account.password);
+            axios.get(accountApi + this.account.username)
                 .then(response => {
                     if (response.data !== null) {
                         dataStore.commit("signIn", response.data);

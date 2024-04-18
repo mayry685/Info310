@@ -21,9 +21,9 @@
                 <fieldset>
 
                     <legend>Account Details</legend>
-                    <form @submit.prevent="signIn(customer)" class="input">
-                        <label class="input">Username:</label><input class="input" type="text" v-model="customer.username"/>
-                        <label class="input">Password:</label><input class="input" type="password" v-model="customer.password"/>
+                    <form @submit.prevent="signIn(account)" class="input">
+                        <label class="input">Username:</label><input class="input" type="text" v-model="account.username"/>
+                        <label class="input">Password:</label><input class="input" type="password" v-model="account.password"/>
 
                         <button class="input" type="submit">
                             Sign-In
@@ -38,3 +38,4 @@
         <script type="module" src="js/sign-in.js"></script>
     </body>
 </html>
+
