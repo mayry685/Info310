@@ -2,9 +2,9 @@
     --spacing: 12px;
     --rounded-corner: 12px;
     --drop-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    --theme-primary: #00539f; /* University of Otago Blue */
-    --theme-secondary: #ff8200; /* University of Otago Gold */
-    --theme-tertiary: #f0f0f0; /* Light Gray */
+    --theme-primary: #f0f0f0; /* Light Gray */ 
+    --theme-secondary: #f3b30b; /* University of Otago Gold */
+    --theme-tertiary:#00539f; /* University of Otago Blue */
     --theme-tertiary-hover: #e0e0e0; /* Light Gray (Hover State) */
 }
 
@@ -27,7 +27,7 @@ header {
     text-align: center;
     padding: var(--spacing);
     background-color: var(--theme-primary);
-    color: white;
+    color: #003366;
 }
 
 /* Navigation */
@@ -55,13 +55,13 @@ nav {
 
 /* Form styling */
 .form-container {
-    max-width: 800px;
+    max-width: 80%;
     margin: auto;
     padding: var(--spacing);
 }
 
 .input {
-    background-color: var(--theme-tertiary);
+    background-color: var(--theme-primary);
     padding: var(--spacing);
     border-radius: var(--rounded-corner);
     box-shadow: var(--drop-shadow);
@@ -76,24 +76,27 @@ nav {
 .input label {
     display: block;
     margin-bottom: 6px;
-    color: #333;
+    color: #003366;
 }
 
 .input input[type="text"],
 .input textarea {
+    
     width: 100%;
     padding: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 .input button {
-    width: 100%;
+    display: block;
+    width: 50%;
+    margin-top: 30px;
     padding: 10px;
-    background-color: var(--theme-primary);
+    background-color: #00539f;
     color: white;
-    border: none;
+    border:  none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -126,7 +129,7 @@ tbody td {
 /* Buttons */
 .buy-button,
 .category-button,
-.checkout-button {
+.submit-button {
     padding: 8px 16px;
     background-color: var(--theme-tertiary);
     color: black;
