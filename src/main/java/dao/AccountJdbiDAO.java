@@ -23,7 +23,7 @@ public interface AccountJdbiDAO extends CredentialsValidator {
     
     @SqlQuery("SELECT * FROM account where Username=:username")
     @RegisterBeanMapper(Account.class)
-    public Account searchByUsername(@Bind("username") String username);
+    public Account getAccountsByUsername(@Bind("username") String username);
     
     @SqlQuery("INSERT INTO Account (FirstName, LastName, Username, Password, Email, Status)\n" +
                 "VALUES (:FirstName, :LastName, :Username, :Password, :Email, :Status);")

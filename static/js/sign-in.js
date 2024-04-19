@@ -4,8 +4,8 @@
  */
 
 
-var accountApi = '/api/accounts';
-var coursesApi = '/api/courses';
+var accountApi = '/api/accounts/';
+
 
 // create the Vue controller
 const app = Vue.createApp({
@@ -28,7 +28,7 @@ const app = Vue.createApp({
                 .then(response => {
                     if (response.data !== null) {
                         dataStore.commit("signIn", response.data);
-                        window.location = 'product-view.html';
+                        window.location = 'index.html';
                     } else {
                         alert("That was an incorrect username");
                     }

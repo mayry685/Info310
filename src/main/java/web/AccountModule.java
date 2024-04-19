@@ -6,6 +6,8 @@ package web;
 
 import dao.AccountJdbiDAO;
 import io.jooby.Jooby;
+import domain.Account;
+import io.jooby.StatusCode;
 
 /**
  *
@@ -13,12 +15,26 @@ import io.jooby.Jooby;
  */
 public class AccountModule extends Jooby {
 
-    public AccountModule(AccountJdbiDAO accountDAO) {
+    public AccountModule(AccountJdbiDAO dao) {
         
         get("/api/accounts", ctx -> {
-            return accountDAO.getAccounts();
+            return dao.getAccounts();
+        });
+
+        get("/api/accounts/{username}", ctx -> {
+            String username = ctx.path("username").toString();
+            Account account = dao.getAccountsByUsername(username);
+
+            if (account == null) {
+                ctx.setResponseCode(StatusCode.NOT_FOUND);
+                return "User '" + username + "' not found.";
+            } else {
+                return account;
+            }
         });
         
+   
+    
     }
     
 }
