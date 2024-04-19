@@ -4,17 +4,17 @@ export const navigationMenu = {
 
     computed: {
         signedIn() {
-            return this.customer != null;
+            return this.account != null;
         },
         ...Vuex.mapState({
-                customer: 'customer'
+                account: 'account'
         })
     },
 
     template:
             `
 	<nav>
-		<div v-if="signedIn">Welcome {{customer.firstName}}</div>
+		<div v-if="signedIn">Welcome {{account.firstName}}</div>
 		<a href=".">Home</a>
 		<a href="product-view.html" v-if="signedIn">Browse Products</a>
 		<a href="cart.html" v-if="signedIn">View Cart</a>

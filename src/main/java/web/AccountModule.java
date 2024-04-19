@@ -59,5 +59,19 @@ public class AccountModule extends Jooby {
             dao.changePassword(username, newPassword);
             return "Password changed successfully.";
         });
+
+        get("/api/accounts/{username}", ctx -> {
+            String username = ctx.path("username").toString();
+            Account account = dao.getAccountsByUsername(username);
+
+            if (account == null) {
+                ctx.setResponseCode(StatusCode.NOT_FOUND);
+                return "User '" + username + "' not found.";
+            } else {
+                return account;
+            }
+        });
+
+
     }
 }

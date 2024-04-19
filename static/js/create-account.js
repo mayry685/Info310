@@ -4,13 +4,13 @@ const app = Vue.createApp({
     },
     data() {
         return {
-            customer: new Object()
+            account: new Object()
         };
     },
     methods: {
         register() {
-            if (this.customer !== null) {
-                axios.post(registerApi, this.customer)
+            if (this.account !== null) {
+                axios.post(registerApi, this.account)
                         .then(() => {
                             window.location = "sign-in.html";
                         })

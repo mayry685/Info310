@@ -7,17 +7,15 @@
 export const dataStore = Vuex.createStore({
 
     state() {
-        customer: null;
-        items: null;
-        selectedProduct: null;
+        account: null;
         authToken: null;
     },
 
     mutations: {
 
         // user signs in
-        signIn(state, customer) {
-            state.customer = customer;
+        signIn(state, account) {
+            state.account = account;
             state.items = new Array();
         },
         // store basic access token
