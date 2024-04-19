@@ -38,6 +38,8 @@ dependencies {
 	def jdbiVer = "3.40.0"
 	implementation group: "org.jdbi", name: "jdbi3-core", version: jdbiVer;
 	implementation group: "org.jdbi", name: "jdbi3-sqlobject", version: jdbiVer;
+
+	implementation 'org.postgresql:postgresql:42.2.19'
 }
 
 test {

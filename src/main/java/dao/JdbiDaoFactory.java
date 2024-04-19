@@ -1,36 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public class JdbiDaoFactory {
 
-    private static final String DB_USERNAME = "sa";
-    private static final String DB_PASSWORD = "sa";
+    private static final String DB_USERNAME = "postgres.lycknztdgdkgxdvbkdkj";
+    private static final String DB_PASSWORD = "Info310P@sscode";
 
-    private static String jdbcUri = "jdbc:h2:tcp://localhost/~/stucal";
+    private static final String JDBC_URI = "jdbc:postgresql://aws-0-ap-southeast-2.pooler.supabase.com:5432/postgres";
 
     private static HikariDataSource HIKARI_DATA_SOURCE;
     private static Jdbi JDBI;
 
-    public static void setJdbcUri(String uri) {
-        if (HIKARI_DATA_SOURCE != null) {
-            throw new IllegalStateException("Connection pool as already been initialised.  It is too late to change the JDBC URI.");
-        }
-
-        jdbcUri = uri;
-    }
-
     private static void initialisePool() {
-        HIKARI_DATA_SOURCE = new HikariDataSource();
-        HIKARI_DATA_SOURCE.setJdbcUrl(jdbcUri);
-        HIKARI_DATA_SOURCE.setUsername(DB_USERNAME);
-        HIKARI_DATA_SOURCE.setPassword(DB_PASSWORD);
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(JDBC_URI);
+        config.setUsername(DB_USERNAME);
+        config.setPassword(DB_PASSWORD);
+
+        HIKARI_DATA_SOURCE = new HikariDataSource(config);
 
         JDBI = Jdbi.create(HIKARI_DATA_SOURCE);
         JDBI.installPlugin(new SqlObjectPlugin());
@@ -42,5 +33,5 @@ public class JdbiDaoFactory {
         }
         return JDBI.onDemand(AccountJdbiDAO.class);
     }
-
+    
 }
