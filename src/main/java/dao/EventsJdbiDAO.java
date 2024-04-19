@@ -24,9 +24,9 @@ public interface EventsJdbiDAO extends CredentialsValidator {
     @RegisterBeanMapper(Event.class)
     public Event searchByUsername(@Bind("EventName") String eventName);
 
-    @SqlUpdate("INSERT INTO events (EventID, StartDate, EndDate, EventName, EventDescription, Location, Completed)\n" +
-                "VALUES (:EventID, :StartDate, :EndDate, :EventName, :EventDescription, :Location, :Completed);")
-    public void createEvent(@BindBean Event event);
+    @SqlUpdate("INSERT INTO events (StartDate, EndDate, EventName, EventDescription, Location, Completed)\n" +
+                "VALUES (:event.startDate, :event.endDate, :event.eventName, :event.eventDescription, :event.location, :event.completed);")
+    public void createEvent(@BindBean("event") Event event);
     
     @SqlUpdate("UPDATE events SET Completed = :Completed WHERE EventID = :EventID")
     public void updateEventStatus(@BindBean Event event, Boolean Completed);

@@ -20,7 +20,6 @@ public class AssignmentModule extends Jooby {
 
         post("/api/CreateAssignment", ctx -> {
             Assignment assignment = ctx.body().to(Assignment.class);
-            System.out.println(assignment.getCourseID());
             assignmentsDAO.createAssignment(assignment);
             return ctx.send(StatusCode.OK);
         });

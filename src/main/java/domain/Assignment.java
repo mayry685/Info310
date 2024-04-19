@@ -4,6 +4,7 @@
  */
 package domain;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -17,10 +18,10 @@ public class Assignment {
     private String CourseID;
     private String AssignmentName;
     private String AssignmentDescription;
-    private String DueDate;
+    private Timestamp DueDate;
     private int Weight;
 
-    public Assignment(int AssignmentID, String CourseID, String AssignmentName, String AssignmentDescription, String DueDate, int Weight) {
+    public Assignment(int AssignmentID, String CourseID, String AssignmentName, String AssignmentDescription, Timestamp DueDate, int Weight) {
         this.AssignmentID = AssignmentID;
         this.CourseID = CourseID;
         this.AssignmentName = AssignmentName;
@@ -65,11 +66,11 @@ public class Assignment {
         this.AssignmentDescription = AssignmentDescription;
     }
 
-    public String getDueDate() {
+    public Timestamp getDueDate() {
         return DueDate;
     }
 
-    public void setDueDate(String DueDate) {
+    public void setDueDate(Timestamp DueDate) {
         this.DueDate = DueDate;
     }
 
