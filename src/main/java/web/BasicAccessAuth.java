@@ -56,7 +56,7 @@ public class BasicAccessAuth implements Extension {
 	@Override
 	public void install(Jooby application) throws Exception {
 
-		application.decorator(next -> ctx -> {
+		application.use(next -> ctx -> {
 
 			// get requested path
 			String path = ctx.getRequestPath();
