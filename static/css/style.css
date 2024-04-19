@@ -2,56 +2,39 @@
     --spacing: 12px;
     --rounded-corner: 12px;
     --drop-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    --theme-primary: #3982e1cc;
-    --theme-secondary: #f184636b;;
-    --theme-tertiary: peachpuff;
-    --theme-tertiary-hover: #ffb06a;
+    --theme-primary: #00539f; /* University of Otago Blue */
+    --theme-secondary: #ff8200; /* University of Otago Gold */
+    --theme-tertiary: #f0f0f0; /* Light Gray */
+    --theme-tertiary-hover: #e0e0e0; /* Light Gray (Hover State) */
 }
 
+/* Reset styles */
 * {
-    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
+/* Main container */
 main {
     width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin: 0 auto;
     padding: var(--spacing);
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-}
-
+/* Header */
 header {
     text-align: center;
-    width: 100%;
-    margin:0;
     padding: var(--spacing);
+    background-color: var(--theme-primary);
+    color: white;
 }
 
-span {
-    display: inline;
-}
-
+/* Navigation */
 nav {
     background-color: var(--theme-secondary);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: auto;
-    padding: var(--spacing);
     box-shadow: var(--drop-shadow);
+    padding: var(--spacing);
 }
 
 .nav-links {
@@ -59,53 +42,29 @@ nav {
     align-items: center;
 }
 
-
-#navbox {
-    background-color: var(--theme-primary);
-    margin: 0 var(--spacing);
-    padding: var(--spacing);
-    text-align: center;
-    text-decoration: none;
+.nav-link {
     color: white;
-    border-radius: var(--rounded-corner);
-}
-
-
-#welcome-message {
-    font-size: 14px;
-    color: #333;
-    margin: 0;
-}
-
-#title {
-    display: block;
-    background-color: var(--theme-primary);
-    color: white;
-    text-align: center;
-    padding: var(--spacing);
     text-decoration: none;
-    width: 100%;
-    border-style: double;
-    border-width: 2px;
-    margin: var(--spacing) 0;
-    margin-left: 0;
+    margin: 0 10px;
+    transition: color 0.3s;
 }
 
-#formaddress {
-    height: 60px;
+.nav-link:hover {
+    color: #f0f0f0; /* Light Gray */
+}
+
+/* Form styling */
+.form-container {
+    max-width: 800px;
+    margin: auto;
+    padding: var(--spacing);
 }
 
 .input {
-    max-width: 400px;
-    margin: auto;
-}
-
-.input fieldset {
     background-color: var(--theme-tertiary);
-    border: black dotted 1px;
-    padding: 8px;
-    margin: 0;
-    text-align: center;
+    padding: var(--spacing);
+    border-radius: var(--rounded-corner);
+    box-shadow: var(--drop-shadow);
 }
 
 .input legend {
@@ -114,39 +73,25 @@ nav {
     margin-bottom: 6px;
 }
 
-.input div{
-    max-width: 800px;
-    margin: auto;
-}
-.input form {
-    display: grid;
-    max-width: 800px;
-    grid-template-columns: max-content 1fr;
-    gap: 0.5em 0.1em;
-}
-
 .input label {
-    grid-column: 1 / 2;
-    text-align: right;
-    margin-bottom: 12px;
-    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
 }
 
-.input input, textarea {
-    grid-column: 2 / 3;
+.input input[type="text"],
+.input textarea {
     width: 100%;
-    padding: 0;
+    padding: 10px;
     margin-bottom: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 4px;
-
 }
 
 .input button {
-    grid-column: 2 / 3;
     width: 100%;
     padding: 10px;
-    background-color: #3498db;
+    background-color: var(--theme-primary);
     color: white;
     border: none;
     border-radius: 4px;
@@ -155,15 +100,10 @@ nav {
 }
 
 .input button:hover {
-    background-color: #2980b9;
+    background-color: #003366; /* Darker shade of University of Otago Blue */
 }
 
-
-textarea {
-    height: 4em;
-    resize: vertical;
-}
-
+/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -172,6 +112,7 @@ table {
 
 thead th {
     background-color: var(--theme-primary);
+    color: white;
     text-align: left;
     padding: 8px;
     font-weight: bold;
@@ -182,55 +123,30 @@ tbody td {
     padding: 8px;
 }
 
-.buy-button {
+/* Buttons */
+.buy-button,
+.category-button,
+.checkout-button {
+    padding: 8px 16px;
     background-color: var(--theme-tertiary);
     color: black;
     border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.buy-button:hover {
-    background-color: #ffb06a;
-}
-
-.category-button {
-    background-color: var(--theme-tertiary);
-    border: none;
-    padding: 8px 16px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-weight: bold;
 }
 
-.category-button:hover {
-    background-color: #ddd;
+.buy-button:hover,
+.category-button:hover,
+.checkout-button:hover {
+    background-color: #ffb06a; /* University of Otago Orange */
 }
 
-.cart-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.cart-container th {
-    background-color: var(--theme-primary);
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-    color: white;
-}
-
-.cart-container td {
-    border: 1px solid #ddd;
-    padding: 10px;
-}
-
+/* Quantity button */
 .quantity-button {
-    width: 26px; 
+    width: 26px;
     height: 26px;
-    border-radius: 50%; 
+    border-radius: 50%;
     background-color: var(--theme-tertiary);
     color: #fff;
     border: none;
@@ -240,33 +156,16 @@ tbody td {
     font-size: 18pt;
     font-weight: bold;
     transition: background-color 0.3s;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.quantity-button :hover {
-    background-color:  var(--theme-tertiary-hover);
+.quantity-button:hover {
+    background-color: var(--theme-tertiary-hover);
 }
 
-.cart-container tfoot td {
-    text-align: right;
-    font-weight: bold;
-}
-
-.checkout-button {
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.cart-container tbody tr:not(:last-child) {
-    border-bottom: 1px solid #ddd;
-}
-
-
+/* Quantity container */
 .quantity-container {
     border: 1px solid #ddd;
     padding: 20px;
@@ -274,12 +173,10 @@ tbody td {
     border-radius: 5px;
 }
 
-
 .quantity-container legend {
     font-weight: bold;
     font-size: 1.2em;
 }
-
 
 .quantity-container form {
     display: flex;
@@ -287,11 +184,11 @@ tbody td {
     align-items: center;
 }
 
-
 .quantity-input {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    flex-grow: 1; 
-    margin-right: 10px; 
+    flex-grow: 1;
+    margin-right: 10px;
 }
+
