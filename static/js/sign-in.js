@@ -24,8 +24,10 @@ const app = Vue.createApp({
         signIn(){
         if (this.account !== null) {
             this.createToken(this.account.username, this.account.password);
-            axios.get(accountApi + this.account.username)
+            console.log(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password);
+            axios.get(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password)
                 .then(response => {
+                    console.log(response.data);
                     if (response.data !== null) {
                         dataStore.commit("signIn", response.data);
                         window.location = 'index.html';
