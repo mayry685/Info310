@@ -3,21 +3,27 @@
 export const navigationMenu = {
 
     computed: {
-        signedIn() {
-            return this.account != null;
+        signedInUser() {
+            return this.signedInUser != null;
         },
         ...Vuex.mapState({
-                account: 'account'
+                account: 'account',
+                signedInUser: 'signedInUser'
         })
     },
 
     template:
             `
 	<nav>
-		<div v-if="signedIn">Welcome {{account.firstName}}</div>
-		<a href=".">Home</a>
-		<a href="#" v-if="signedIn" @click="signOut()">Sign Out</a>
-		<a href="sign-in.html" v-if="!signedIn">Sign In</a>
+        <div v-if="signedInUser">
+            <a class="nav-link" href=".">Home</a>
+            <a class="nav-link" href="#" @click="signOut()">Sign Out</a> 
+        </div>
+
+        <div v-if="!signedInUser">
+            <a class="nav-link" href="sign-in.html" >Sign In</a>
+            <a class="nav-link" href="create-account.html">Create Account</a>
+        </div>
 	</nav>
 	`,
 
