@@ -26,13 +26,17 @@ main {
 header {
     text-align: center;
     padding: var(--spacing);
-    background-image: url('unilogo.jpg');
+    background-color: var(--theme-primary);
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center; 
-    padding: 100px; 
-    color: white; 
+    padding: 50px; 
+    color: var(--theme-tertiary); 
     
+}
+
+h1{ 
+    padding:20px;
 }
 
 /* Navigation */
