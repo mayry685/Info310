@@ -3,6 +3,7 @@ package web;
 import dao.AccountJdbiDAO;
 import domain.Account;
 import io.jooby.Jooby;
+import domain.Account;
 import io.jooby.StatusCode;
 
 /**
@@ -16,7 +17,8 @@ public class AccountModule extends Jooby {
         get("/api/accounts", ctx -> {
             return dao.getAccounts();
         });
-        
+        get("/api/accounts/{username}", ctx -> {
+            String username = ctx.path("username").toString();
         get("/api/accounts/searchByUsername", ctx -> {
             String username = ctx.query("username").value();
             Account account = dao.getAccountsByUsername(username);
@@ -27,6 +29,7 @@ public class AccountModule extends Jooby {
             } else {
                 return account;
             }
+    
         });
         
         post("/api/accounts", ctx -> {
