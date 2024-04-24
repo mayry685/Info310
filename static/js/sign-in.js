@@ -21,27 +21,34 @@ const app = Vue.createApp({
     },
 
     methods: {
-        signIn(){
-        if (this.account !== null) {
-            this.createToken(this.account.username, this.account.password);
-            console.log(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password);
-            axios.get(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password)
-                .then(response => {
-                    console.log(response.data);
-                    if (response.data !== null) {
-                        dataStore.commit("signIn", response.data);
-                        window.location = 'index.html';
-                    } else {
-                        alert("That was an incorrect username");
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert("Incorrect Login Details");
-                });
+        signIn() {
+            if (this.account !== null) {
+                this.createToken(this.account.username, this.account.password);
+                console.log(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password);
+                axios.get(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password)
+                    .then(response => {
+                        if (response.data !== null) {
+                           
+                            axios.get(accountApi + "searchByUsername?" + "username=" + this.account.username)
+                                .then(accountResponse => {
+                                    dataStore.commit("user", accountResponse.data);
+                                    //window.location = "index.html";
+                                    console.log(dataStore.SignedInUser);
+
+                                })
+                        } else {
+                            alert("That was an incorrect username");
+                        }
+
+
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Incorrect Login Details");
+                    });
+            }
         }
     }
-}
 });
 
 import { BasicAccessAuthentication } from './authentication.js';
