@@ -4,9 +4,8 @@
  */
 
 
-var productApi = '/api/products';
-var categoryApi = '/api/categories';
 var accountApi = '/api/accounts/';
+
 
 // create the Vue controller
 const app = Vue.createApp({

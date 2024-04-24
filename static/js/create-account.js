@@ -1,9 +1,10 @@
-var registerApi = "/api/register";
+var registerApi = "/api/accounts";
 const app = Vue.createApp({
     mounted() {
     },
     data() {
         return {
+            account: new Object()
             account: new Object()
         };
     },

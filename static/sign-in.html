@@ -1,40 +1,47 @@
-
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <title>Sign In</title>
-        <script src="js/external/vue.global.js"></script>
-        <script src="js/external/vuex.global.js"></script>
-        <script src="js/external/vuex-persistedstate.js"></script>
-        <script src="js/external/axios.js"></script>
-    </head>
-    <body>
-        <main>
-    <navmenu></navmenu>
-    <header>
-        <p id="title">Sign-In</p>
-    </header>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main>
+        <nav>
+            <a class="nav-link" href=".">Home</a>
 
-            <div class="input">
-                <fieldset>
+            <a class="nav-link" href="sign-in.html">Sign In</a>
 
-                    <legend>Account Details</legend>
-                    <form @submit.prevent="signIn(account)" class="input">
-                        <label class="input">Username:</label><input class="input" type="text" v-model="account.username"/>
-                        <label class="input">Password:</label><input class="input" type="password" v-model="account.password"/>
+            <a class="nav-link" href ="create-account.html">Create Account</a>
 
-                        <button class="input" type="submit">
-                            Sign-In
-                        </button>
-                    </form>
+        </nav>
 
-                </fieldset>
-            </div>
+        <header>
+            <h1>SIGN IN</h1>
+        </header>
 
-            <a href="create-account.html">Create an Account</a>
-        </main>
-        <script type="module" src="js/sign-in.js"></script>
-    </body>
+        <div class="form-container">
+            <fieldset class="input">
+                <legend>Account Details</legend>
+                <form @submit.prevent="signIn(account)" class="input-form">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" class="input-field" v-model="account.username">
+                    <label for="password">Password:</label>
+                    <input type="text" id="password" class="input-field" v-model="account.password">
+                    <button type="submit" class="submit-button">Sign-In</button>
+                </form>
+            </fieldset>
+        </div>
+
+    </main>
+
+    <script src="js/external/vue.global.js"></script>
+    <script src="js/external/vuex.global.js"></script>
+    <script src="js/external/vuex-persistedstate.js"></script>
+    <script src="js/external/axios.js"></script>
+    <script type="module" src="js/sign-in.js"></script>
+</body>
 </html>
+
+
