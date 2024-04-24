@@ -17,8 +17,6 @@ public class AccountModule extends Jooby {
         get("/api/accounts", ctx -> {
             return dao.getAccounts();
         });
-        get("/api/accounts/{username}", ctx -> {
-            String username = ctx.path("username").toString();
         get("/api/accounts/searchByUsername", ctx -> {
             String username = ctx.query("username").value();
             Account account = dao.getAccountsByUsername(username);
@@ -30,6 +28,20 @@ public class AccountModule extends Jooby {
                 return account;
             }
     
+        });
+        get("/api/accounts/validate", ctx -> {
+            System.out.println("validating");
+            String username = ctx.query("username").value();
+            String password = ctx.query("password").value();
+            boolean valid = dao.credentialCheck(username, password);
+            if (valid) {
+                Account account = dao.getAccountsByUsername(username);
+                ctx.setResponseCode(StatusCode.OK);
+                return account;
+            } else {
+                ctx.setResponseCode(StatusCode.UNAUTHORIZED);
+                return "Failed To Authenticate";
+            }
         });
         
         post("/api/accounts", ctx -> {
