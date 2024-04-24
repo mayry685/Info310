@@ -8,6 +8,7 @@ export const dataStore = Vuex.createStore({
 
     state() {
         account: null;
+        signedInUser: null;
         authToken: null;
     },
 
@@ -17,6 +18,11 @@ export const dataStore = Vuex.createStore({
         signIn(state, account) {
             state.account = account;
         },
+
+        user(state, signedInUser) {
+            state.signedInUser = signedInUser;
+        },
+
         // store basic access token
         authToken(state, token) {
             state.authToken = token;

@@ -35,9 +35,9 @@ public class AccountModule extends Jooby {
             String password = ctx.query("password").value();
             boolean valid = dao.credentialCheck(username, password);
             if (valid) {
-                Account account = dao.getAccountsByUsername(username);
-                ctx.setResponseCode(StatusCode.OK);
-                return account;
+                ctx.send(StatusCode.OK);
+                return "success";
+                
             } else {
                 ctx.setResponseCode(StatusCode.UNAUTHORIZED);
                 return "Failed To Authenticate";
