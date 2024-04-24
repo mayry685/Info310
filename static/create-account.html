@@ -13,9 +13,16 @@
 
     <body>
         <main>
-            <navmenu></navmenu>
+            <nav>
+                <a class="nav-link" href=".">Home</a>
+    
+                <a class="nav-link" href="sign-in.html">Sign In</a>
+    
+                <a class="nav-link" href ="create-account.html">Create Account</a>
+    
+            </nav>
             <header>
-                <h1 id="title">Register</h1>
+                <h1 id="title">CREATE ACCOUNT</h1>
             </header>
 
             <div class="input">
@@ -23,15 +30,15 @@
 
                     <legend>Account Details</legend>
                     <form @submit.prevent="register(account)" class="input">
-                        <label >Username:</label><input class="input" type="text" v-model="account.username" required/>
-                        <label >First Name:</label><input class="input" type="text" v-model="account.firstName" required/>
-                        <label >Last Name:</label><input class="input" type="text" v-model="account.surname" required/>
-                        <label >Email: </label><input class="input" type="text" v-model="account.emailAddress" required/>
-                        <label >Address: </label><textarea class="input" type="text" v-model="account.shippingAddress" id="formaddress" required></textarea>
-                        <label >Password:</label><input class="input" type="text" v-model="account.password" required/>
+                        <label >Username:</label><input class="input-field" type="text" v-model="account.username" required/>
+                        <label >First Name:</label><input class="input-field" type="text" v-model="account.firstName" required/>
+                        <label >Last Name:</label><input class="input-field" type="text" v-model="account.surname" required/>
+                        <label >Email: </label><input class="input-field" type="text" v-model="account.emailAddress" required/>
+                        <label >Address: </label><textarea class="input-field" type="text" v-model="account.shippingAddress" id="formaddress" required></textarea>
+                        <label >Password:</label><input class="input-field" type="text" v-model="account.password" required/>
 
                         <button class="input" type="submit">
-                            Sign-Up
+                            Create Account
                         </button>
                     </form>
 

@@ -26,32 +26,50 @@ main {
 header {
     text-align: center;
     padding: var(--spacing);
-    background-color: var(--theme-primary);
-    color: #003366;
+    background-image: url('unilogo.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    padding: 100px; 
+    color: white; 
+    
 }
 
 /* Navigation */
 nav {
-    background-color: var(--theme-secondary);
-    box-shadow: var(--drop-shadow);
-    padding: var(--spacing);
+    background-color: var(--theme-secondary); /* Background color */
+    padding: 10px 20px; /* Padding around links */
+    text-align: center; /* Center align links */
 }
 
-.nav-links {
-    display: flex;
-    align-items: center;
+nav a {
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline */
+    padding: 10px 15px; /* Padding around text */
+    margin: 0 10px; /* Margin between links */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
 }
 
-.nav-link {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s;
+#nav-link {
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline */
+    padding: 10px 15px; /* Padding around text */
+    margin: 0 10px; /* Margin between links */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+
 }
 
-.nav-link:hover {
-    color: #f0f0f0; /* Light Gray */
+nav a:hover {
+    background-color: #555; /* Hover background color */
 }
+
+/* Optional: Style for active link */
+nav a.active {
+    background-color: #555; /* Active link background color */
+}
+
 
 /* Form styling */
 .form-container {
