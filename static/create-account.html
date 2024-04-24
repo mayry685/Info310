@@ -15,7 +15,7 @@
         <main>
             <navmenu></navmenu>
             <header>
-                <p id="title">Register</p>
+                <h1 id="title">Register</h1>
             </header>
 
             <div class="input">
@@ -23,12 +23,12 @@
 
                     <legend>Account Details</legend>
                     <form @submit.prevent="register(account)" class="input">
-                        <label class="input">Username:</label><input class="input" type="text" v-model="account.username" required/>
-                        <label class="input">First Name:</label><input class="input" type="text" v-model="account.firstName" required/>
-                        <label class="input">Last Name:</label><input class="input" type="text" v-model="account.surname" required/>
-                        <label class="input">Email: </label><input class="input" type="email" v-model="account.emailAddress" required/>
-                        <label class="input">Address: </label><textarea class="input" type="text" v-model="account.shippingAddress" id="formaddress" required></textarea>
-                        <label class="input">Password:</label><input class="input" type="password" v-model="account.password" required/>
+                        <label >Username:</label><input class="input" type="text" v-model="account.username" required/>
+                        <label >First Name:</label><input class="input" type="text" v-model="account.firstName" required/>
+                        <label >Last Name:</label><input class="input" type="text" v-model="account.surname" required/>
+                        <label >Email: </label><input class="input" type="text" v-model="account.emailAddress" required/>
+                        <label >Address: </label><textarea class="input" type="text" v-model="account.shippingAddress" id="formaddress" required></textarea>
+                        <label >Password:</label><input class="input" type="text" v-model="account.password" required/>
 
                         <button class="input" type="submit">
                             Sign-Up
