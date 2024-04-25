@@ -23,19 +23,19 @@ public interface EventsJdbiDAO extends CredentialsValidator {
     @SqlQuery("SELECT * FROM events WHERE EventID = :EventID")
     @RegisterBeanMapper(Event.class)
     public Event getEventById(@Bind("EventID") int EventID);
-    
-    @SqlQuery("SELECT * FROM events where EventName=:EventName")
+
+    @SqlQuery("SELECT * FROM events WHERE EventName = :EventName")
     @RegisterBeanMapper(Event.class)
-    public Event searchByUsername(@Bind("EventName") String eventName);
+    public Collection<Event> searchByEventName(@Bind("EventName") String eventName);
 
     @SqlUpdate("INSERT INTO events (StartDate, EndDate, EventName, EventDescription, Location, Completed)\n" +
-                "VALUES (:event.startDate, :event.endDate, :event.eventName, :event.eventDescription, :event.location, :event.completed);")
+            "VALUES (:event.startDate, :event.endDate, :event.eventName, :event.eventDescription, :event.location, :event.completed);")
     public void createEvent(@BindBean("event") Event event);
-    
-    @SqlUpdate("UPDATE events SET Completed = :Completed WHERE EventID = :EventID")
-    public void updateEventStatus(@BindBean Event event, Boolean Completed);
 
-    @SqlUpdate("UPDATE events SET StartDate = :StartDate, EndDate = :EndDate, EventName = :EventName, EventDescription = :EventDescription, Location = :Location, Completed = :Completed WHERE EventID = :EventID;")
+    @SqlUpdate("UPDATE events SET Completed = :completed WHERE EventID = :eventId")
+    public void updateEventStatus(@Bind("completed") boolean completed, @Bind("eventId") int eventId);
+
+    @SqlUpdate("UPDATE events SET StartDate = :startDate, EndDate = :endDate, EventName = :eventName, EventDescription = :eventDescription, Location = :location, Completed = :completed WHERE EventID = :eventID")
     public void updateEventDetails(@BindBean Event event);
 
     @SqlUpdate("DELETE FROM events WHERE EventID = :EventID")

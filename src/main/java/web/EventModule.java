@@ -1,5 +1,6 @@
 package web;
 
+import ch.qos.logback.core.status.Status;
 import dao.EventsJdbiDAO;
 import domain.Event;
 import io.jooby.Jooby;
@@ -16,7 +17,7 @@ public class EventModule extends Jooby{
 
         get("/api/events/searchByEventName", ctx -> {
             String eventName = ctx.query("EventName").value();
-            return eventsDAO.searchByUsername(eventName);
+            return eventsDAO.searchByEventName(eventName);
         });
 
         get("/api/events/searchByEventID", ctx -> {
@@ -31,15 +32,21 @@ public class EventModule extends Jooby{
         });
 
         put("/api/events/UpdateEventStatus", ctx -> {
-            Event event = ctx.body().to(Event.class);
-            eventsDAO.updateEventStatus(event, event.isCompleted());
+            boolean completed = ctx.query("Completed").booleanValue();
+            int eventId = ctx.query("EventID").intValue(); 
+            eventsDAO.updateEventStatus(completed, eventId);
             return ctx.send(StatusCode.OK);
         });
 
         put("/api/events/UpdateEventDetails", ctx -> {
             Event event = ctx.body().to(Event.class);
+            if (eventsDAO.getEventById(event.getEventID()) == null) {
+                ctx.setResponseCode(StatusCode.NOT_FOUND);
+                return "Event with ID '" + event.getEventID() + "' does not exist";
+            }
             eventsDAO.updateEventDetails(event);
-            return ctx.send(StatusCode.OK);
+        
+            return "Event updated successfully";
         });
 
         delete("/api/events/deleteEventByID", ctx -> {
