@@ -18,20 +18,20 @@ public class AssignmentModule extends Jooby {
             return assignmentsDAO.searchByAssignmentName(assignmentName);
         });
 
-        post("/api/CreateAssignment", ctx -> {
+        post("/api/assignments/CreateAssignment", ctx -> {
             Assignment assignment = ctx.body().to(Assignment.class);
             assignmentsDAO.createAssignment(assignment);
             return ctx.send(StatusCode.OK);
         });
 
-        put("/api/UpdateAssignmentDetails", ctx -> {
+        put("/api/assignments/UpdateAssignmentDetails", ctx -> {
             Assignment assignment = ctx.body().to(Assignment.class);
             assignmentsDAO.updateAssignmentDetails(assignment);
             return ctx.send(StatusCode.OK);
         });
 
-        delete("/api/DeleteAssignment/:AssignmentID", ctx -> {
-            int assignmentID = ctx.path("AssignmentID").intValue();
+        delete("/api/assignments/DeleteAssignmentByID", ctx -> {
+            int assignmentID = ctx.query("AssignmentID").intValue();
             assignmentsDAO.deleteAssignmentByAssignmentID(assignmentID);
             return ctx.send(StatusCode.OK);
         });

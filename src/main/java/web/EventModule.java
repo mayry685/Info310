@@ -19,26 +19,26 @@ public class EventModule extends Jooby{
             return eventsDAO.searchByUsername(eventName);
         });
 
-        post("/api/CreateEvent", ctx -> {
+        post("/api/events/CreateEvent", ctx -> {
             Event event = ctx.body().to(Event.class);
             eventsDAO.createEvent(event);
             return ctx.send(StatusCode.OK);
         });
 
-        put("/api/UpdateEventStatus", ctx -> {
+        put("/api/events/UpdateEventStatus", ctx -> {
             Event event = ctx.body().to(Event.class);
             eventsDAO.updateEventStatus(event, event.isCompleted());
             return ctx.send(StatusCode.OK);
         });
 
-        put("/api/UpdateEventDetails", ctx -> {
+        put("/api/events/UpdateEventDetails", ctx -> {
             Event event = ctx.body().to(Event.class);
             eventsDAO.updateEventDetails(event);
             return ctx.send(StatusCode.OK);
         });
 
-        delete("/api/DeleteEvent/:EventID", ctx -> {
-            int eventID = ctx.path("EventID").intValue();
+        delete("/api/events/deleteEventByID", ctx -> {
+            int eventID = ctx.query("EventID").intValue();
             eventsDAO.deleteEventByEventID(eventID);
             return ctx.send(StatusCode.OK);
         });
