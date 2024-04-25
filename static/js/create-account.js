@@ -9,7 +9,7 @@ const app = Vue.createApp({
     },
     methods: {
         register() {
-            if (this.customer !== null) {
+            if (this.account !== null) {
                 axios.post(registerApi, this.account)
                         .then(() => {
                             window.location = "sign-in.html";
