@@ -19,6 +19,11 @@ public class EventModule extends Jooby{
             return eventsDAO.searchByUsername(eventName);
         });
 
+        get("/api/events/searchByEventID", ctx -> {
+            int eventID = ctx.query("EventID").intValue();
+            return eventsDAO.getEventById(eventID);
+        });
+
         post("/api/events/CreateEvent", ctx -> {
             Event event = ctx.body().to(Event.class);
             eventsDAO.createEvent(event);

@@ -19,6 +19,10 @@ public interface EventsJdbiDAO extends CredentialsValidator {
     @SqlQuery("SELECT * FROM events ORDER BY EventID")
     @RegisterBeanMapper(Event.class)
     public Collection<Event> getEvents();
+
+    @SqlQuery("SELECT * FROM events WHERE EventID = :EventID")
+    @RegisterBeanMapper(Event.class)
+    public Event getEventById(@Bind("EventID") int EventID);
     
     @SqlQuery("SELECT * FROM events where EventName=:EventName")
     @RegisterBeanMapper(Event.class)
