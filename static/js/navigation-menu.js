@@ -18,10 +18,11 @@ export const navigationMenu = {
         <div v-if="signedInUser">
             <a class="nav-link" href=".">Home</a>
             <a class="nav-link" href="#" @click="signOut()">Sign Out</a> 
+            <a class="nav-link" href="student-homepage.html">Student View</a>
         </div>
 
         <div v-if="!signedInUser">
-            <a class="nav-link" href="sign-in.html" >Sign In</a>
+            <a class="nav-link" href="sign-in.html">Sign In</a>
             <a class="nav-link" href="create-account.html">Create Account</a>
         </div>
 	</nav>
