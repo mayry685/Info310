@@ -5,7 +5,6 @@ const app = Vue.createApp({
     data() {
         return {
             account: new Object()
-            account: new Object()
         };
     },
     methods: {
