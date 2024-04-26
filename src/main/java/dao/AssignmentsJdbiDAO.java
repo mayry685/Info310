@@ -18,13 +18,17 @@ public interface AssignmentsJdbiDAO extends CredentialsValidator {
     @RegisterBeanMapper(Assignment.class)
     public Assignment searchByAssignmentName(@Bind("AssignmentName") String assignmentName);
 
+    @SqlQuery("SELECT * FROM assignment WHERE AssignmentID = :AssignmentID")
+    @RegisterBeanMapper(Assignment.class)
+    public Assignment getByAssignmentID(@Bind("AssignmentID") int AssignmentID);
+
     @SqlUpdate("INSERT INTO assignment (CourseID, AssignmentName, AssignmentDescription, DueDate, Weight)\n" +
                 "VALUES (:assignment.courseID, :assignment.assignmentName, :assignment.assignmentDescription, :assignment.dueDate, :assignment.weight);")
     @GetGeneratedKeys
     @RegisterBeanMapper(Assignment.class)
     Assignment createAssignment(@BindBean("assignment") Assignment assignment);
 
-    @SqlUpdate("UPDATE assignment SET DueDate = :DueDate, AssignmentName = :AssignmentName, AssignmentDescription = :AssignmentDescription, Weight = :Weight WHERE AssignmentID = :AssignmentID;")
+    @SqlUpdate("UPDATE assignment SET DueDate = :dueDate, AssignmentName = :assignmentName, AssignmentDescription = :assignmentDescription, Weight = :weight WHERE AssignmentID = :assignmentID;")
     public void updateAssignmentDetails(@BindBean Assignment assignment);
 
     @SqlUpdate("DELETE FROM assignment WHERE AssignmentID = :AssignmentID")

@@ -18,6 +18,11 @@ public class AssignmentModule extends Jooby {
             return assignmentsDAO.searchByAssignmentName(assignmentName);
         });
 
+        get("/api/assignments/searchByAssignmentID", ctx -> {
+            int assignmentID = ctx.query("AssignmentID").intValue();
+            return assignmentsDAO.getByAssignmentID(assignmentID);
+        });
+
         post("/api/assignments/CreateAssignment", ctx -> {
             Assignment assignment = ctx.body().to(Assignment.class);
             assignmentsDAO.createAssignment(assignment);
@@ -26,8 +31,13 @@ public class AssignmentModule extends Jooby {
 
         put("/api/assignments/UpdateAssignmentDetails", ctx -> {
             Assignment assignment = ctx.body().to(Assignment.class);
+            if (assignmentsDAO.getByAssignmentID(assignment.getAssignmentID()) == null) {
+                ctx.setResponseCode(StatusCode.NOT_FOUND);
+                return "Event with ID '" + assignment.getAssignmentID() + "' does not exist";
+            }
             assignmentsDAO.updateAssignmentDetails(assignment);
-            return ctx.send(StatusCode.OK);
+        
+            return "Event updated successfully";
         });
 
         delete("/api/assignments/DeleteAssignmentByID", ctx -> {
