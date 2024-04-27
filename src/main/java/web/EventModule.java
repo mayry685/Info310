@@ -27,15 +27,21 @@ public class EventModule extends Jooby{
 
         post("/api/events/CreateEvent", ctx -> {
             Event event = ctx.body().to(Event.class);
-            eventsDAO.createEvent(event);
-            return ctx.send(StatusCode.OK);
+            Event createdEvent = eventsDAO.createEvent(event);
+            ctx.setResponseCode(StatusCode.OK);
+            return createdEvent;
         });
 
         put("/api/events/UpdateEventStatus", ctx -> {
             boolean completed = ctx.query("Completed").booleanValue();
             int eventId = ctx.query("EventID").intValue(); 
+            if (eventsDAO.getEventById(eventId) == null) {
+                ctx.setResponseCode(StatusCode.NOT_FOUND);
+                return "Event with ID '" + eventId + "' does not exist";
+            }
             eventsDAO.updateEventStatus(completed, eventId);
-            return ctx.send(StatusCode.OK);
+            ctx.setResponseCode(StatusCode.OK);
+            return "Event status updated successfully";
         });
 
         put("/api/events/UpdateEventDetails", ctx -> {
@@ -51,8 +57,13 @@ public class EventModule extends Jooby{
 
         delete("/api/events/deleteEventByID", ctx -> {
             int eventID = ctx.query("EventID").intValue();
+            if (eventsDAO.getEventById(eventID) == null) {
+                ctx.setResponseCode(StatusCode.NOT_FOUND);
+                return "Event with ID '" + eventID + "' does not exist";
+            }
             eventsDAO.deleteEventByEventID(eventID);
-            return ctx.send(StatusCode.OK);
+            ctx.setResponseCode(StatusCode.OK);
+            return "Event deleted successfully";
         });
         
     }

@@ -26,7 +26,7 @@ public interface AssignmentsJdbiDAO extends CredentialsValidator {
                 "VALUES (:assignment.courseID, :assignment.assignmentName, :assignment.assignmentDescription, :assignment.dueDate, :assignment.weight);")
     @GetGeneratedKeys
     @RegisterBeanMapper(Assignment.class)
-    Assignment createAssignment(@BindBean("assignment") Assignment assignment);
+    public Assignment createAssignment(@BindBean("assignment") Assignment assignment);
 
     @SqlUpdate("UPDATE assignment SET DueDate = :dueDate, AssignmentName = :assignmentName, AssignmentDescription = :assignmentDescription, Weight = :weight WHERE AssignmentID = :assignmentID;")
     public void updateAssignmentDetails(@BindBean Assignment assignment);

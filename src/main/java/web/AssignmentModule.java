@@ -15,35 +15,48 @@ public class AssignmentModule extends Jooby {
 
         get("/api/assignments/searchByAssignmentName", ctx -> {
             String assignmentName = ctx.query("AssignmentName").value();
-            return assignmentsDAO.searchByAssignmentName(assignmentName);
+            Assignment assignment = assignmentsDAO.searchByAssignmentName(assignmentName);
+            if (assignment != null)
+                return assignment;
+            ctx.setResponseCode(StatusCode.NOT_FOUND);
+            return "Assignment '" + assignmentName + "' does not exist";
         });
 
         get("/api/assignments/searchByAssignmentID", ctx -> {
             int assignmentID = ctx.query("AssignmentID").intValue();
-            return assignmentsDAO.getByAssignmentID(assignmentID);
+            Assignment assignment = assignmentsDAO.getByAssignmentID(assignmentID);
+            if (assignment != null)
+                return assignment;
+            ctx.setResponseCode(StatusCode.NOT_FOUND);
+            return "Assignment with id '" + assignmentID + "' does not exist";
         });
 
         post("/api/assignments/CreateAssignment", ctx -> {
             Assignment assignment = ctx.body().to(Assignment.class);
-            assignmentsDAO.createAssignment(assignment);
-            return ctx.send(StatusCode.OK);
+            assignment = assignmentsDAO.createAssignment(assignment);
+            ctx.setResponseCode(StatusCode.OK);
+            return assignment;
         });
 
         put("/api/assignments/UpdateAssignmentDetails", ctx -> {
             Assignment assignment = ctx.body().to(Assignment.class);
             if (assignmentsDAO.getByAssignmentID(assignment.getAssignmentID()) == null) {
                 ctx.setResponseCode(StatusCode.NOT_FOUND);
-                return "Event with ID '" + assignment.getAssignmentID() + "' does not exist";
+                return "Assignment with ID '" + assignment.getAssignmentID() + "' does not exist";
             }
             assignmentsDAO.updateAssignmentDetails(assignment);
-        
-            return "Event updated successfully";
+            return "Assignment updated successfully";
         });
 
         delete("/api/assignments/DeleteAssignmentByID", ctx -> {
             int assignmentID = ctx.query("AssignmentID").intValue();
+            if (assignmentsDAO.getByAssignmentID(assignmentID) == null) {
+                ctx.setResponseCode(StatusCode.NOT_FOUND);
+                return "Assignment with ID '" + assignmentID + "' does not exist";
+            }
             assignmentsDAO.deleteAssignmentByAssignmentID(assignmentID);
-            return ctx.send(StatusCode.OK);
+            ctx.setResponseCode(StatusCode.OK);
+            return "Assignment deleted successfully";
         });
     }
     

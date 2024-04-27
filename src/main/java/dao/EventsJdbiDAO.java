@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
+import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
@@ -30,7 +31,9 @@ public interface EventsJdbiDAO extends CredentialsValidator {
 
     @SqlUpdate("INSERT INTO events (StartDate, EndDate, EventName, EventDescription, Location, Completed)\n" +
             "VALUES (:event.startDate, :event.endDate, :event.eventName, :event.eventDescription, :event.location, :event.completed);")
-    public void createEvent(@BindBean("event") Event event);
+    @GetGeneratedKeys
+    @RegisterBeanMapper(Event.class)
+    public Event createEvent(@BindBean("event") Event event);
 
     @SqlUpdate("UPDATE events SET Completed = :completed WHERE EventID = :eventId")
     public void updateEventStatus(@Bind("completed") boolean completed, @Bind("eventId") int eventId);
