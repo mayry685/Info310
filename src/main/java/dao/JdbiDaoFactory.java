@@ -40,4 +40,19 @@ public class JdbiDaoFactory {
         }
         return JDBI.onDemand(CoursesJdbiDAO.class);
     }
+    
+     public static EventsJdbiDAO getEventsDAO() {
+        if (HIKARI_DATA_SOURCE == null) {
+            initialisePool();
+        }
+        return JDBI.onDemand(EventsJdbiDAO.class);
+    }
+
+    public static AssignmentsJdbiDAO getAssignmentsDAO() {
+        if (HIKARI_DATA_SOURCE == null) {
+            initialisePool();
+        }
+        return JDBI.onDemand(AssignmentsJdbiDAO.class);
+    }  
 }
+

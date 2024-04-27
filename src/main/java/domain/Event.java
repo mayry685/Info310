@@ -4,6 +4,7 @@
  */
 package domain;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -14,14 +15,14 @@ public class Event {
     
     //datafields
     private int EventID;
-    private LocalDateTime StartDate;
-    private LocalDateTime EndDate;
+    private Timestamp StartDate;
+    private Timestamp EndDate;
     private String EventName;
     private String EventDescription;
     private String Location;
     private boolean Completed;
 
-    public Event(int EventID, LocalDateTime StartDate, LocalDateTime EndDate, String EventName, String EventDescription, String Location, boolean Completed) {
+    public Event(int EventID, Timestamp StartDate, Timestamp EndDate, String EventName, String EventDescription, String Location, boolean Completed) {
         this.EventID = EventID;
         this.StartDate = StartDate;
         this.EndDate = EndDate;
@@ -29,6 +30,10 @@ public class Event {
         this.EventDescription = EventDescription;
         this.Location = Location;
         this.Completed = Completed;
+    }
+    
+    public Event() {
+        
     }
 
     public int getEventID() {
@@ -39,19 +44,19 @@ public class Event {
         this.EventID = EventID;
     }
 
-    public LocalDateTime getStartDate() {
+    public Timestamp getStartDate() {
         return StartDate;
     }
 
-    public void setStartDate(LocalDateTime StartDate) {
+    public void setStartDate(Timestamp StartDate) {
         this.StartDate = StartDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public Timestamp getEndDate() {
         return EndDate;
     }
 
-    public void setEndDate(LocalDateTime EndDate) {
+    public void setEndDate(Timestamp EndDate) {
         this.EndDate = EndDate;
     }
 

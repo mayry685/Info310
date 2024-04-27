@@ -51,4 +51,8 @@ public interface AccountJdbiDAO extends CredentialsValidator {
     @SqlQuery("select exists (select * from Account where Username=:username and Password=:password)")
     public Boolean credentialCheck(@Bind("username") String username, @Bind("password") String password);
     
+    @Override
+    @SqlQuery("select exists (select * from Account where Username=:username and Password=:password)")
+    public Boolean credentialCheck(@Bind("username") String username, @Bind("password") String password);
+    
 }

@@ -50,15 +50,15 @@ CREATE TABLE Assignment (
     CourseID VARCHAR(255) NOT NULL,
     AssignmentName VARCHAR(255) NOT NULL,
     AssignmentDescription TEXT,
-    DueDate DATE NOT NULL,
+    DueDate TIMESTAMP NOT NULL,
     Weight INT NOT NULL,
     FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
 );
 
 CREATE TABLE Events (
     EventID SERIAL PRIMARY KEY,
-    StartDate DATE NOT NULL,
-    EndDate DATE NOT NULL,
+    StartDate TIMESTAMP NOT NULL,
+    EndDate TIMESTAMP NOT NULL,
     EventName VARCHAR(255) NOT NULL,
     EventDescription TEXT,
     Location VARCHAR(255),
