@@ -4,16 +4,15 @@
  */
 
 
-var productApi = '/api/products';
-var categoryApi = '/api/categories';
-var customerApi = '/api/customers/';
+var accountApi = '/api/accounts/';
+
 
 // create the Vue controller
 const app = Vue.createApp({
     mixins: [BasicAccessAuthentication],
     data() {
         return {
-            customer: new Object()
+            account: new Object()
         };
     },
 
@@ -22,25 +21,34 @@ const app = Vue.createApp({
     },
 
     methods: {
-        signIn(){
-        if (this.customer !== null) {
-            this.createToken(this.customer.username, this.customer.password);
-            axios.get(customerApi + this.customer.username)
-                .then(response => {
-                    if (response.data !== null) {
-                        dataStore.commit("signIn", response.data);
-                        window.location = 'product-view.html';
-                    } else {
-                        alert("That was an incorrect username");
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert("Incorrect Login Details");
-                });
+        signIn() {
+            if (this.account !== null) {
+                this.createToken(this.account.username, this.account.password);
+                console.log(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password);
+                axios.get(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password)
+                    .then(response => {
+                        if (response.data !== null) {
+                           
+                            axios.get(accountApi + "searchByUsername?" + "username=" + this.account.username)
+                                .then(accountResponse => {
+                                    dataStore.commit("user", accountResponse.data);
+                                    //window.location = "index.html";
+                                    console.log(dataStore.SignedInUser);
+
+                                })
+                        } else {
+                            alert("That was an incorrect username");
+                        }
+
+
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Incorrect Login Details");
+                    });
+            }
         }
     }
-}
 });
 
 import { BasicAccessAuthentication } from './authentication.js';

@@ -9,7 +9,9 @@ import java.util.Collection;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
+import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
+import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 /**
  *
@@ -23,11 +25,31 @@ public interface AccountJdbiDAO extends CredentialsValidator {
     
     @SqlQuery("SELECT * FROM account where Username=:username")
     @RegisterBeanMapper(Account.class)
-    public Account searchByUsername(@Bind("username") String username);
+    public Account getAccountsByUsername(@Bind("username") String username);
     
-    @SqlQuery("INSERT INTO Account (FirstName, LastName, Username, Password, Email, Status)\n" +
-                "VALUES (:FirstName, :LastName, :Username, :Password, :Email, :Status);")
-    public Account createAccount(@BindBean Account account);
+    @SqlUpdate("INSERT INTO Account (FirstName, LastName, Username, Password, Email, Status) VALUES (:account.firstName, :account.lastName, :account.userName, :account.password, :account.email, :account.status)")
+    @GetGeneratedKeys
+    @RegisterBeanMapper(Account.class)
+    Account createAccount(@BindBean("account") Account account);
+
+    
+    @SqlUpdate("UPDATE Account SET FirstName=:account.firstName, LastName=:account.lastName, Email=:account.email, Status=:account.status WHERE Username=:account.userName")
+    @GetGeneratedKeys
+    @RegisterBeanMapper(Account.class)
+    Account updateAccount(@BindBean("account") Account account);
+    
+    @SqlUpdate("DELETE FROM Account WHERE Username=:username")
+    void deleteAccountByUsername(@Bind("username") String username);
+    
+    @SqlQuery("SELECT COUNT(*) FROM Account WHERE Username=:username")
+    boolean isUsernameTaken(@Bind("username") String username);
+    
+    @SqlUpdate("UPDATE Account SET Password=:newPassword WHERE Username=:username")
+    void changePassword(@Bind("username") String username, @Bind("newPassword") String newPassword);
+    
+    @Override
+    @SqlQuery("select exists (select * from Account where Username=:username and Password=:password)")
+    public Boolean credentialCheck(@Bind("username") String username, @Bind("password") String password);
     
     @Override
     @SqlQuery("select exists (select * from Account where Username=:username and Password=:password)")
