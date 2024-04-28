@@ -10,6 +10,7 @@ export const dataStore = Vuex.createStore({
         account: null;
         signedInUser: null;
         authToken: null;
+        error: [];
     },
 
     mutations: {
@@ -26,6 +27,10 @@ export const dataStore = Vuex.createStore({
         // store basic access token
         authToken(state, token) {
             state.authToken = token;
+        },
+        
+        error(state, error) {
+            state.error = error;
         }
 
     },
