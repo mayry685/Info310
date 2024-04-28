@@ -19,7 +19,7 @@ public class Server extends Jooby {
         mount(new StaticAssetModule());
         install(new GsonModule());
 
-        install(new BasicAccessAuth(accountDao, Set.of("/api/.*"), Set.of("/exclude/")));
+        install(new BasicAccessAuth(accountDao, Set.of("/api/.*"), Set.of("/api/accounts/createAccount", "/api/accounts/usernames")));
         mount(new AccountModule(JdbiDaoFactory.getAccountDAO()));
         mount(new CourseModule(JdbiDaoFactory.getCourseDAO()));
         mount(new EventModule(JdbiDaoFactory.getEventsDAO()));
