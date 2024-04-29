@@ -14,19 +14,18 @@ import io.jooby.StatusCode;
 public class CourseListModule extends Jooby {
     public CourseListModule(CourseListsJdbiDAO dao) {
 
-        get("/api/course", ctx -> {
+        get("/api/courseList", ctx -> {
 
             Collection<CourseList> courseLists = dao.getCourseLists();
             if (courseLists == null) {
                 ctx.send(StatusCode.NOT_FOUND);
                 return "CourseList not found";
             }
-            System.err.println(courseLists);
             return courseLists;
         });
 
         //GET endpoint to retrieve a list of courseLists by accountID
-        get("/api/course/accountId", ctx -> {
+        get("/api/courseList/accountId", ctx -> {
             //get accountId from path parameter
             String accountId = ctx.query("id").value();
             //retreieve courselist from DAO
@@ -42,7 +41,7 @@ public class CourseListModule extends Jooby {
 
         
         //GET endpoint to retrieve a list of courseLists by courseID
-        get("/api/course/courseId", ctx -> {
+        get("/api/courseList/courseId", ctx -> {
             //get accountId from path parameter
             String courseId = ctx.query("id").value();
             //retreieve courselist from DAO
@@ -58,7 +57,7 @@ public class CourseListModule extends Jooby {
 
         //TODO: check for already existing account/course combo
         //POST endpoint to create a new courseList (enrol in paper)
-        post("/api/course", ctx -> {
+        post("/api/courseList", ctx -> {
             //retrieve data from request body
             CourseList newCourseList = ctx.body().to(CourseList.class);
             //create courseList using dao
@@ -68,7 +67,7 @@ public class CourseListModule extends Jooby {
         });
 
         //DELETE endpoint to remove a courseList by Id
-        delete("/api/course/delete", ctx -> {
+        delete("/api/courseList/delete", ctx -> {
             //retrieve data from request body
             String courseListId = ctx.query("id").value();
             //remove courseList from dao
