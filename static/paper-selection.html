@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <title>Paper Selection</title>
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+    </head>
+    <body>
+        <main>
+            <navmenu></navmenu>
+            <header>
+                <h1 id="title">Paper Selection</p>
+            </header>
+
+            <div class="input">
+                <fieldset>
+                    <legend>Select Additional Papers</legend>
+                    <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
+                    <form @submit.prevent="enrol()" class="input">
+                        <label>Paper: </label>
+                        <select name="courses" id="courses">
+                            <option v-for="course in courses" :value="course.CourseId">{{ course.CourseName }}</option>
+
+                        </select>
+
+                        <button style="display: block; margin: 0 auto;" class="input" type="submit">
+                            Add Paper
+                        </button>
+                </fieldset>
+                
+            </div>
+
+        </main>
+        <script type="module" src="js/paper-selection.js"></script>
+    </body>
+</html>
