@@ -20,6 +20,10 @@ public class CourseList {
         this.CourseID = CourseID;
         this.AccountID = AccountID;
     }
+    
+    public CourseList() {
+        
+    }
 
     public String getCourseListID() {
         return CourseListID;
