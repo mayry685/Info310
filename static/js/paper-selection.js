@@ -15,23 +15,25 @@ const app = Vue.createApp({
     },
         data() {
             return {
-                signedIn: this.account!==null,
+                signedIn: this.signedInUser!==null,
                 courses: new Array(),
                 course: new Object(),
                 selectedCourse: new Object()
             };
         },
         computed: Vuex.mapState({
-            account: 'account'
+            signedInUser: 'signedInUser'
         }),
         methods: {
             enrol(course) {
+                var signedInUser = dataStore.state.signedInUser;
                 this.selectedCourse = course;
-                if (this.selectedCourse !== null && this.account!== undefined) {
+                console.error(signedInUser);
+                if (this.selectedCourse !== null && this.signedInUser!== undefined) {
                     
 
                     var courseList = new CourseList(
-                        this.account.AccountId,
+                        this.signedInUser.AccountId,
                         this.selectedCourse);
 
                     axios.post(enrolApi, courseList, {
