@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -9,36 +10,49 @@
     <script src="js/external/axios.js"></script>
     <title>Home</title>
 </head>
+
 <body>
     <main>
-        <nav>
-            <a class="nav-link" href=".">Home</a>
-            <a class="nav-link" href="sign-in.html">Sign In</a>
-            <a class="nav-link" href="create-account.html">Create Account</a>
-        </nav>
-        
+
+
+
+        <navmenu></navmenu>
+
+
         <header>
-            <h1 id="title">Welcome to Student Workload Assistance</h1>
-            <p>Manage your academic workload and stay organized with Student Workload Assistance. Never miss a deadline again!</p>
+            <h1 id="title">Student Workload Assistance</h1>
+            <p>Manage your academic workload and stay organized with Student Workload Assistance </p>
         </header>
+        <hr class="headers-divder">
 
-        
-        <section id="features">
-            <h2>Key Features</h2>
-            <ul>
-                <li><strong>Task Management:</strong> Easily organize your assignments, projects, and exams.</li>
-                <li><strong>Deadline Reminders:</strong> Receive timely notifications for upcoming deadlines.</li>
-                <li><strong>Priority Setting:</strong> Set priorities for tasks to focus on what matters most.</li>
-                <li><strong>Progress Tracking:</strong> Monitor your progress and stay on top of your academic goals.</li>
-            </ul>
-        </section>
 
-        <section id="about">
-            <h2>About Us</h2>
-            <p>Student Workload Assistance is dedicated to helping students effectively manage their academic workload. Our mission is to provide a user-friendly platform that empowers students to succeed in their studies.</p>
-        </section>
+
+        <div class="index-section1">
+
+            <section id="task-management">
+                <h2>Task Management</h2>
+                <p class="features"> Easily organize your assignments, projects, and exams.</p>
+            </section>
+            <section>
+                <h2>Deadline Reminders</h2>
+                <p class="features"> Receive timely notifications for upcoming deadlines.</p>
+            </section>
+            <section>
+                <h2>Priority Setting</h2>
+                <p class="features">Set priorities for tasks to focus on what matters most.</p>
+            </section>
+            <section>
+                <h2>Progress Tracking</h2>
+                <p class="features"> Monitor your progress and stay on top of your academic goals.</p>
+
+            </section>
+
+
+        </div>
+
+
     </main>
     <script type="module" src="js/index.js"></script>
 </body>
-</html>
 
+</html>

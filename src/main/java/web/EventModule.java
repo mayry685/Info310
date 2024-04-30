@@ -24,6 +24,26 @@ public class EventModule extends Jooby{
             int eventID = ctx.query("EventID").intValue();
             return eventsDAO.getEventById(eventID);
         });
+        
+        get("/api/events/searchByCourseID", ctx -> {
+            String courseID = ctx.query("CourseID").value();
+            return eventsDAO.searchByCourseId(courseID);
+        });
+        
+        get("/api/events/searchByAccountID", ctx -> {
+            String accountID = ctx.query("AccountID").value();
+            return eventsDAO.searchByAccountId(accountID);
+        });
+        
+        get("/api/events/searchByEventID", ctx -> {
+            int eventID = ctx.query("EventID").intValue();
+            return eventsDAO.getEventById(eventID);
+        });
+        
+        get ("/api/events/account", ctx -> {
+           String accountID = ctx.query("AccountID").value();
+           return eventsDAO.eventsByAccount(accountID);
+        });
 
         post("/api/events/CreateEvent", ctx -> {
             Event event = ctx.body().to(Event.class);
