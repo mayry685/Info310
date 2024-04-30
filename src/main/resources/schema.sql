@@ -62,7 +62,11 @@ CREATE TABLE Events (
     EventName VARCHAR(255) NOT NULL,
     EventDescription TEXT,
     Location VARCHAR(255),
-    Completed BOOLEAN NOT NULL
+    CourseID VARCHAR(10),
+    AccountID VARCHAR(10),
+    Completed BOOLEAN NOT NULL,
+    FOREIGN KEY (CourseID) REFERENCES Course(CourseID),
+    FOREIGN KEY (AccountID) REFERENCES Account(AccountID)
 );
 
 -- Set default values for AccountID and CourseID

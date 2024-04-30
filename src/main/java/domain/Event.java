@@ -20,20 +20,23 @@ public class Event {
     private String EventName;
     private String EventDescription;
     private String Location;
+    private String AccountID;
+    private String CourseID;
     private boolean Completed;
 
-    public Event(int EventID, Timestamp StartDate, Timestamp EndDate, String EventName, String EventDescription, String Location, boolean Completed) {
+    public Event() {
+    }
+
+    public Event(int EventID, Timestamp StartDate, Timestamp EndDate, String EventName, String EventDescription, String Location, String AccountID, String CourseID, boolean Completed) {
         this.EventID = EventID;
         this.StartDate = StartDate;
         this.EndDate = EndDate;
         this.EventName = EventName;
         this.EventDescription = EventDescription;
         this.Location = Location;
+        this.AccountID = AccountID;
+        this.CourseID = CourseID;
         this.Completed = Completed;
-    }
-    
-    public Event() {
-        
     }
 
     public int getEventID() {
@@ -84,6 +87,22 @@ public class Event {
         this.Location = Location;
     }
 
+    public String getAccountID() {
+        return AccountID;
+    }
+
+    public void setAccountID(String AccountID) {
+        this.AccountID = AccountID;
+    }
+
+    public String getCourseID() {
+        return CourseID;
+    }
+
+    public void setCourseID(String CourseID) {
+        this.CourseID = CourseID;
+    }
+
     public boolean isCompleted() {
         return Completed;
     }
@@ -94,7 +113,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" + "EventID=" + EventID + ", StartDate=" + StartDate + ", EndDate=" + EndDate + ", EventName=" + EventName + ", EventDescription=" + EventDescription + ", Location=" + Location + ", Completed=" + Completed + '}';
+        return "Event{" + "EventID=" + EventID + ", StartDate=" + StartDate + ", EndDate=" + EndDate + ", EventName=" + EventName + ", EventDescription=" + EventDescription + ", Location=" + Location + ", AccountID=" + AccountID + ", CourseID=" + CourseID + ", Completed=" + Completed + '}';
     }
     
 }

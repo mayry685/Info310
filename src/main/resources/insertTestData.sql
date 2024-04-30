@@ -25,7 +25,7 @@ VALUES
     ('C1001', 'Lab Report', 'Experiment analysis', '2024-05-05', 15);
 
 -- Insert test data into Events table
-INSERT INTO Events (StartDate, EndDate, EventName, EventDescription, Location, Completed)
+INSERT INTO Events (StartDate, EndDate, EventName, EventDescription, Location, CourseID, AccountID, Completed)
 VALUES
-    ('2024-05-10', '2024-05-12', 'Conference', 'Annual conference', 'New York', true),
-    ('2024-06-15', '2024-06-18', 'Workshop', 'Hands-on workshop', 'Los Angeles', false);
+    ('2024-05-10', '2024-05-12', 'Conference', 'Annual conference', 'New York', 'C1000', null, true),
+    ('2024-06-15', '2024-06-18', 'Workshop', 'Hands-on workshop', 'Los Angeles', null, 'AC100000', false);
