@@ -28,9 +28,25 @@ public interface EventsJdbiDAO extends CredentialsValidator {
     @SqlQuery("SELECT * FROM events WHERE EventName = :EventName")
     @RegisterBeanMapper(Event.class)
     public Collection<Event> searchByEventName(@Bind("EventName") String eventName);
+    
+    @SqlQuery("SELECT * FROM events WHERE CourseID = :courseID")
+    @RegisterBeanMapper(Event.class)
+    public Collection<Event> searchByCourseId(@Bind("CourseID") String courseID);
+    
+    @SqlQuery("SELECT * FROM events WHERE AccountID = :AccountID")
+    @RegisterBeanMapper(Event.class)
+    public Collection<Event> searchByAccountId(@Bind("AccountID") String accountID);
+    
+    @SqlQuery("SELECT e.*\n" +
+"FROM events e\n" +
+"left join courselist cl ON e.CourseID = cl.courseid\n" +
+"WHERE e.accountid = :AccountID OR cl.accountid = :AccountID;")
+    @RegisterBeanMapper(Event.class)
+    public Collection<Event> eventsByAccount(@Bind("AccountID") String accountID);
+    
 
-    @SqlUpdate("INSERT INTO events (StartDate, EndDate, EventName, EventDescription, Location, Completed)\n" +
-            "VALUES (:event.startDate, :event.endDate, :event.eventName, :event.eventDescription, :event.location, :event.completed);")
+    @SqlUpdate("INSERT INTO events (StartDate, EndDate, EventName, EventDescription, Location, AccountID, CourseID, Completed)\n" +
+            "VALUES (:event.startDate, :event.endDate, :event.eventName, :event.eventDescription, :event.location, :event.accountID, :event.courseID, :event.completed);")
     @GetGeneratedKeys
     @RegisterBeanMapper(Event.class)
     public Event createEvent(@BindBean("event") Event event);
