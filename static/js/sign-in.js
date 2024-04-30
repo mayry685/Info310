@@ -25,6 +25,7 @@ const app = Vue.createApp({
             if (this.account !== null) {
                 this.createToken(this.account.username, this.account.password);
                 console.log(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password);
+
                 axios.get(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password)
                     .then(response => {
                         if (response.data !== null) {
@@ -39,8 +40,6 @@ const app = Vue.createApp({
                         } else {
                             alert("That was an incorrect username");
                         }
-
-
                     })
                     .catch(error => {
                         console.error(error);

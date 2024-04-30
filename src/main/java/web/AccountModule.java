@@ -4,6 +4,7 @@ import dao.AccountJdbiDAO;
 import domain.Account;
 import io.jooby.Jooby;
 import domain.Account;
+import io.jooby.Body;
 import io.jooby.StatusCode;
 
 /**
@@ -29,6 +30,9 @@ public class AccountModule extends Jooby {
             }
     
         });
+        get("/api/accounts/usernames", ctx -> {
+            return dao.getUsernames();
+        });
         get("/api/accounts/validate", ctx -> {
             System.out.println("validating");
             String username = ctx.query("username").value();
@@ -44,7 +48,7 @@ public class AccountModule extends Jooby {
             }
         });
         
-        post("/api/accounts", ctx -> {
+        post("/api/accounts/createAccount", ctx -> {
             Account account = ctx.body().to(Account.class);
             if (dao.isUsernameTaken(account.getUserName())) {
                 ctx.setResponseCode(StatusCode.BAD_REQUEST);
@@ -74,5 +78,19 @@ public class AccountModule extends Jooby {
             dao.changePassword(username, newPassword);
             return "Password changed successfully.";
         });
+
+        get("/api/accounts/{username}", ctx -> {
+            String username = ctx.path("username").toString();
+            Account account = dao.getAccountsByUsername(username);
+
+            if (account == null) {
+                ctx.setResponseCode(StatusCode.NOT_FOUND);
+                return "User '" + username + "' not found.";
+            } else {
+                return account;
+            }
+        });
+
+
     }
 }

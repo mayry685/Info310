@@ -27,6 +27,9 @@ public interface AccountJdbiDAO extends CredentialsValidator {
     @RegisterBeanMapper(Account.class)
     public Account getAccountsByUsername(@Bind("username") String username);
     
+    @SqlQuery("Select username FROM account")
+    public Collection<String> getUsernames();
+    
     @SqlUpdate("INSERT INTO Account (FirstName, LastName, Username, Password, Email, Status) VALUES (:account.firstName, :account.lastName, :account.userName, :account.password, :account.email, :account.status)")
     @GetGeneratedKeys
     @RegisterBeanMapper(Account.class)
@@ -50,5 +53,4 @@ public interface AccountJdbiDAO extends CredentialsValidator {
     @Override
     @SqlQuery("select exists (select * from Account where Username=:username and Password=:password)")
     public Boolean credentialCheck(@Bind("username") String username, @Bind("password") String password);
-    
 }

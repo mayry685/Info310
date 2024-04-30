@@ -23,15 +23,16 @@
                 <fieldset>
 
                     <legend>Account Details</legend>
+                    <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
                     <form @submit.prevent="register(account)" class="input">
-                        <label >Username:</label><input class="input-field" type="text" v-model="account.username" required/>
-                        <label >First Name:</label><input class="input-field" type="text" v-model="account.firstName" required/>
-                        <label >Last Name:</label><input class="input-field" type="text" v-model="account.surname" required/>
-                        <label >Email: </label><input class="input-field" type="text" v-model="account.emailAddress" required/>
-                        <label >Address: </label><textarea class="input-field" type="text" v-model="account.shippingAddress" id="formaddress" required></textarea>
-                        <label >Password:</label><input class="input-field" type="text" v-model="account.password" required/>
+                        <label >First Name:</label><input class="input-field" type="text" v-model="account.FirstName" required/>
+                        <label >Last Name:</label><input class="input-field" type="text" v-model="account.LastName" required/>
+                        <label >Username:</label><input class="input-field" type="text" v-model="account.UserName" required/>
+                        <label >Password:</label><input class="input-field" type="text" v-model="account.Password" required/>
+                        <label >Email: </label><input class="input-field" type="text" v-model="account.Email" required/>
+                        <label >Status: </label><input class="input-field" type="text" v-model="account.Status" id="formaddress" required/>
 
-                        <button class="input" type="submit">
+                        <button style="display: block; margin: 0 auto;" class="input" type="submit">
                             Create Account
                         </button>
                     </form>

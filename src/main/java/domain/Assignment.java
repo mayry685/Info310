@@ -4,6 +4,7 @@
  */
 package domain;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -14,19 +15,23 @@ public class Assignment {
     
     //datafields
     private int AssignmentID;
-    private int CourseID;
+    private String CourseID;
     private String AssignmentName;
     private String AssignmentDescription;
-    private LocalDateTime DueDate;
+    private Timestamp DueDate;
     private int Weight;
 
-    public Assignment(int AssignmentID, int CourseID, String AssignmentName, String AssignmentDescription, LocalDateTime DueDate, int Weight) {
+    public Assignment(int AssignmentID, String CourseID, String AssignmentName, String AssignmentDescription, Timestamp DueDate, int Weight) {
         this.AssignmentID = AssignmentID;
         this.CourseID = CourseID;
         this.AssignmentName = AssignmentName;
         this.AssignmentDescription = AssignmentDescription;
         this.DueDate = DueDate;
         this.Weight = Weight;
+    }
+    
+    public Assignment(){
+        
     }
 
     public int getAssignmentID() {
@@ -37,11 +42,11 @@ public class Assignment {
         this.AssignmentID = AssignmentID;
     }
 
-    public int getCourseID() {
+    public String getCourseID() {
         return CourseID;
     }
 
-    public void setCourseID(int CourseID) {
+    public void setCourseID(String CourseID) {
         this.CourseID = CourseID;
     }
 
@@ -61,11 +66,11 @@ public class Assignment {
         this.AssignmentDescription = AssignmentDescription;
     }
 
-    public LocalDateTime getDueDate() {
+    public Timestamp getDueDate() {
         return DueDate;
     }
 
-    public void setDueDate(LocalDateTime DueDate) {
+    public void setDueDate(Timestamp DueDate) {
         this.DueDate = DueDate;
     }
 

@@ -25,7 +25,7 @@ CREATE TABLE Account(
     AccountID VARCHAR(255) PRIMARY KEY,
     FirstName VARCHAR(255) NOT NULL,
     LastName VARCHAR(255) NOT NULL,
-    Username VARCHAR(255) NOT NULL,
+    Username VARCHAR(255) NOT NULL UNIQUE,
     Password VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
     Status VARCHAR(255) NOT NULL
@@ -50,19 +50,23 @@ CREATE TABLE Assignment (
     CourseID VARCHAR(255) NOT NULL,
     AssignmentName VARCHAR(255) NOT NULL,
     AssignmentDescription TEXT,
-    DueDate DATE NOT NULL,
+    DueDate TIMESTAMP NOT NULL,
     Weight INT NOT NULL,
     FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
 );
 
 CREATE TABLE Events (
     EventID SERIAL PRIMARY KEY,
-    StartDate DATE NOT NULL,
-    EndDate DATE NOT NULL,
+    StartDate TIMESTAMP NOT NULL,
+    EndDate TIMESTAMP NOT NULL,
     EventName VARCHAR(255) NOT NULL,
     EventDescription TEXT,
     Location VARCHAR(255),
-    Completed BOOLEAN NOT NULL
+    CourseID VARCHAR(10),
+    AccountID VARCHAR(10),
+    Completed BOOLEAN NOT NULL,
+    FOREIGN KEY (CourseID) REFERENCES Course(CourseID),
+    FOREIGN KEY (AccountID) REFERENCES Account(AccountID)
 );
 
 -- Set default values for AccountID and CourseID

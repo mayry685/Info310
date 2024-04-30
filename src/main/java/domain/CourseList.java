@@ -8,40 +8,44 @@ package domain;
  *
  * @author chsur
  */
-class CourseList {
+public class CourseList {
     
     //datafields
-    private int CourseListID;
-    private int CourseID;
-    private int AccountID;
+    private String CourseListID;
+    private String CourseID;
+    private String AccountID;
 
-    public CourseList(int CourseListID, int CourseID, int AccountID) {
+    public CourseList(String CourseListID, String CourseID, String AccountID) {
         this.CourseListID = CourseListID;
         this.CourseID = CourseID;
         this.AccountID = AccountID;
     }
+    
+    public CourseList() {
+        
+    }
 
-    public int getCourseListID() {
+    public String getCourseListID() {
         return CourseListID;
     }
 
-    public void setCourseListID(int CourseListID) {
+    public void setCourseListID(String CourseListID) {
         this.CourseListID = CourseListID;
     }
 
-    public int getCourseID() {
+    public String getCourseID() {
         return CourseID;
     }
 
-    public void setCourseID(int CourseID) {
+    public void setCourseID(String CourseID) {
         this.CourseID = CourseID;
     }
 
-    public int getAccountID() {
+    public String getAccountID() {
         return AccountID;
     }
 
-    public void setAccountID(int AccountID) {
+    public void setAccountID(String AccountID) {
         this.AccountID = AccountID;
     }
 
