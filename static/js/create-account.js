@@ -49,7 +49,7 @@ const app = Vue.createApp({
             if (this.account.Password.length < 6) {
                 errors.push("Password must have 6 or more characters")
             }
-            var validStatus = ["student", "teacher"]
+            var validStatus = ["Student", "Teacher"]
             if (!validStatus.includes(this.account.Status)) {
                 var message = ""
                 validStatus.forEach(function(element, index) {

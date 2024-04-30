@@ -34,7 +34,7 @@ const app = Vue.createApp({
                                 .then(accountResponse => {
                                     dataStore.commit("user", accountResponse.data);
                                     window.location = "index.html";
-                                    console.log(dataStore.SignedInUser);
+                                    console.info(accountResponse);
 
                                 })
                         } else {
