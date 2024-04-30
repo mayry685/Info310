@@ -1,0 +1,31 @@
+#calendar-container {
+    flex: 1; /* Fill remaining vertical space */
+    text-align: center;
+    overflow: hidden; /* Hide overflow */
+    display: flex;
+    justify-content: center; /* Center children horizontally */
+    align-items: center; /* Center children vertically */
+    flex-direction: column; /* Stack children vertically */
+}
+
+#calendar {
+    width: 50vw;
+}
+
+#toggle-view {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25em;
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.4em 0.65em;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    background-color: var(--fc-button-bg-color);
+    border-color: var(--fc-button-border-color);
+    color: var(--fc-button-text-color);
+
+}

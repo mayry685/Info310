@@ -29,3 +29,7 @@ INSERT INTO Events (StartDate, EndDate, EventName, EventDescription, Location, C
 VALUES
     ('2024-05-10', '2024-05-12', 'Conference', 'Annual conference', 'New York', 'C1000', null, true),
     ('2024-06-15', '2024-06-18', 'Workshop', 'Hands-on workshop', 'Los Angeles', null, 'AC100000', false);
+    ('2024-05-02 08:00:00', '2024-05-02 09:00:00', 'Assessment', 'Maths assessment', 'The Building', 'C1000', null, true),
+    ('2024-05-01 18:00:00', '2024-05-01 22:00:00', 'Study', 'Study for the maths assessment', 'The Library', null, 'AC100000', false);
+
+
