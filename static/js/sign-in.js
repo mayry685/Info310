@@ -32,9 +32,9 @@ const app = Vue.createApp({
                            
                             axios.get(accountApi + "searchByUsername?" + "username=" + this.account.username)
                                 .then(accountResponse => {
-                                    dataStore.commit("user", accountResponse.data);
+                                    dataStore.commit("signIn", accountResponse.data);
                                     window.location = "index.html";
-                                    console.log(dataStore.SignedInUser);
+                                    console.info(accountResponse);
 
                                 })
                         }

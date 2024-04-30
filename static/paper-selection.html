@@ -21,9 +21,9 @@
                 <fieldset>
                     <legend>Select Additional Papers</legend>
                     <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
-                    <form @submit.prevent="enrol()" class="input">
+                    <form @submit.prevent="enrol(selectedCourse)" class="input">
                         <label>Paper: </label>
-                        <select name="courses" id="courses">
+                        <select name="courses" id="courses" v-model="selectedCourse">
                             <option v-for="course in courses" :value="course.CourseId">{{ course.CourseName }}</option>
 
                         </select>

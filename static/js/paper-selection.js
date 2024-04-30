@@ -1,7 +1,7 @@
 class CourseList {
     constructor(account, course) {
-        this.accountId = account;
-        this.courseId = course;
+        this.AccountID = account;
+        this.CourseID = course;
     }
 }
 
@@ -17,20 +17,23 @@ const app = Vue.createApp({
             return {
                 signedIn: this.account!==null,
                 courses: new Array(),
-                course: new Object()
+                course: new Object(),
+                selectedCourse: new Object()
             };
         },
         computed: Vuex.mapState({
             account: 'account'
         }),
         methods: {
-            enrol() {
-                if (this.course !== null && this.account!== undefined) {
+            enrol(course) {
+                this.selectedCourse = course;
+                if (this.selectedCourse !== null && this.account!== undefined) {
                     
 
                     var courseList = new CourseList(
                         this.account.AccountId,
-                        this.course.CourseId);
+                        this.selectedCourse);
+
                     axios.post(enrolApi, courseList, {
                         headers: {
                             'Content-Type': 'application/json'
