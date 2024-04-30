@@ -20,9 +20,9 @@
                 <legend>Account Details</legend>
                 <form @submit.prevent="signIn(account)" class="input-form">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" class="input-field" v-model="account.username">
+                    <input type="text" id="username" class="input-field" v-model="account.username" required>
                     <label for="password">Password:</label>
-                    <input type="text" id="password" class="input-field" v-model="account.password">
+                    <input type="password" id="password" class="input-field" v-model="account.password" required>
                     <button type="submit" class="submit-button">Sign-In</button>
                 </form>
             </fieldset>
