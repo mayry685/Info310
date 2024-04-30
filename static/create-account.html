@@ -22,30 +22,23 @@
 
         <div class="input">
             <fieldset>
-
                 <legend>Account Details</legend>
                 <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
                 <form @submit.prevent="register(account)" class="input">
-                    <label>First Name:</label><input class="input-field" type="text" v-model="account.FirstName"
-                        required />
-                    <label>Last Name:</label><input class="input-field" type="text" v-model="account.LastName"
-                        required />
-                    <label>Username:</label><input class="input-field" type="text" v-model="account.UserName"
-                        required />
-                    <label>Password:</label><input class="input-field" type="text" v-model="account.Password"
-                        required />
-                    <label>Email: </label><input class="input-field" type="text" v-model="account.Email" required />
+                    <label>First Name:</label><input class="input-field" type="text" v-model="account.FirstName" required/>
+                    <label>Last Name:</label><input class="input-field" type="text" v-model="account.LastName" required/>
+                    <label>Username:</label><input class="input-field" type="text" v-model="account.UserName" required/>
+                    <label>Password:</label><input class="input-field" type="password" v-model="account.Password" required/>
+                    <label>Email:</label><input class="input-field" type="text" v-model="account.Email" required/>
                     <label>Status:</label>
                     <select class="input-field" v-model="account.Status" id="formaddress" required>
                         <option value="Student">Student</option>
                         <option value="Teacher">Teacher</option>
                     </select>
-
                     <button style="display: block; margin: 0 auto;" class="input" type="submit">
                         Create Account
                     </button>
                 </form>
-
             </fieldset>
         </div>
     </main>

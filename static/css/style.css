@@ -161,6 +161,40 @@ section ul li {
     background-color: #003366; /* Darker shade of University of Otago Blue */
 }
 
+/* Style for input fields */
+.input-field {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+/* Style for select element */
+.input-field[type="select"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+/* Style for the label */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Style for the legend */
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 
 
 
