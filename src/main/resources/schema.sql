@@ -42,7 +42,9 @@ CREATE TABLE CourseList(
     CourseID VARCHAR(255) NOT NULL,
     AccountID VARCHAR(255) NOT NULL,
     FOREIGN KEY (CourseID) REFERENCES Course(CourseID),
-    FOREIGN KEY (AccountID) REFERENCES Account(AccountID)
+    FOREIGN KEY (AccountID) REFERENCES Account(AccountID),
+    CONSTRAINT unique_combination UNIQUE (CourseID, AccountID)
+
 );
 
 CREATE TABLE Assignment (

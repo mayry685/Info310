@@ -28,10 +28,11 @@ const app = Vue.createApp({
             enrol(course) {
                 var signedInUser = dataStore.state.signedInUser;
                 this.selectedCourse = course;
-                console.error(signedInUser);
-                if (this.selectedCourse !== null && this.signedInUser!== undefined) {
+                console.error(this.selectedCourse);
+                if (typeof(this.selectedCourse) === "object") {
+                    alert("You have not selected a paper.");
+                } else if (this.signedInUser!== undefined) {
                     
-
                     var courseList = new CourseList(
                         this.signedInUser.AccountId,
                         this.selectedCourse);
@@ -46,7 +47,7 @@ const app = Vue.createApp({
                                 alert("Paper selection succussful");
                             })
                             .catch(error => {
-                                alert("Please select a paper");
+                                alert("You are already enrolled in this paper.");
                             });
                 } else {
                     alert("Invalid Account");
