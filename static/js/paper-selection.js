@@ -44,7 +44,7 @@ const app = Vue.createApp({
                     })
                             .then(() => {
                                 window.location = "paper-selection.html";
-                                alert("Paper selection succussful");
+                                alert("Paper selection successful");
                             })
                             .catch(error => {
                                 alert("You are already enrolled in this paper.");
