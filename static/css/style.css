@@ -128,7 +128,10 @@ section ul li {
 .input label {
     display: block;
     margin-bottom: 6px;
+    margin-left: 4px;
+    margin-right: 2px;
     color: #003366;
+    text-align:left;
 }
 
 .input input[type="text"],
@@ -145,10 +148,9 @@ section ul li {
     display: block;
     align-content: center;
     width: 40%;
-    margin-top: 30px;
     margin-left:31%;
     padding: 1%;
-    margin-bottom:2%;
+    margin-bottom:1px;
     background-color: #00539f;
     color: white;
     border:  none;
@@ -181,6 +183,33 @@ section ul li {
     margin-bottom: 10px; /* Adjust margin as needed */
 }
 
+/*Style for paper selection fields*/
+.courselist-field {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 2px;
+    margin: 4%;
+}
+
+.courselist-field button {
+    background-color: rgb(219, 3, 3);
+    color: black;
+    width: 22px;
+    height: 22px;
+    justify-self: end;
+    margin-right: 20%;
+}
+.courselist-field button:hover {
+    background-color: darkred;
+}
+
+.courselist-field hr {
+    width:184%
+}
+
+
+
 /* Style for the label */
 label {
     display: block;
@@ -194,6 +223,8 @@ legend {
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+
 
 
 

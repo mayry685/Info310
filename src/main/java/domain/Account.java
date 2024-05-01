@@ -5,6 +5,7 @@ public class Account {
     
     //datafields
     private String AccountId;
+    private String AccountCode;
     private String FirstName;
     private String LastName;
     private String UserName;
@@ -12,8 +13,9 @@ public class Account {
     private String Email;
     private String Status;
 
-    public Account(String AccountId, String FirstName, String LastName, String UserName, String Password, String Email, String Status) {
+    public Account(String AccountId, String AccountCode, String FirstName, String LastName, String UserName, String Password, String Email, String Status) {
         this.AccountId = AccountId;
+        this.AccountCode = AccountCode;
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.UserName = UserName;
@@ -31,6 +33,14 @@ public class Account {
 
     public void setAccountId(String AccountId) {
         this.AccountId = AccountId;
+    }
+
+    public String getAccountCode() {
+        return AccountCode;
+    }
+
+    public void setAccountCode(String AccountCode) {
+        this.AccountCode = AccountCode;
     }
 
     public String getFirstName() {

@@ -24,10 +24,21 @@ public class CourseListModule extends Jooby {
             return courseLists;
         });
 
+        //TODO: check for already existing account/course combo
+        //POST endpoint to create a new courseList (enrol in paper)
+        post("/api/courseList", ctx -> {
+            //retrieve data from request body
+            CourseList newCourseList = ctx.body().to(CourseList.class);
+            //create courseList using dao
+            CourseList createdCourseList = dao.createCourseList(newCourseList.getCourseID(), newCourseList.getAccountID());
+            //return as JSON
+            return createdCourseList;
+        });
+
         //GET endpoint to retrieve a list of courseLists by accountID
-        get("/api/courseList/accountId", ctx -> {
+        get("/api/courseList/{accountId}", ctx -> {
             //get accountId from path parameter
-            String accountId = ctx.query("id").value();
+            String accountId = ctx.path("accountId").toString();
             //retreieve courselist from DAO
             Collection<CourseList> courseList = dao.getCourseListsByAccount(accountId);
           
@@ -43,7 +54,7 @@ public class CourseListModule extends Jooby {
         //GET endpoint to retrieve a list of courseLists by courseID
         get("/api/courseList/courseId", ctx -> {
             //get accountId from path parameter
-            String courseId = ctx.query("id").value();
+            String courseId = ctx.query("courseId").value();
             //retreieve courselist from DAO
             Collection<CourseList> courseList = dao.getCourseListsByCourse(courseId);
            
@@ -55,21 +66,11 @@ public class CourseListModule extends Jooby {
             return courseList;
         });
 
-        //TODO: check for already existing account/course combo
-        //POST endpoint to create a new courseList (enrol in paper)
-        post("/api/courseList", ctx -> {
-            //retrieve data from request body
-            CourseList newCourseList = ctx.body().to(CourseList.class);
-            //create courseList using dao
-            CourseList createdCourseList = dao.createCourseList(newCourseList.getCourseID(), newCourseList.getAccountID());
-            //return as JSON
-            return createdCourseList;
-        });
-
         //DELETE endpoint to remove a courseList by Id
-        delete("/api/courseList/delete", ctx -> {
+        delete("/api/courseList/delete/{courseListId}", ctx -> {
             //retrieve data from request body
-            String courseListId = ctx.query("id").value();
+            int courseListId = Integer.parseInt(ctx.path("courseListId").toString());
+            System.out.println(courseListId);
             //remove courseList from dao
             dao.deleteCourseListById(courseListId);
             //return as JSON

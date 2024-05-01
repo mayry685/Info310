@@ -24,7 +24,7 @@ public interface CourseListsJdbiDAO {
     @RegisterBeanMapper(CourseList.class)
     public CourseList getCourseListByID(@Bind("CourseListID") String CourseListID);
     
-    @SqlQuery("SELECT * FROM CourseList WHERE AccountID = :AccountID")
+    @SqlQuery("SELECT CourseList.*, Course.CourseName FROM CourseList JOIN Course ON CourseList.CourseID = Course.CourseID WHERE AccountID = :AccountID")
     @RegisterBeanMapper(CourseList.class)
     public Collection<CourseList> getCourseListsByAccount(@Bind("AccountID") String AccountID);
 
@@ -39,6 +39,9 @@ public interface CourseListsJdbiDAO {
     
     @SqlUpdate("DELETE FROM CourseList WHERE CourseListID = :CourseListID")
     void deleteCourseListById(@Bind("CourseListID") String CourseListID);
+
+    @SqlUpdate("DELETE FROM CourseList WHERE CourseListID = :CourseListID")
+    void deleteCourseListById(@Bind("CourseListID") int CourseListID);
 
     @SqlUpdate("DELETE * FROM CourseList WHERE AccountID = :AccountID")
     void deleteCourseListsByAccount(@Bind("AccountID") String AccountID);

@@ -17,20 +17,32 @@
                 <h1 id="title">Paper Selection</p>
             </header>
 
-            <div class="input">
-                <fieldset>
+            <div class="index-section1">
+                <fieldset class="input">
                     <legend>Select Additional Papers</legend>
                     <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
-                    <form @submit.prevent="enrol(selectedCourse)" class="input">
-                        <label>Paper: </label>
-                        <select name="courses" id="courses" v-model="selectedCourse">
+                    <form @submit.prevent="enrol(selectedCourse)" class="form-container">
+                        <label style="display: inline">Paper: </label>
+                        <select name="courses" class="input-field" v-model="selectedCourse" style="display:inline">
                             <option v-for="course in courses" :value="course.CourseId">{{ course.CourseName }}</option>
-
                         </select>
-
-                        <button style="display: block; margin: 0 auto;" class="input" type="submit">
+                        <button style="display: block; margin: 20px auto;" class="input" type="submit">
                             Add Paper
                         </button>
+                </fieldset>
+                <fieldset class="input">
+                    <legend>Current Papers</legend>
+                    <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
+                    <div v-if="isEmptyCourseList()">
+                        <label>You have no selected papers.</label>
+                    </div>
+                    <div v-for="courseList in courseLists" class="courselist-field">
+                        <label class="courselist-field">{{ courseList.CourseID }}  -  {{courseList.CourseName }}</label>
+                        <button class="courselist-field" @click="drop(courseList.CourseListID)">X</button>
+                        <hr>
+                      </div>
+
+
                 </fieldset>
                 
             </div>
