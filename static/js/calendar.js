@@ -15,8 +15,10 @@ const app = Vue.createApp({
     
     data() {
         return {
-            isModalOpen: false, // Indicates whether the modal is open or closed
+            isEventModalOpen: false, // Indicates whether the modal is open or closed
+            isAssignmentModalOpen: false, // Indicates whether the modal is open or closed
             modalEvent: {},      // Holds the details of the event currently displayed in the modal
+            modalAssignment: {},      // Holds the details of the event currently displayed in the modal
             nextCalendarView: "Weekly Calendar"
         };
     },
@@ -55,7 +57,8 @@ const app = Vue.createApp({
                     description: event.EventDescription, // Description of the event
                     location: event.Location, // Location of the event
                     completed: event.Completed, // Whether the event is completed or not
-                    color: 'blue'
+                    color: 'blue',
+                    event: true
                 }));
 
                 // Add the events to the calendar
@@ -85,10 +88,11 @@ const app = Vue.createApp({
                     id: assignment.AssignmentID, // Unique identifier for the assignment
                     title: assignment.AssignmentName, // Title of the assignment
                     start: new Date(assignment.DueDate), // Due date of the assignment
-                    end: new Date(assignment.DueDate), // Due date of the assignment (assuming it's also the end date)
                     description: assignment.AssignmentDescription, // Description of the assignment
                     weight: assignment.Weight, // Weight of the assignment
-                    color: 'green'
+                    coursename: assignment.CourseName,
+                    color: 'green',
+                    event: false
                 }));
 
                 // Add the assignments to the calendar
@@ -101,13 +105,19 @@ const app = Vue.createApp({
         
         closeModal() {
             overlay.classList.add("hidden");
-            this.isModalOpen = false
+            this.isEventModalOpen = false
+            this.isAssignmentModalOpen = false
         },
 
         // Method to open the event modal and populate it with event details
         showEventModal(info) {
             // Get the event information
             const event = info.event;
+
+            if (!event.extendedProps.event) {
+                this.showAssignmentModal(info);
+                return;
+            }
             
             // Extract the necessary details from the event object
             const modalEventData = {
@@ -123,7 +133,27 @@ const app = Vue.createApp({
             this.modalEvent = modalEventData;
             
             overlay.classList.remove("hidden");
-            this.isModalOpen = true
+            this.isEventModalOpen = true
+        },
+
+        showAssignmentModal(info) {
+            // Get the event information
+            const event = info.event;
+            
+            // Extract the necessary details from the event object
+            const modalAssignmentData = {
+                title: event.title,
+                dueDate: event.start,
+                description: event.extendedProps.description,
+                weight: event.extendedProps.weight,
+                courseName: event.extendedProps.coursename
+            };
+
+            // Assign the modalEventData to modalEvent data property
+            this.modalAssignment = modalAssignmentData;
+            
+            overlay.classList.remove("hidden");
+            this.isAssignmentModalOpen = true
         },
 
         toggleView() {
