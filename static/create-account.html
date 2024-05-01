@@ -25,6 +25,7 @@
                 <legend>Account Details</legend>
                 <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
                 <form @submit.prevent="register(account)" class="input">
+                    <label>Student ID:</label><input class="input-field" type="text" v-model="account.AccountCode" required/>
                     <label>First Name:</label><input class="input-field" type="text" v-model="account.FirstName" required/>
                     <label>Last Name:</label><input class="input-field" type="text" v-model="account.LastName" required/>
                     <label>Username:</label><input class="input-field" type="text" v-model="account.UserName" required/>

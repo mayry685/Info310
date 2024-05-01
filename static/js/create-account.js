@@ -8,12 +8,13 @@ const app = Vue.createApp({
         };
     },
     methods: {
-        register() {
+        register(account) {
+            this.account = account;
             if (this.errorCheck()) {
                 return;
             }
             if (this.account !== null) {
-                axios.post(registerApi, this.account, {
+                axios.post(registerApi, account, {
                     headers: {
                         'Content-Type': 'application/json'
                     }

@@ -23,6 +23,7 @@ CREATE SEQUENCE Course_Id_Sequence
 
 CREATE TABLE Account(
     AccountID VARCHAR(255) PRIMARY KEY,
+    AccountCode VARCHAR(255) NOT NULL,
     FirstName VARCHAR(255) NOT NULL,
     LastName VARCHAR(255) NOT NULL,
     Username VARCHAR(255) NOT NULL UNIQUE,
@@ -34,6 +35,7 @@ CREATE TABLE Account(
 CREATE TABLE Course (
     CourseID VARCHAR(255) PRIMARY KEY,
     CourseName VARCHAR(255) NOT NULL,
+    CourseCode VARCHAR(255) NOT NULL,
     CourseDescription TEXT
 );
 

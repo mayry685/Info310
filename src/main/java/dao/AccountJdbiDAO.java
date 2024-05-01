@@ -30,13 +30,13 @@ public interface AccountJdbiDAO extends CredentialsValidator {
     @SqlQuery("Select username FROM account")
     public Collection<String> getUsernames();
     
-    @SqlUpdate("INSERT INTO Account (FirstName, LastName, Username, Password, Email, Status) VALUES (:account.firstName, :account.lastName, :account.userName, :account.password, :account.email, :account.status)")
+    @SqlUpdate("INSERT INTO Account (AccountCode, FirstName, LastName, Username, Password, Email, Status) VALUES (:account.accountCode, :account.firstName, :account.lastName, :account.userName, :account.password, :account.email, :account.status)")
     @GetGeneratedKeys
     @RegisterBeanMapper(Account.class)
     Account createAccount(@BindBean("account") Account account);
 
     
-    @SqlUpdate("UPDATE Account SET FirstName=:account.firstName, LastName=:account.lastName, Email=:account.email, Status=:account.status WHERE Username=:account.userName")
+    @SqlUpdate("UPDATE Account SET AccountCode=:account.accountCode, FirstName=:account.firstName, LastName=:account.lastName, Email=:account.email, Status=:account.status WHERE Username=:account.userName")
     @GetGeneratedKeys
     @RegisterBeanMapper(Account.class)
     Account updateAccount(@BindBean("account") Account account);
