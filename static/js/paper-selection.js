@@ -87,6 +87,9 @@ const app = Vue.createApp({
                 .catch(error => {
                     console.error(error);
                 });
+            },
+            isEmptyCourseList(){
+                return this.courseLists.length === 0;
             }
         }
 });
