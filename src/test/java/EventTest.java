@@ -32,6 +32,6 @@ public class EventTest {
 
     @Test
     public void testEvent() {
-        assertTrue(true);
+        assertTrue(false);
     }
 }
