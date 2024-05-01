@@ -18,13 +18,17 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
 
+    - name: Clean Gradle cache
+      run: |
+        ./gradlew clean
+
     - name: Build with Gradle
       run: |
-        ./gradlew build
+        ./gradlew build --info
 
     - name: Run tests
       run: |
-        ./gradlew test
+        ./gradlew test --info
 
     - name: Upload test results
       if: always()
