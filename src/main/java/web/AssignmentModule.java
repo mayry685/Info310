@@ -4,6 +4,7 @@ import dao.AssignmentsJdbiDAO;
 import domain.Assignment;
 import io.jooby.Jooby;
 import io.jooby.StatusCode;
+import java.util.Collection;
 
 public class AssignmentModule extends Jooby {
 
@@ -30,6 +31,25 @@ public class AssignmentModule extends Jooby {
             ctx.setResponseCode(StatusCode.NOT_FOUND);
             return "Assignment with id '" + assignmentID + "' does not exist";
         });
+        
+        get("/api/assignments/searchByCourseID", ctx -> {
+            int CourseID = ctx.query("CourseID").intValue();
+            Collection<Assignment> assignment = assignmentsDAO.getByCourseID(CourseID);
+            if (assignment != null)
+                return assignment;
+            ctx.setResponseCode(StatusCode.NOT_FOUND);
+            return "Assignment with getByCourseID '" + CourseID + "' does not exist";
+        });
+        
+        get("/api/assignments/searchByAccountID", ctx -> {
+            String AccountID = ctx.query("AccountID").value();
+            Collection<Assignment> assignments = assignmentsDAO.getByAccountID(AccountID);
+            if (assignments != null)
+                return assignments;
+            ctx.setResponseCode(StatusCode.NOT_FOUND);
+            return "Assignment with getByCourseID '" + AccountID + "' does not exist";
+        });
+
 
         post("/api/assignments/CreateAssignment", ctx -> {
             Assignment assignment = ctx.body().to(Assignment.class);
