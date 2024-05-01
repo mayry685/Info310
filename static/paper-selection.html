@@ -25,12 +25,21 @@
                         <label>Paper: </label>
                         <select name="courses" id="courses" v-model="selectedCourse">
                             <option v-for="course in courses" :value="course.CourseId">{{ course.CourseName }}</option>
-
                         </select>
-
                         <button style="display: block; margin: 0 auto;" class="input" type="submit">
                             Add Paper
                         </button>
+                </fieldset>
+                <fieldset>
+                    <legend>Current Papers</legend>
+                    <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
+                    <div v-for="courseList in courseLists">
+                        <label>{{ courseList.CourseID }}  -  {{courseList.CourseName }}</label>
+                        <label></label>
+                        <button @click="drop(courseList.CourseListID)">Remove Course</button>
+                      </div>
+
+
                 </fieldset>
                 
             </div>

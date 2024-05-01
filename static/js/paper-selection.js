@@ -7,18 +7,23 @@ class CourseList {
 
 var enrolApi = "/api/courseList";
 var getCoursesApi = "/api/courses";
-var accountApi = "/api/accounts/searchByUsername"
+var accountApi = "/api/accounts/searchByUsername";
+var getCourseListsApi = "/api/courseList/accountId";
+var deleteCourseListApi = "/api/courseList/delete/";
+
 const app = Vue.createApp({
     mixins: [BasicAccessAuthentication],
     mounted() {
         this.getCourses();
+        this.getCourseLists();
     },
         data() {
             return {
                 signedIn: this.signedInUser!==null,
                 courses: new Array(),
                 course: new Object(),
-                selectedCourse: new Object()
+                selectedCourse: new Object(),
+                courseLists: new Array()
             };
         },
         computed: Vuex.mapState({
@@ -28,7 +33,6 @@ const app = Vue.createApp({
             enrol(course) {
                 var signedInUser = dataStore.state.signedInUser;
                 this.selectedCourse = course;
-                console.error(this.selectedCourse);
                 if (typeof(this.selectedCourse) === "object") {
                     alert("You have not selected a paper.");
                 } else if (this.signedInUser!== undefined) {
@@ -42,17 +46,27 @@ const app = Vue.createApp({
                             'Content-Type': 'application/json'
                         }
                     })
-                            .then(() => {
-                                window.location = "paper-selection.html";
-                                alert("Paper selection successful");
-                            })
-                            .catch(error => {
-                                alert("You are already enrolled in this paper.");
-                            });
+                    .then(() => {
+                        window.location = "paper-selection.html";
+                    })
+                    .catch(error => {
+                        alert("You are already enrolled in this paper.");
+                    });
                 } else {
                     alert("Invalid Account");
                 }
             },
+            drop(courseListId) {    
+                axios.delete(`/api/courseList/delete/${courseListId}`)
+                .then(() => {
+                    window.location = "paper-selection.html";
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            },
+
             getCourses() {
                 axios.get(getCoursesApi)
                 .then(response => {
@@ -61,6 +75,17 @@ const app = Vue.createApp({
                 .catch(error => {
                     console.error(error);
                     alert("An error occurred - check the console");
+                });
+            },
+            getCourseLists() {
+                var signedInUser = dataStore.state.signedInUser;
+                axios.get(`/api/courseList/${signedInUser.AccountId}`)
+                .then(response => {
+                    this.courseLists  = response.data;
+                    console.info(this.courseLists);
+                })
+                .catch(error => {
+                    console.error(error);
                 });
             }
         }
