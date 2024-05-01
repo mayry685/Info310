@@ -43,6 +43,7 @@ public interface SchemaDAO extends CredentialsValidator {
 
     @SqlUpdate("CREATE TABLE Account (" +
                "AccountID VARCHAR(255) PRIMARY KEY, " +
+               "AccountCode VARCHAR(255) NOT NULL, " +
                "FirstName VARCHAR(255) NOT NULL, " +
                "LastName VARCHAR(255) NOT NULL, " +
                "Username VARCHAR(255) NOT NULL UNIQUE, " +
@@ -54,6 +55,7 @@ public interface SchemaDAO extends CredentialsValidator {
     @SqlUpdate("CREATE TABLE Course (" +
                "CourseID VARCHAR(255) PRIMARY KEY, " +
                "CourseName VARCHAR(255) NOT NULL, " +
+               "CourseCode VARCHAR(255) NOT NULL, " +
                "CourseDescription TEXT)")
     void createCourseTable();
 
@@ -62,7 +64,8 @@ public interface SchemaDAO extends CredentialsValidator {
                "CourseID VARCHAR(255) NOT NULL, " +
                "AccountID VARCHAR(255) NOT NULL, " +
                "FOREIGN KEY (CourseID) REFERENCES Course(CourseID), " +
-               "FOREIGN KEY (AccountID) REFERENCES Account(AccountID))")
+               "FOREIGN KEY (AccountID) REFERENCES Account(AccountID), " +
+               "CONSTRAINT unique_combination UNIQUE (CourseID, AccountID))")
     void createCourseListTable();
 
     @SqlUpdate("CREATE TABLE Assignment (" +

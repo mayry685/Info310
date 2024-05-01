@@ -61,11 +61,11 @@ public class EventTest {
         SchemaDAO schemaDao = JdbiDaoFactory.getSchemaDAO();
         schemaDao.resetSchema();
 
-        course1 = new Course("1", "Math", "Mathematics");
-        course2 = new Course("2", "Chemistry", "Chemistry");
+        course1 = new Course("1", "Math", "MATH130", "Mathematics");
+        course2 = new Course("2", "Chemistry", "CHEM191", "Chemistry");
 
-        courseDao.createCourse(course1.getCourseName(), course1.getCourseDescription());
-        courseDao.createCourse(course2.getCourseName(), course2.getCourseDescription());
+        courseDao.createCourse(course1.getCourseName(), course1.getCourseCode(), course1.getCourseDescription());
+        courseDao.createCourse(course2.getCourseName(), course2.getCourseCode(), course2.getCourseDescription());
         
 
 

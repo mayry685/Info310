@@ -23,7 +23,7 @@ public interface CoursesJdbiDAO extends CredentialsValidator {
     @RegisterBeanMapper(Course.class)
     public Course getCourseById(@Bind("courseId") String courseId);
     
-    @SqlUpdate("INSERT INTO Course (CourseName, CourseCode CourseDescription) VALUES (:courseName, :courseCode, :courseDescription)")
+    @SqlUpdate("INSERT INTO Course (CourseName, CourseCode, CourseDescription) VALUES (:courseName, :courseCode, :courseDescription)")
     @GetGeneratedKeys
     @RegisterBeanMapper(Course.class)
     Course createCourse(@Bind("courseName") String courseName, @Bind("courseCode") String courseCode, @Bind("courseDescription") String courseDescription);
