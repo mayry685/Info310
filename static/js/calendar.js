@@ -1,10 +1,9 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Other/javascript.js to edit this template
- */
-
 
 var calendarInstance;
+var modal;
+var overlay;
+var openModalBtn;
+var closeModalBtn;
 
 // create the Vue controller
 const app = Vue.createApp({
@@ -13,15 +12,27 @@ const app = Vue.createApp({
     mounted() {
         this.loadCalendar()
     },
+    
+    data() {
+        return {
+            isModalOpen: false, // Indicates whether the modal is open or closed
+            modalEvent: {}      // Holds the details of the event currently displayed in the modal
+        };
+    },
 
     methods: {
         loadCalendar() {
             // Get the calendar element
             var calendarEl = document.getElementById('calendar');
+            modal = document.querySelector(".modal");
+            overlay = document.querySelector(".overlay");
+            openModalBtn = document.querySelector(".btn-open");
+            closeModalBtn = document.querySelector(".btn-close");
 
             // Create a new FullCalendar instance
             calendarInstance = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth' // Set the initial view of the calendar
+                initialView: 'dayGridMonth', // Set the initial view of the calendar
+                eventClick: this.showEventModal // Call showEventModal when an event is clicked
             });
 
             // Fetch events data from the API
@@ -29,34 +40,60 @@ const app = Vue.createApp({
 
             // Sending the GET request with the parameter
             axios.get(url, {
-              params: {
-                AccountID: dataStore.state.signedInUser.AccountId
-              }
+                params: {
+                    AccountID: dataStore.state.signedInUser.AccountId
+                }
             })
-                .then(function (response) {
-                    // Assuming the API response contains events data in a suitable format
-                    var events = response.data.map(event => ({
-                        id: event.EventID, // Unique identifier for the event
-                        title: event.EventName, // Title of the event
-                        start: new Date(event.StartDate), // Start date of the event
-                        end: new Date(event.EndDate), // End date of the event
-                        description: event.EventDescription, // Description of the event
-                        location: event.Location, // Location of the event
-                        completed: event.Completed // Whether the event is completed or not
-                    }));
+            .then((response) => {
+                // Assuming the API response contains events data in a suitable format
+                var events = response.data.map(event => ({
+                    id: event.EventID, // Unique identifier for the event
+                    title: event.EventName, // Title of the event
+                    start: new Date(event.StartDate), // Start date of the event
+                    end: new Date(event.EndDate), // End date of the event
+                    description: event.EventDescription, // Description of the event
+                    location: event.Location, // Location of the event
+                    completed: event.Completed // Whether the event is completed or not
+                }));
 
-                    // Add the events to the calendar
-                    calendarInstance.addEventSource(events);
-                })
-                .catch(function (error) {
-                    console.error('Error fetching events:', error);
-                });
+                // Add the events to the calendar
+                calendarInstance.addEventSource(events);
+            })
+            .catch((error) => {
+                console.error('Error fetching events:', error);
+            });
 
             // Render the calendar
             calendarInstance.render();
         },
-
         
+        closeModal() {
+            overlay.classList.add("hidden");
+            this.isModalOpen = false
+        },
+
+        // Method to open the event modal and populate it with event details
+        showEventModal(info) {
+            // Get the event information
+            const event = info.event;
+            
+            // Extract the necessary details from the event object
+            const modalEventData = {
+                title: event.title,
+                start: event.start,
+                end: event.end,
+                description: event.extendedProps.description,
+                location: event.extendedProps.location,
+                completed: event.extendedProps.completed
+            };
+
+            // Assign the modalEventData to modalEvent data property
+            this.modalEvent = modalEventData;
+            
+            overlay.classList.remove("hidden");
+            this.isModalOpen = true
+        },
+
         toggleView() {
             console.log("toggle view");
             if (calendarInstance) {
