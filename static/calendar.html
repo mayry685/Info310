@@ -4,26 +4,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modalStyle.css">
+    <link rel="stylesheet" href="css/calendarStyle.css">
     
     <body> 
         <main>
-        <nav>
-            <a class="nav-link" href=".">Home</a>
+            <navmenu></navmenu>
 
-            <a class="nav-link" href="sign-in.html">Sign In</a>
+            <header>
+                <h1 class="cal-title">Calender</h1>
+            </header>
 
-            <a class="nav-link" href ="create-account.html">Create Account</a>
+            <section class="modal" v-if="isModalOpen">
+                <div class="flex">
+                    <h2>{{ modalEvent.title }}</h2>
+                    <button @click="closeModal" class="btn-close">⨉</button>
+                </div>
+                <p><strong>Start Date:</strong> {{ modalEvent.start }}</p>
+                <p><strong>End Date:</strong> {{ modalEvent.end }}</p>
+                <p><strong>Description:</strong> {{ modalEvent.description }}</p>
+                <p><strong>Location:</strong> {{ modalEvent.location }}</p>
+                <p><strong>Completed:</strong> {{ modalEvent.completed }}</p>
+            </section>
 
-        </nav>
+            <div @click="closeModal" class="overlay hidden"></div>
 
-        <header>
-            <h1>SIGN IN</h1>
-        </header>
-            
-        <!--<button id="toggleViewBtn">Toggle View</button>-->
-        <button @click="toggleView">Toggle View</button>
-            
-        <div id='calendar'></div>
+            <div id="calendar-container"> <!-- Container for the calendar -->
+                <button @click="toggleView" id="toggle-view">Toggle View</button>
+                <div id='calendar'></div> <!-- Calendar element -->
+            </div>
+        </main>
 
 
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
