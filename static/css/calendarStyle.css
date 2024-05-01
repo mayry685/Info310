@@ -29,3 +29,15 @@
     color: var(--fc-button-text-color);
 
 }
+
+header {
+    text-align: center;
+    padding: 0.5%;
+    padding-top: 2.5%;
+    margin-bottom: 30px;
+    
+}
+
+.overlay{
+    z-index: 50;
+}
