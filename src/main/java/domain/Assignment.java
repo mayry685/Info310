@@ -20,6 +20,7 @@ public class Assignment {
     private String AssignmentDescription;
     private Timestamp DueDate;
     private int Weight;
+    private String CourseName; // this is optional data field
 
     public Assignment(int AssignmentID, String CourseID, String AssignmentName, String AssignmentDescription, Timestamp DueDate, int Weight) {
         this.AssignmentID = AssignmentID;
@@ -80,6 +81,14 @@ public class Assignment {
 
     public void setWeight(int Weight) {
         this.Weight = Weight;
+    }
+
+    public String getCourseName() {
+        return CourseName;
+    }
+
+    public void setCourseName(String CourseName) {
+        this.CourseName = CourseName;
     }
 
     @Override
