@@ -12,7 +12,7 @@
             <navmenu></navmenu>
 
             <header>
-                <h1 class="cal-title">Calender</h1>
+                <h1 class="cal-title">Calendar</h1>
             </header>
 
             <section class="modal" v-if="isModalOpen">
@@ -30,7 +30,7 @@
             <div @click="closeModal" class="overlay hidden"></div>
 
             <div id="calendar-container"> <!-- Container for the calendar -->
-                <button @click="toggleView" id="toggle-view">Toggle View</button>
+                <button @click="toggleView" id="toggle-view">{{ nextCalendarView }}</button>
                 <div id='calendar'></div> <!-- Calendar element -->
             </div>
         </main>

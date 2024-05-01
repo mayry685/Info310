@@ -16,7 +16,8 @@ const app = Vue.createApp({
     data() {
         return {
             isModalOpen: false, // Indicates whether the modal is open or closed
-            modalEvent: {}      // Holds the details of the event currently displayed in the modal
+            modalEvent: {},      // Holds the details of the event currently displayed in the modal
+            nextCalendarView: "Weekly Calendar"
         };
     },
 
@@ -53,7 +54,8 @@ const app = Vue.createApp({
                     end: new Date(event.EndDate), // End date of the event
                     description: event.EventDescription, // Description of the event
                     location: event.Location, // Location of the event
-                    completed: event.Completed // Whether the event is completed or not
+                    completed: event.Completed, // Whether the event is completed or not
+                    color: 'blue'
                 }));
 
                 // Add the events to the calendar
@@ -65,6 +67,36 @@ const app = Vue.createApp({
 
             // Render the calendar
             calendarInstance.render();
+            
+            
+            
+            // Fetch assignments data from the API
+//            const url = '/api/assignments/searchByCourseID';
+
+            // Sending the GET request to fetch assignments
+            axios.get("/api/assignments/searchByAccountID", {
+                params: {
+                    AccountID: dataStore.state.signedInUser.AccountId
+                }
+            })
+            .then((response) => {
+                // Assuming the API response contains assignments data in a suitable format
+                var assignments = response.data.map(assignment => ({
+                    id: assignment.AssignmentID, // Unique identifier for the assignment
+                    title: assignment.AssignmentName, // Title of the assignment
+                    start: new Date(assignment.DueDate), // Due date of the assignment
+                    end: new Date(assignment.DueDate), // Due date of the assignment (assuming it's also the end date)
+                    description: assignment.AssignmentDescription, // Description of the assignment
+                    weight: assignment.Weight, // Weight of the assignment
+                    color: 'green'
+                }));
+
+                // Add the assignments to the calendar
+                calendarInstance.addEventSource(assignments);
+            })
+            .catch((error) => {
+                console.error('Error fetching assignments:', error);
+            });
         },
         
         closeModal() {
@@ -105,15 +137,19 @@ const app = Vue.createApp({
                 switch (currentView) {
                     case 'dayGridMonth':
                         nextView = 'dayGridWeek';
+                        this.nextCalendarView = "Daily Calendar";
                         break;
                     case 'dayGridWeek':
                         nextView = 'timeGridDay';
+                        this.nextCalendarView = "Monthly Calendar";
                         break;
                     case 'timeGridDay':
                         nextView = 'dayGridMonth';
+                        this.nextCalendarView = "Weekly Calendar";
                         break;
                     default:
                         nextView = 'dayGridMonth';
+                        this.nextCalendarView = "Weekly Calendar";
                         break;
                 }
 
