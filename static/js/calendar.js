@@ -17,9 +17,15 @@ const app = Vue.createApp({
         return {
             isEventModalOpen: false, // Indicates whether the modal is open or closed
             isAssignmentModalOpen: false, // Indicates whether the modal is open or closed
+            isAddEventModalOpen: false,
             modalEvent: {},      // Holds the details of the event currently displayed in the modal
             modalAssignment: {},      // Holds the details of the event currently displayed in the modal
-            nextCalendarView: "Weekly Calendar"
+            nextCalendarView: "Weekly Calendar",
+            eventName: '',
+            startDate: '',
+            endDate: '',
+            eventDescription: '',
+            location: ''
         };
     },
 
@@ -107,6 +113,12 @@ const app = Vue.createApp({
             overlay.classList.add("hidden");
             this.isEventModalOpen = false
             this.isAssignmentModalOpen = false
+            this.isAddEventModalOpen = false
+            this.endDate = ''
+            this.startDate = ''
+            this.location = ''
+            this.eventDescription = ''
+            this.eventName = ''
         },
 
         // Method to open the event modal and populate it with event details
@@ -186,6 +198,60 @@ const app = Vue.createApp({
                 // Change the calendar view to the next view
                 calendarInstance.changeView(nextView);
             }
+        },
+        
+        addEventModal() {
+            overlay.classList.remove("hidden");
+            this.isAddEventModalOpen = true
+        },
+        
+        addEvent() {
+            function formatDate(isoDate) {
+                const date = new Date(isoDate);
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                const month = months[date.getMonth()];
+                const day = date.getDate();
+                const year = date.getFullYear();
+                let hour = date.getHours();
+                let minute = date.getMinutes();
+                let second = date.getSeconds();
+                const ampm = hour >= 12 ? 'PM' : 'AM';
+
+                // Convert hour from 24-hour format to 12-hour format
+                hour = hour % 12;
+                hour = hour ? hour : 12; // Handle midnight (0:00) as 12 AM
+
+                // Add leading zero if minute or second is less than 10
+                minute = minute < 10 ? '0' + minute : minute;
+                second = second < 10 ? '0' + second : second;
+
+                const formattedDate = `${month} ${day}, ${year}, ${hour}:${minute}:${second} ${ampm}`;
+                return formattedDate;
+            }
+            
+            const eventData = {
+                EventName: this.eventName,
+                StartDate: formatDate(this.startDate),
+                EndDate: formatDate(this.endDate),
+                EventDescription: this.eventDescription,
+                Location: this.location,
+                AccountID: dataStore.state.signedInUser.AccountId
+                // Add more properties as needed
+            };
+            
+            console.log(eventData)
+            
+            // Send eventData to the backend API using Axios
+            axios.post('/api/events/CreateEvent', eventData)
+                .then(response => {
+                    console.log('Event created:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error adding event:', error);
+                });
+                
+            this.closeModal()
+            this.loadCalendar()
         }
     }
 });
