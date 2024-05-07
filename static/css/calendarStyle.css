@@ -27,6 +27,7 @@
     background-color: var(--fc-button-bg-color);
     border-color: var(--fc-button-border-color);
     color: var(--fc-button-text-color);
+    margin-left: 10px
 
 }
 

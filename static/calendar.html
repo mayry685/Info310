@@ -37,11 +37,47 @@
                 <p><strong>Course:</strong> {{ modalAssignment.courseName }}</p>
                 <p><strong>Weight:</strong> {{ modalAssignment.weight }}</p>
             </section>
+            
+            <section class="modal" v-if="isAddEventModalOpen">
+                <div class="flex">
+                    <h2>Add Event</h2>
+                    <button @click="closeModal" class="btn-close">⨉</button>
+                </div>
+                <form @submit.prevent="addEvent" class="vertical-form">
+                    <div class="form-group">
+                        <label for="eventName">Event Name:</label>
+                        <input type="text" id="eventName" v-model="eventName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date:</label>
+                        <input type="datetime-local" id="startDate" v-model="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date:</label>
+                        <input type="datetime-local" id="endDate" v-model="endDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Event Description:</label>
+                        <textarea id="eventDescription" v-model="eventDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" v-model="location" required>
+                    </div>
+                    <!-- Add more form fields as needed -->
+
+                    <button type="submit" class="btn-add">Add Event</button>
+                </form>
+            </section>
+
 
             <div @click="closeModal" class="overlay hidden"></div>
 
             <div id="calendar-container"> <!-- Container for the calendar -->
-                <button @click="toggleView" id="toggle-view">{{ nextCalendarView }}</button>
+                <div>
+                    <button @click="toggleView" id="toggle-view">{{ nextCalendarView }}</button>
+                    <button @click="addEventModal" id="toggle-view">Add Event</button>
+                </div>
                 <div id='calendar'></div> <!-- Calendar element -->
             </div>
         </main>
