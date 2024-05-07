@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <title>Paper Selection</title>
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+    </head>
+    <body>
+        <main>
+            <navmenu></navmenu>
+            <header>
+                <h1 id="title">Paper Selection</p>
+            </header>
+
+            <div class="index-section1">
+                <fieldset class="input">
+                    <legend>Select Additional Papers</legend>
+                    <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
+                    <form @submit.prevent="enrol(selectedCourse)" class="form-container">
+                        <label style="display: inline">Paper: </label>
+                        <select name="courses" class="input-field" v-model="selectedCourse" style="display:inline">
+                            <option v-for="course in courses" :value="course.CourseId">{{ course.CourseName }}</option>
+                        </select>
+                        <button style="display: block; margin: 20px auto;" class="input" type="submit">
+                            Add Paper
+                        </button>
+                </fieldset>
+                <fieldset class="input">
+                    <legend>Current Papers</legend>
+                    <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
+                    <div v-if="isEmptyCourseList()">
+                        <label>You have no selected papers.</label>
+                    </div>
+                    <div v-for="courseList in courseLists" class="courselist-field">
+                        <label class="courselist-field">{{ courseList.CourseID }}  -  {{courseList.CourseName }}</label>
+                        <button class="courselist-field" @click="drop(courseList.CourseListID)">X</button>
+                        <hr>
+                      </div>
+
+
+                </fieldset>
+                
+            </div>
+
+        </main>
+        <script type="module" src="js/paper-selection.js"></script>
+    </body>
+</html>

@@ -81,7 +81,6 @@ section ul {
     list-style: none;
     padding-left: 20px;
 }
-
 section ul li {
     margin-bottom: 10px;
     color: #333;
@@ -128,7 +127,10 @@ section ul li {
 .input label {
     display: block;
     margin-bottom: 6px;
+    margin-left: 4px;
+    margin-right: 2px;
     color: #003366;
+    text-align:left;
 }
 
 .input input[type="text"],
@@ -161,8 +163,63 @@ section ul li {
     background-color: #003366; /* Darker shade of University of Otago Blue */
 }
 
+/* Style for input fields */
+.input-field {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+/* Style for select element */
+.input-field[type="select"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+/*Style for paper selection fields*/
+.courselist-field {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 2px;
+    margin: 4%;
+}
+
+.courselist-field button {
+    background-color: rgb(219, 3, 3);
+    color: black;
+    width: 22px;
+    height: 22px;
+    justify-self: end;
+    margin-right: 20%;
+}
+.courselist-field button:hover {
+    background-color: darkred;
+}
+
+.courselist-field hr {
+    width:184%
+}
 
 
 
+/* Style for the label */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 
-
+/* Style for the legend */
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

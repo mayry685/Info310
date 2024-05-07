@@ -37,7 +37,7 @@ public interface EventsJdbiDAO extends CredentialsValidator {
     @RegisterBeanMapper(Event.class)
     public Collection<Event> searchByAccountId(@Bind("AccountID") String accountID);
     
-    @SqlQuery("SELECT e.*\n" +
+    @SqlQuery("SELECT DISTINCT e.*\n" +
 "FROM events e\n" +
 "left join courselist cl ON e.CourseID = cl.courseid\n" +
 "WHERE e.accountid = :AccountID OR cl.accountid = :AccountID;")

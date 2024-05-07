@@ -13,11 +13,13 @@ public class Course {
     //datafields
     private String CourseId;
     private String CourseName;
+    private String CourseCode;
     private String CourseDescription;
 
-    public Course(String CourseId, String CourseName, String CourseDescription) {
+    public Course(String CourseId, String CourseName, String CourseCode, String CourseDescription) {
         this.CourseId = CourseId;
         this.CourseName = CourseName;
+        this.CourseCode = CourseCode;
         this.CourseDescription = CourseDescription;
     }
     
@@ -39,6 +41,14 @@ public class Course {
 
     public void setCourseName(String CourseName) {
         this.CourseName = CourseName;
+    }
+
+    public String getCourseCode() {
+        return CourseCode;
+    }
+
+    public void setCourseCode(String CourseCode) {
+        this.CourseCode = CourseCode;
     }
 
     public String getCourseDescription() {

@@ -7,10 +7,10 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public class JdbiDaoFactory {
 
-    private static final String DB_USERNAME = "postgres.lycknztdgdkgxdvbkdkj";
+    private static String DB_USERNAME = "postgres.lycknztdgdkgxdvbkdkj";
     private static final String DB_PASSWORD = "Info310P@sscode";
 
-    private static final String JDBC_URI = "jdbc:postgresql://aws-0-ap-southeast-2.pooler.supabase.com:5432/postgres";
+    private static  String JDBC_URI = "jdbc:postgresql://aws-0-ap-southeast-2.pooler.supabase.com:5432/postgres";
 
     private static HikariDataSource HIKARI_DATA_SOURCE;
     private static Jdbi JDBI;
@@ -26,6 +26,14 @@ public class JdbiDaoFactory {
         JDBI = Jdbi.create(HIKARI_DATA_SOURCE);
         JDBI.installPlugin(new SqlObjectPlugin());
     }
+
+    public static void changeUserName(String username) {
+        DB_USERNAME = username;
+    };
+
+    public static void changeJdbcUri(String jdbcUri) {
+        JDBC_URI = jdbcUri;
+    };
 
     public static AccountJdbiDAO getAccountDAO() {
         if (HIKARI_DATA_SOURCE == null) {
@@ -61,5 +69,12 @@ public class JdbiDaoFactory {
         }
         return JDBI.onDemand(AssignmentsJdbiDAO.class);
     }  
+
+    public static SchemaDAO getSchemaDAO() {
+        if (HIKARI_DATA_SOURCE == null) {
+            initialisePool();
+        }
+        return JDBI.onDemand(SchemaDAO.class);
+    }
 }
 

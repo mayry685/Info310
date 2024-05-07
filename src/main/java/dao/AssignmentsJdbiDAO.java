@@ -21,6 +21,18 @@ public interface AssignmentsJdbiDAO extends CredentialsValidator {
     @SqlQuery("SELECT * FROM assignment WHERE AssignmentID = :AssignmentID")
     @RegisterBeanMapper(Assignment.class)
     public Assignment getByAssignmentID(@Bind("AssignmentID") int AssignmentID);
+    
+    @SqlQuery("SELECT * FROM assignment WHERE CourseID = :CourseID")
+    @RegisterBeanMapper(Assignment.class)
+    public Collection<Assignment> getByCourseID(@Bind("CourseID") int CourseID);
+    
+    @SqlQuery("SELECT DISTINCT a.*, c.coursename\n" +
+"FROM assignment a\n" +
+"left join courselist cl ON a.CourseID = cl.courseid\n" +
+"LEFT JOIN course c ON cl.CourseID = c.CourseID\n" +
+"WHERE cl.accountid = :AccountID;")
+    @RegisterBeanMapper(Assignment.class)
+    public Collection<Assignment> getByAccountID(@Bind("AccountID") String accountID);
 
     @SqlUpdate("INSERT INTO assignment (CourseID, AssignmentName, AssignmentDescription, DueDate, Weight)\n" +
                 "VALUES (:assignment.courseID, :assignment.assignmentName, :assignment.assignmentDescription, :assignment.dueDate, :assignment.weight);")
