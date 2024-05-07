@@ -81,7 +81,6 @@ section ul {
     list-style: none;
     padding-left: 20px;
 }
-
 section ul li {
     margin-bottom: 10px;
     color: #333;
@@ -148,9 +147,10 @@ section ul li {
     display: block;
     align-content: center;
     width: 40%;
+    margin-top: 30px;
     margin-left:31%;
     padding: 1%;
-    margin-bottom:1px;
+    margin-bottom:2%;
     background-color: #00539f;
     color: white;
     border:  none;
@@ -223,11 +223,3 @@ legend {
     font-weight: bold;
     margin-bottom: 10px;
 }
-
-
-
-
-
-
-
-
