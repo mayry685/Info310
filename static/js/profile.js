@@ -60,6 +60,9 @@ const app = Vue.createApp({
         },
         
         saveProfile() {
+            if (this.errorCheck()) {
+                return
+            }
             // Send edited profile data to the backend API using Axios
             axios.put('/api/accounts/update', this.editedProfile)
                 .then(response => {
@@ -74,6 +77,58 @@ const app = Vue.createApp({
                     console.error('Error updating profile:', error);
                     // Handle error appropriately
                 });
+        },
+        
+        errorCheck() {
+            var errors = []
+            if (this.editedProfile.UserName.length < 6) {
+                errors.push("Username must have 6 or more characters")
+            } else {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "api/accounts/usernames", false); // false indicates synchronous request
+                xhr.send();
+
+                if (xhr.status === 200) {
+                    var usernames = JSON.parse(xhr.responseText);
+                    if (usernames.includes(this.editedProfile.UserName)) {
+                        xhr = new XMLHttpRequest();
+                        // Construct the URL with the ID parameter
+                        var url = "api/accounts/searchByAccountID?id=" + encodeURIComponent(dataStore.state.signedInUser.AccountId);
+                        // Open the request, with synchronous flag set to false
+                        xhr.open("GET", url, false);
+                        xhr.setRequestHeader("Authorization", dataStore.state.authToken);
+                        xhr.send();
+                        
+                        if (this.editedProfile.UserName != JSON.parse(xhr.responseText).UserName) {
+                            errors.push("Username is taken");
+                        }
+                    }
+                } else {
+                    alert("Connection Error");
+                }
+            }
+            
+            if (this.editedProfile.Password.length < 6) {
+                errors.push("Password must have 6 or more characters")
+            }
+            var validStatus = ["Student", "Teacher"]
+            if (!validStatus.includes(this.editedProfile.Status)) {
+                var message = ""
+                validStatus.forEach(function(element, index) {
+                    if (index === 0) {
+                        message += element;
+                    } else if (index === validStatus.length - 1) {
+                        message += " or " + element;
+                    } else {
+                        message += ", " + element;
+                    }
+                });
+                
+                errors.push("Status must be either: " + message)
+            }
+            
+            dataStore.commit("error", errors)
+            return errors.length != 0
         }
     }
 });

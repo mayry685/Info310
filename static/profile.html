@@ -28,6 +28,7 @@
                         <p><strong>Status:</strong> {{ profile.Status }}</p>
                     </div>
                     <div v-if="isEditingProfile" class="edit-profile">
+                        <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
                         <input v-model="editedProfile.AccountCode" placeholder="Account Code">
                         <input v-model="editedProfile.FirstName" placeholder="First Name">
                         <input v-model="editedProfile.LastName" placeholder="Last Name">
