@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Profile</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/profile.css">
+    </head>
+    
+    <body> 
+        <main>
+            <navmenu></navmenu>
+
+            <header>
+                <h1 class="profile-title">User Profile</h1>
+            </header>
+            <div class="profile-container">
+                <section class="profile">
+                    <div class="profile-info" v-if="!isEditingProfile">
+                        <p><strong>Account ID:</strong> {{ profile.AccountId }}</p>
+                        <p><strong>Account Code:</strong> {{ profile.AccountCode }}</p>
+                        <p><strong>First Name:</strong> {{ profile.FirstName }}</p>
+                        <p><strong>Last Name:</strong> {{ profile.LastName }}</p>
+                        <p><strong>Username:</strong> {{ profile.UserName }}</p>
+                        <p><strong>Password:</strong> {{ profile.Password }}</p> <!-- Note: It's generally not recommended to display passwords -->
+                        <p><strong>Email:</strong> {{ profile.Email }}</p>
+                        <p><strong>Status:</strong> {{ profile.Status }}</p>
+                    </div>
+                    <div v-if="isEditingProfile" class="edit-profile">
+                        <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
+                        <input v-model="editedProfile.AccountCode" placeholder="Account Code">
+                        <input v-model="editedProfile.FirstName" placeholder="First Name">
+                        <input v-model="editedProfile.LastName" placeholder="Last Name">
+                        <input v-model="editedProfile.UserName" placeholder="Username">
+                        <input v-model="editedProfile.Password" placeholder="Password" type="password">
+                        <input v-model="editedProfile.Email" placeholder="Email">
+                        <input v-model="editedProfile.Status" placeholder="Status">
+                        <button @click="saveProfile">Save</button>
+                        <button @click="toggleEdit">Cancel</button>
+                    </div>
+                    <button v-else @click="toggleEdit">Edit</button>
+                </section>
+            </div>
+
+        </main>
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <script type="module" src="js/profile.js"></script>
+    </body>
+</html>

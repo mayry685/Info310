@@ -27,6 +27,10 @@ public interface AccountJdbiDAO extends CredentialsValidator {
     @RegisterBeanMapper(Account.class)
     public Account getAccountsByUsername(@Bind("username") String username);
     
+    @SqlQuery("SELECT * FROM account where AccountID=:accountId")
+    @RegisterBeanMapper(Account.class)
+    public Account getAccountsById(@Bind("accountId") String accountId);
+    
     @SqlQuery("Select username FROM account")
     public Collection<String> getUsernames();
     

@@ -30,6 +30,18 @@ public class AccountModule extends Jooby {
             }
     
         });
+        get("/api/accounts/searchByAccountID", ctx -> {
+            String id = ctx.query("id").value();
+            Account account = dao.getAccountsById(id);
+
+            if (account == null) {
+                ctx.setResponseCode(StatusCode.NOT_FOUND);
+                return "User with Account ID '" + id + "' not found.";
+            } else {
+                return account;
+            }
+    
+        });
         get("/api/accounts/usernames", ctx -> {
             return dao.getUsernames();
         });
