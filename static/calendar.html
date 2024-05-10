@@ -46,6 +46,7 @@
                     <button @click="closeModal" class="btn-close">⨉</button>
                 </div>
                 <form @submit.prevent="addEvent" class="vertical-form">
+                    <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
                     <div class="form-group">
                         <label for="eventName">Event Name:</label>
                         <input type="text" id="eventName" v-model="eventName" required>
