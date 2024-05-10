@@ -13,6 +13,7 @@ main {
     padding: 20px;
 }
 
+body {font-family: "Lato", sans-serif;}
 
 /* Navigation */
 nav {
@@ -237,3 +238,35 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+
+/* Style the tab buttons */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tablink:hover {
+    background-color: #777;
+  }
+  
+  /* Set default styles for tab content */
+  .tabcontent {
+    color: white;
+    display: none;
+    padding: 50px;
+    text-align: center;
+  }
+  
+  /* Style each tab content individually */
+  #task-management {background-color:red;}
+  #Priority-Setting {background-color:green;}
+  #Progress-Tracking {background-color:blue;}

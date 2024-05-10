@@ -21,6 +21,33 @@
     background-color: transparent;
     border: 1px solid transparent;
     border-radius: 0.25em;
+    display: flex;
+    justify-self: left;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.4em 0.65em;
+    margin-right:42%;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    background-color: var(--fc-button-bg-color);
+    border-color: var(--fc-button-border-color);
+    color: var(--fc-button-text-color);
+    margin-left: 10px;
+    
+
+}
+
+a{
+    text-decoration: none;
+    margin-top:7%;
+}
+
+#secondnavbtn{
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25em;
     display: inline-block;
     font-size: 1em;
     font-weight: 400;
@@ -33,8 +60,6 @@
     border-color: var(--fc-button-border-color);
     color: var(--fc-button-text-color);
     margin-left: 10px;
-    
-    
 
 }
 
