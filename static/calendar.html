@@ -14,7 +14,7 @@
             <navmenu></navmenu>
 
             <header>
-                <h1 class="cal-title">Calendar</h1>
+                <h1 class="cal-title">Student Homepage</h1>
             </header>
 
             <section class="modal" v-if="isEventModalOpen">
@@ -68,20 +68,25 @@
                     </div>
                     <!-- Add more form fields as needed -->
 
-                    <button type="submit" class="btn-add">Add Event</button>
+                    <button type="submit" class="btn">Add Event</button>
                 </form>
             </section>
 
 
             <div @click="closeModal" class="overlay hidden"></div>
 
+        
+
             <div id="calendar-container"> <!-- Container for the calendar -->
-                <div>
-                    <button @click="toggleView" id="toggle-view">{{ nextCalendarView }}</button>
+                <div id="secondnav">
                     <button @click="addEventModal" id="toggle-view">Add Event</button>
+                    <button @clikc="addPaperModal"id="toggle-view"  >Add Paper</button>
                 </div>
+
+                <button @click="toggleView" id="toggle-view">{{ nextCalendarView }}</button>
                 <div id='calendar'></div> <!-- Calendar element -->
             </div>
+
         </main>
 
 

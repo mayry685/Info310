@@ -8,6 +8,11 @@
     flex-direction: column; /* Stack children vertically */
 }
 
+#secondnav{
+    padding-bottom:5%;
+
+}
+
 #calendar {
     width: 50vw;
 }
@@ -27,7 +32,9 @@
     background-color: var(--fc-button-bg-color);
     border-color: var(--fc-button-border-color);
     color: var(--fc-button-text-color);
-    margin-left: 10px
+    margin-left: 10px;
+    
+    
 
 }
 

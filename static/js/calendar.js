@@ -199,6 +199,8 @@ const app = Vue.createApp({
                 calendarInstance.changeView(nextView);
             }
         },
+
+    
         
         addEventModal() {
             overlay.classList.remove("hidden");
