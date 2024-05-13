@@ -1,15 +1,36 @@
 #calendar-container {
-    flex: 1; /* Fill remaining vertical space */
+    flex: 1;
+    /* Fill remaining vertical space */
     text-align: center;
-    overflow: hidden; /* Hide overflow */
+    overflow: hidden;
+    /* Hide overflow */
     display: flex;
-    justify-content: center; /* Center children horizontally */
-    align-items: center; /* Center children vertically */
-    flex-direction: column; /* Stack children vertically */
+    justify-content: center;
+    /* Center children horizontally */
+    align-items: center;
+    /* Center children vertically */
+    flex-direction: column;
+    /* Stack children vertically */
 }
 
-#secondnav{
-    padding-bottom:5%;
+header {
+    text-align: center;
+    padding: 15%;
+    font-weight: 600;
+    color: #fdfdfe;
+    text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff, 0px 0px 10px #f3b30b,
+        0px 0px 20px #f3b30b;
+    background-color: rgba(243, 179, 11, 0.2);
+}
+header h1{
+    color: #00539f;
+    margin-bottom: 2%;
+    font-size: 50px;
+}
+
+#secondnav {
+    padding-bottom: 5%;
+    width: 100%;
 
 }
 
@@ -27,7 +48,7 @@
     font-weight: 400;
     line-height: 1.5;
     padding: 0.4em 0.65em;
-    margin-right:42%;
+    margin-right: 42%;
     text-align: center;
     user-select: none;
     vertical-align: middle;
@@ -35,16 +56,16 @@
     border-color: var(--fc-button-border-color);
     color: var(--fc-button-text-color);
     margin-left: 10px;
-    
+
 
 }
 
-a{
+a {
     text-decoration: none;
-    margin-top:7%;
+    margin-top: 7%;
 }
 
-#secondnavbtn{
+#secondnavbtn {
     background-color: transparent;
     border: 1px solid transparent;
     border-radius: 0.25em;
@@ -61,16 +82,11 @@ a{
     color: var(--fc-button-text-color);
     margin-left: 10px;
 
+
 }
 
-header {
-    text-align: center;
-    padding: 0.5%;
-    padding-top: 2.5%;
-    margin-bottom: 30px;
-    
-}
 
-.overlay{
+
+.overlay {
     z-index: 50;
 }
