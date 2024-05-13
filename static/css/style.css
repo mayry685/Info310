@@ -13,7 +13,10 @@ main {
     padding: 20px;
 }
 
-body {font-family: "Lato", sans-serif;}
+body {font-family: "Lato", sans-serif;
+   
+
+}
 
 /* Navigation */
 nav {
@@ -37,11 +40,15 @@ nav a:hover {
 }
 
 /* Header */
-header {
+
+header{
     text-align: center;
     padding: 5%;
-    margin-bottom: 30px;
-    
+  font-weight: 600;
+  color: #fdfdfe;
+  text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff, 0px 0px 10px #f3b30b,
+    0px 0px 20px #f3b30b;
+    background-color: rgba(243, 179, 11, 0.2);
 }
 
 .headers-divider{
@@ -53,6 +60,7 @@ header {
 header h1 {
     color: #00539f;
     margin-bottom: 2%;
+    font-size: 50px;
 }
 
 header p {
@@ -242,15 +250,17 @@ th {
 
 /* Style the tab buttons */
 .tablink {
-    background-color: #555;
+    
     color: white;
-    float: left;
+    display: inline-block;
     border: none;
     outline: none;
     cursor: pointer;
     padding: 14px 16px;
     font-size: 17px;
-    width: 25%;
+    width: 33.33%;
+    justify-content: center;
+    
   }
   
   /* Change background color of buttons on hover */
@@ -268,5 +278,8 @@ th {
   
   /* Style each tab content individually */
   #task-management {background-color:red;}
-  #Priority-Setting {background-color:green;}
-  #Progress-Tracking {background-color:blue;}
+
+  #priority-Setting {background-color:green;}
+  
+  #progress-Tracking {background-color:blue;}
+  
