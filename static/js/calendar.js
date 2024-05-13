@@ -10,7 +10,8 @@ const app = Vue.createApp({
     mixins: [BasicAccessAuthentication],
 
     mounted() {
-        this.loadCalendar()
+        this.loadCalendar(),
+        this.loadToggleButton()
     },
     
     data() {
@@ -25,7 +26,8 @@ const app = Vue.createApp({
             startDate: '',
             endDate: '',
             eventDescription: '',
-            location: ''
+            location: '',
+            button: null
         };
     },
 
@@ -197,6 +199,24 @@ const app = Vue.createApp({
 
                 // Change the calendar view to the next view
                 calendarInstance.changeView(nextView);
+                this.button.textContent = this.nextCalendarView;
+            }
+        },
+
+        loadToggleButton() {
+            // Troup of buttons we want to insert into
+            const toolbarChunk = document.querySelector('.fc-toolbar-chunk:nth-child(3)');
+            this.button = document.createElement('button');
+            // To style it correctly
+            this.button.setAttribute('class', 'fc-button fc-button-primary');
+            this.button.textContent = this.nextCalendarView;
+            this.button.addEventListener('click', this.toggleView);
+
+            // Insert to the front
+            if (toolbarChunk.firstChild) {
+                toolbarChunk.insertBefore(this.button, toolbarChunk.firstChild);
+            } else {
+                toolbarChunk.appendChild(this.button);
             }
         },
 
