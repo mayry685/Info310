@@ -46,18 +46,18 @@
 #secondnavlink {
     text-decoration: none;
     margin-top: 7%;
-    background-color: transparent;
-    border: 1px solid transparent;
+    background-color: #00539f;
+    border: 1px solid #00539f;
     border-radius: 0.25em;
-    display: inline-block;
+    display: block;
     font-size: 1em;
     font-weight: 400;
     line-height: 1.5;
     padding: 0.5em 0.65em;
     text-align: center;
     user-select: none;
-    vertical-align: middle;
-    background-color: var(--fc-button-bg-color);
+    float:left;
+    border-radius: 0;
     border-color: var(--fc-button-border-color);
     color: var(--fc-button-text-color);
     margin-left: 10px;
@@ -65,21 +65,22 @@
 
 
 #secondnavbtn {
-    background-color: transparent;
+    
     border: 1px solid transparent;
     border-radius: 0.25em;
-    display: inline-block;
+    display: block;
     font-size: 1em;
     font-weight: 400;
     line-height: 1.5;
     padding: 0.5em 0.65em;
     text-align: center;
     user-select: none;
-    vertical-align: middle;
-    background-color: var(--fc-button-bg-color);
+    float: left;
+    background-color:#00539f;
     border-color: var(--fc-button-border-color);
     color: var(--fc-button-text-color);
     margin-left: 10px;
+    border-radius: 0;
 
 }
 
