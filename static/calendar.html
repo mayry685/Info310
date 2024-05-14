@@ -15,7 +15,7 @@
         <navmenu></navmenu>
 
         <header>
-            <h1 class="cal-title">Student Homepage</h1>
+            <h1 class="title">Student Homepage</h1>
         </header>
 
         <section class="modal" v-if="isEventModalOpen">
@@ -80,16 +80,13 @@
 
         <div id="calendar-container"> <!-- Container for the calendar -->
             
-                <row id="secondnav">
-                <col></col>
-                <col>
+                
+                <div id="secondnav">
                     <button @click="addEventModal" id="secondnavbtn">Add Event</button>
-                </col>
-                <col>
-                    <a href="paper-selection.html" id="secondnavbtn">Add Paper</a>
-            </col>
-            </row>
-            </section>
+                
+                    <a href="paper-selection.html" id="secondnavlink">Add Paper</a>
+                </div>
+            
 
             
             <div id='calendar'></div> <!-- Calendar element -->
