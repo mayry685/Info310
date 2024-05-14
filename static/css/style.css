@@ -192,16 +192,35 @@ section ul li {
     margin: 4%;
 }
 
-.courselist-field button {
+.courselist-field {
+    list-style: none; /* Remove bullet points */
+}
+
+#drop-paper-btn {
     background-color: rgb(219, 3, 3);
+    color: black;
+    width: 20px;
+    height: 20px;
+    justify-self: end;
+    margin-right: 20%;
+    margin-top: 6%;
+}
+#drop-paper-btn button:hover {
+    background-color: darkred;
+}
+
+#add-paper-btn {
+    display: inline;
+    background-color: green;
     color: black;
     width: 22px;
     height: 22px;
     justify-self: end;
     margin-right: 20%;
+    margin-top: 6%;
 }
-.courselist-field button:hover {
-    background-color: darkred;
+#add-paper-btn button:hover {
+    background-color: darkgreen;
 }
 
 .courselist-field hr {

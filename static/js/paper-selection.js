@@ -23,17 +23,31 @@ const app = Vue.createApp({
                 courses: new Array(),
                 course: new Object(),
                 selectedCourse: new Object(),
-                courseLists: new Array()
+                courseLists: new Array(),
+                searchText: ""
             };
         },
         computed: Vuex.mapState({
-            signedInUser: 'signedInUser'
+            signedInUser: 'signedInUser',
         }),
+        computed: {
+            filteredCourses() {
+                // Filter courses based on search text
+                return this.courses.filter(course =>
+                    course.CourseName.toLowerCase().includes(this.searchText.toLowerCase())
+                );
+            },
+            ...Vuex.mapState({
+                signedInUser: 'signedInUser',
+            }),
+        },
         methods: {
             enrol(course) {
                 var signedInUser = dataStore.state.signedInUser;
                 this.selectedCourse = course;
+                console.info(this.selectedCourse);
                 if (typeof(this.selectedCourse) === "object") {
+
                     alert("You have not selected a paper.");
                 } else if (this.signedInUser!== undefined) {
                     
@@ -82,7 +96,6 @@ const app = Vue.createApp({
                 axios.get(`/api/courseList/${signedInUser.AccountId}`)
                 .then(response => {
                     this.courseLists  = response.data;
-                    console.info(this.courseLists);
                 })
                 .catch(error => {
                     console.error(error);
