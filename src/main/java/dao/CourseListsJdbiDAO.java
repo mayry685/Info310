@@ -24,7 +24,7 @@ public interface CourseListsJdbiDAO {
     @RegisterBeanMapper(CourseList.class)
     public CourseList getCourseListByID(@Bind("CourseListID") String CourseListID);
     
-    @SqlQuery("SELECT CourseList.*, Course.CourseName FROM CourseList JOIN Course ON CourseList.CourseID = Course.CourseID WHERE AccountID = :AccountID")
+    @SqlQuery("SELECT CourseList.*, Course.CourseName, Course.CourseCode FROM CourseList JOIN Course ON CourseList.CourseID = Course.CourseID WHERE AccountID = :AccountID")
     @RegisterBeanMapper(CourseList.class)
     public Collection<CourseList> getCourseListsByAccount(@Bind("AccountID") String AccountID);
 

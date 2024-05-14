@@ -15,6 +15,7 @@ public class CourseList {
     private String CourseID;
     private String AccountID;
     private String CourseName;
+    private String CourseCode;
 
     public CourseList(String CourseListID, String CourseID, String AccountID) {
         this.CourseListID = CourseListID;
@@ -22,11 +23,12 @@ public class CourseList {
         this.AccountID = AccountID;
     }
 
-    public CourseList(String CourseListID, String CourseID, String AccountID, String CourseName) {
+    public CourseList(String CourseListID, String CourseID, String AccountID, String CourseName, String CourseCode) {
         this.CourseListID = CourseListID;
         this.CourseID = CourseID;
         this.AccountID = AccountID;
         this.CourseName = CourseName;
+        this.CourseCode = CourseCode;
     }
     
     public CourseList() {
@@ -63,6 +65,14 @@ public class CourseList {
 
     public void setCourseName(String CourseName) {
         this.CourseName = CourseName;
+    }
+    
+    public String getCourseCode() {
+        return CourseCode;
+    }
+
+    public void setCourseCode(String CourseCode) {
+        this.CourseCode = CourseCode;
     }
 
     @Override
