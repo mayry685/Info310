@@ -251,16 +251,29 @@ th {
 /* Style the tab buttons */
 .tablink {
     
-    color: black;
+    color: white;
     display: inline-block;
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 2%;
     font-size: 17px;
     width: 33.33%;
     justify-content: center;
     
+  }
+  #task-link{
+    background-color:#00003E;
+
+  }
+  #priority-link{
+    background-color:#003366;
+
+  }
+
+  #progress-link{
+    background-color:#06069e;
+
   }
   
   /* Change background color of buttons on hover */
@@ -272,14 +285,14 @@ th {
   .tabcontent {
     color: white;
     display: none;
-    padding: 50px;
+    padding: 10%;
     text-align: center;
   }
   
   /* Style each tab content individually */
-  #task-management {background-color:red;}
+  #task-management {background-color:#00003E;}
 
-  #priority-Setting {background-color:green;}
+  #priority-Setting {background-color:#003366;}
   
-  #progress-Tracking {background-color:blue;}
+  #progress-Tracking {background-color:#06069e;}
   

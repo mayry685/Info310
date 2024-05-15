@@ -23,6 +23,11 @@
         </header>
         <hr class="headers-divder">
 
+        <button class="tablink" @click="openAttribute(event,'task-management')" id="task-link">Task
+            Management</button>
+        <button class="tablink" @click="openAttribute(event, 'priority-Setting')" id="priority-link"> Priority Setting</button>
+        <button class="tablink" @click="openAttribute(event, 'progress-Tracking')" id="progress-link">Progress Tracking</button>
+
 
         <div id="task-management" class="tabcontent">
             <h3>Task Management</h3>
@@ -40,10 +45,7 @@
         </div>
 
 
-        <button class="tablink" @click="openAttribute(event,'task-management')" id="defaultOpen">Task
-            Management</button>
-        <button class="tablink" @click="openAttribute(event, 'priority-Setting')">Priority Setting</button>
-        <button class="tablink" @click="openAttribute(event, 'progress-Tracking')">Progress Tracking</button>
+        
 
 
 
