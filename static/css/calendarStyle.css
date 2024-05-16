@@ -12,11 +12,11 @@
     flex-direction: column;
     /* Stack children vertically */
     
+    
 }
 
 
 #calendar {
-
     padding-top: 5%;
     width: 50vw;
 }
