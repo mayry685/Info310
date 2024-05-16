@@ -261,19 +261,23 @@ const app = Vue.createApp({
                 // Add more properties as needed
             };
             
-            console.log(eventData)
+            if (this.endDate < this.startDate) {
+                dataStore.commit("error", ["End date cannot be before start date\n"])
+                return
+            } else {
+                dataStore.commit("error", "")
+            }
             
             // Send eventData to the backend API using Axios
             axios.post('/api/events/CreateEvent', eventData)
                 .then(response => {
-                    console.log('Event created:', response.data);
+                    this.loadCalendar()
                 })
                 .catch(error => {
                     console.error('Error adding event:', error);
                 });
                 
             this.closeModal()
-            this.loadCalendar()
         }
     }
 });
