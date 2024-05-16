@@ -42,3 +42,29 @@ header {
 .overlay{
     z-index: 50;
 }
+
+.remove-button {
+    background-color: #ff4d4d; /* Red background color */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Padding */
+    margin: 5px; /* Margin */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.remove-button:hover {
+    background-color: #ff1a1a; /* Darker red on hover */
+}
+
+.remove-button:active {
+    background-color: #e60000; /* Even darker red on click */
+}
+
+.remove-button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px #ff4d4d; /* Custom focus shadow */
+}

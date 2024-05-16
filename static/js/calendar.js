@@ -133,6 +133,7 @@ const app = Vue.createApp({
             
             // Extract the necessary details from the event object
             const modalEventData = {
+                id: event.id,
                 title: event.title,
                 start: event.start,
                 end: event.end,
@@ -154,6 +155,7 @@ const app = Vue.createApp({
             
             // Extract the necessary details from the event object
             const modalAssignmentData = {
+                id: event.id,
                 title: event.title,
                 dueDate: event.start,
                 description: event.extendedProps.description,
@@ -255,6 +257,38 @@ const app = Vue.createApp({
                     console.error('Error adding event:', error);
                 });
                 
+            this.closeModal()
+        },
+        
+        deleteEvent() {
+            axios.delete('/api/events/deleteEventByID', {
+                params: {
+                    EventID: this.modalEvent.id
+                }
+            })  
+            .then(response => {
+                console.log('Event deleted successfully:', response.data);
+                this.loadCalendar()
+            })
+            .catch(function (error) {
+                console.error('There was an error deleting the event:', error);
+            });
+            this.closeModal()
+        },
+        
+        deleteAssignment() {
+            axios.delete('/api/assignments/DeleteAssignmentByID', {
+                params: {
+                    AssignmentID: this.modalAssignment.id
+                }
+            })  
+            .then(response => {
+                console.log('Assignment deleted successfully:', response.data);
+                this.loadCalendar()
+            })
+            .catch(function (error) {
+                console.error('There was an error deleting the assignment:', error);
+            });
             this.closeModal()
         }
     }
