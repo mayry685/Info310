@@ -14,45 +14,52 @@
 <body>
     <main>
 
-
-
         <navmenu></navmenu>
 
 
-        <header>
+        <header id="mainhead">
             <h1 id="title">Student Workload Assistance</h1>
             <p>Manage your academic workload and stay organized with Student Workload Assistance </p>
         </header>
         <hr class="headers-divder">
 
+        <button class="tablink" @click="openAttribute(event,'task-management')" id="task-link">Task
+            Management</button>
+        <button class="tablink" @click="openAttribute(event, 'priority-Setting')" id="priority-link"> Priority Setting</button>
+        <button class="tablink" @click="openAttribute(event, 'progress-Tracking')" id="progress-link">Progress Tracking</button>
 
 
-        <div class="index-section1">
-
-            <section id="task-management">
-                <h2>Task Management</h2>
-                <p class="features"> Easily organize your assignments, projects, and exams.</p>
-            </section>
-            <section>
-                <h2>Deadline Reminders</h2>
-                <p class="features"> Receive timely notifications for upcoming deadlines.</p>
-            </section>
-            <section>
-                <h2>Priority Setting</h2>
-                <p class="features">Set priorities for tasks to focus on what matters most.</p>
-            </section>
-            <section>
-                <h2>Progress Tracking</h2>
-                <p class="features"> Monitor your progress and stay on top of your academic goals.</p>
-
-            </section>
-
-
+        <div id="task-management" class="tabcontent">
+            
+            <h3 class="features"> Easily organize your assignments, projects, and exams.</h3>
+            <i class="fa-solid fa-calendar-days"></i>
+            <a class="tab-btn" href="sign-in.html">Get Started </a>
         </div>
+
+        <div id="priority-Setting" class="tabcontent">
+            
+            <h3 class="features">Set priorities for tasks to focus on what matters most.</h3>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <a class="tab-btn" href="sign-in.html">Get Started </a>
+        </div>
+
+        <div id="progress-Tracking" class="tabcontent">
+            
+            <h3 class="features"> Monitor your progress and stay on top of your academic goals.</h3>
+            <i class="fa-solid fa-graduation-cap"></i>
+            <a class="tab-btn" href="sign-in.html">Get Started </a>
+            
+        </div>
+
+
+        
+
+
 
 
     </main>
     <script type="module" src="js/index.js"></script>
+    <script src="https://kit.fontawesome.com/0607a032de.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

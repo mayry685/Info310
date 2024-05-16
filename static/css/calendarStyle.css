@@ -1,14 +1,23 @@
 #calendar-container {
-    flex: 1; /* Fill remaining vertical space */
+    flex: 1;
+    /* Fill remaining vertical space */
     text-align: center;
-    overflow: hidden; /* Hide overflow */
+    overflow: hidden;
+    /* Hide overflow */
     display: flex;
-    justify-content: center; /* Center children horizontally */
-    align-items: center; /* Center children vertically */
-    flex-direction: column; /* Stack children vertically */
+    justify-content: center;
+    /* Center children horizontally */
+    align-items: center;
+    /* Center children vertically */
+    flex-direction: column;
+    /* Stack children vertically */
+    
+    
 }
 
+
 #calendar {
+    padding-top: 5%;
     width: 50vw;
 }
 
@@ -16,29 +25,69 @@
     background-color: transparent;
     border: 1px solid transparent;
     border-radius: 0.25em;
-    display: inline-block;
+    display: flex;
+    justify-self: left;
     font-size: 1em;
     font-weight: 400;
     line-height: 1.5;
     padding: 0.4em 0.65em;
+    margin-right: 42%;
     text-align: center;
     user-select: none;
     vertical-align: middle;
     background-color: var(--fc-button-bg-color);
     border-color: var(--fc-button-border-color);
     color: var(--fc-button-text-color);
-    margin-left: 10px
+    margin-left: 10px;
+
 
 }
 
-header {
+#secondnavlink {
+    text-decoration: none;
+    margin-top: 7%;
+    background-color: #00539f;
+    border: 1px solid #00539f;
+    border-radius: 0.25em;
+    display: block;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.5em 0.65em;
     text-align: center;
-    padding: 0.5%;
-    padding-top: 2.5%;
-    margin-bottom: 30px;
-    
+    user-select: none;
+    float:left;
+    border-radius: 0;
+    border-color: var(--fc-button-border-color);
+    color: var(--fc-button-text-color);
+    margin-left: 10px;
 }
 
-.overlay{
+
+#secondnavbtn {
+    
+    border: 1px solid transparent;
+    border-radius: 0.25em;
+    display: block;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.5em 0.65em;
+    text-align: center;
+    user-select: none;
+    float: left;
+    background-color:#00539f;
+    border-color: var(--fc-button-border-color);
+    color: var(--fc-button-text-color);
+    margin-left: 10px;
+    border-radius: 0;
+
+}
+
+
+
+
+
+.overlay {
     z-index: 50;
 }

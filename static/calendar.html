@@ -1,50 +1,67 @@
 <!DOCTYPE html>
 <html lang='en'>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Calendar</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/modalStyle.css">
-        <link rel="stylesheet" href="css/calendarStyle.css">
-    </head>
-    
-    <body> 
-        <main>
-            <navmenu></navmenu>
 
-            <header>
-                <h1 class="cal-title">Calendar</h1>
-            </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modalStyle.css">
+    <link rel="stylesheet" href="css/calendarStyle.css">
+</head>
 
-            <section class="modal" v-if="isEventModalOpen">
-                <div class="flex">
-                    <h2>{{ modalEvent.title }}</h2>
-                    <button @click="closeModal" class="btn-close">⨉</button>
-                </div>
-                <p><strong>Start Date:</strong> {{ modalEvent.start }}</p>
-                <p><strong>End Date:</strong> {{ modalEvent.end }}</p>
-                <p><strong>Description:</strong> {{ modalEvent.description }}</p>
-                <p><strong>Location:</strong> {{ modalEvent.location }}</p>
-                <p><strong>Completed:</strong> {{ modalEvent.completed }}</p>
-            </section>
+<body>
+    <main>
+        <navmenu></navmenu>
 
-            <section class="modal" v-if="isAssignmentModalOpen">
-                <div class="flex">
-                    <h2>{{ modalAssignment.title }}</h2>
-                    <button @click="closeModal" class="btn-close">⨉</button>
+        <header>
+            <h1 class="title">Student Homepage</h1>
+        </header>
+
+        <section class="modal" v-if="isEventModalOpen">
+            <div class="flex">
+                <h2>{{ modalEvent.title }}</h2>
+                <button @click="closeModal" class="btn-close">⨉</button>
+            </div>
+            <p><strong>Start Date:</strong> {{ modalEvent.start }}</p>
+            <p><strong>End Date:</strong> {{ modalEvent.end }}</p>
+            <p><strong>Description:</strong> {{ modalEvent.description }}</p>
+            <p><strong>Location:</strong> {{ modalEvent.location }}</p>
+            <p><strong>Completed:</strong> {{ modalEvent.completed }}</p>
+        </section>
+
+        <section class="modal" v-if="isAssignmentModalOpen">
+            <div class="flex">
+                <h2>{{ modalAssignment.title }}</h2>
+                <button @click="closeModal" class="btn-close">⨉</button>
+            </div>
+            <p><strong>Due Date:</strong> {{ modalAssignment.dueDate }}</p>
+            <p><strong>Description:</strong> {{ modalAssignment.description }}</p>
+            <p><strong>Course:</strong> {{ modalAssignment.courseName }}</p>
+            <p><strong>Weight:</strong> {{ modalAssignment.weight }}</p>
+        </section>
+
+        <section class="modal" v-if="isAddEventModalOpen">
+            <div class="flex">
+                <h2>Add Event</h2>
+                <button @click="closeModal" class="btn-close">⨉</button>
+            </div>
+            <form @submit.prevent="addEvent" class="vertical-form">
+                <div class="form-group">
+                    <label for="eventName">Event Name:</label>
+                    <input type="text" id="eventName" v-model="eventName" required>
                 </div>
-                <p><strong>Due Date:</strong> {{ modalAssignment.dueDate }}</p>
-                <p><strong>Description:</strong> {{ modalAssignment.description }}</p>
-                <p><strong>Course:</strong> {{ modalAssignment.courseName }}</p>
-                <p><strong>Weight:</strong> {{ modalAssignment.weight }}</p>
-            </section>
-            
-            <section class="modal" v-if="isAddEventModalOpen">
-                <div class="flex">
-                    <h2>Add Event</h2>
-                    <button @click="closeModal" class="btn-close">⨉</button>
+                <div class="form-group">
+                    <label for="startDate">Start Date:</label>
+                    <input type="datetime-local" id="startDate" v-model="startDate" required>
                 </div>
+                <div class="form-group">
+                    <label for="endDate">End Date:</label>
+                    <input type="datetime-local" id="endDate" v-model="endDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDescription">Event Description:</label>
+                    <textarea id="eventDescription" v-model="eventDescription" required></textarea>
                 <form @submit.prevent="addEvent" class="vertical-form">
                     <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
                     <div class="form-group">
@@ -81,16 +98,44 @@
                     <button @click="toggleView" id="toggle-view">{{ nextCalendarView }}</button>
                     <button @click="addEventModal" id="toggle-view">Add Event</button>
                 </div>
-                <div id='calendar'></div> <!-- Calendar element -->
-            </div>
-        </main>
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" v-model="location" required>
+                </div>
+                <!-- Add more form fields as needed -->
+
+                <button type="submit" class="btn">Add Event</button>
+            </form>
+        </section>
 
 
-        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-        <script src="js/external/vue.global.js"></script>
-        <script src="js/external/vuex.global.js"></script>
-        <script src="js/external/vuex-persistedstate.js"></script>
-        <script src="js/external/axios.js"></script>
-        <script type="module" src="js/calendar.js"></script>
-    </body>
+        <div @click="closeModal" class="overlay hidden"></div>
+
+
+
+        <div id="calendar-container"> <!-- Container for the calendar -->
+            
+                
+                <div id="secondnav">
+                    <button @click="addEventModal" id="secondnavbtn" >Add Event</button>
+                
+                    <a href="paper-selection.html" id="secondnavlink" >Add Paper</a>
+                </div>
+            
+
+            
+            <div id='calendar'></div> <!-- Calendar element -->
+        </div>
+
+    </main>
+
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src="js/external/vue.global.js"></script>
+    <script src="js/external/vuex.global.js"></script>
+    <script src="js/external/vuex-persistedstate.js"></script>
+    <script src="js/external/axios.js"></script>
+    <script type="module" src="js/calendar.js"></script>
+</body>
+
 </html>
