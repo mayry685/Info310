@@ -66,6 +66,13 @@ const app = Vue.createApp({
                 errors.push("Status must be either: " + message)
             }
             
+            // Check email based on status
+            if (this.account.Status === "Teacher" && !this.account.Email.endsWith("@otago.ac.nz")) {
+                errors.push("Invalid email for Status 'Teacher'");
+            } else if (this.account.Status === "Student" && !(this.account.Email.endsWith("@otago.ac.nz") || this.account.Email.endsWith("@student.otago.ac.nz"))) {
+                errors.push("Invalid email for Status 'Student'");
+            }
+            
             dataStore.commit("error", errors)
             return errors.length != 0
         }
