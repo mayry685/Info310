@@ -11,7 +11,11 @@ const app = Vue.createApp({
 
     mounted() {
         this.loadCalendar(),
+
         this.loadCourses()
+
+        this.loadToggleButton()
+
     },
     
     data() {
@@ -34,6 +38,8 @@ const app = Vue.createApp({
             dueDate: '',
             assignmentWeight: 0,
             selectedCourse: ''
+            button: null
+
         };
     },
 
@@ -147,6 +153,7 @@ const app = Vue.createApp({
             
             // Extract the necessary details from the event object
             const modalEventData = {
+                id: event.id,
                 title: event.title,
                 start: event.start,
                 end: event.end,
@@ -168,6 +175,7 @@ const app = Vue.createApp({
             
             // Extract the necessary details from the event object
             const modalAssignmentData = {
+                id: event.id,
                 title: event.title,
                 dueDate: event.start,
                 description: event.extendedProps.description,
@@ -211,8 +219,28 @@ const app = Vue.createApp({
 
                 // Change the calendar view to the next view
                 calendarInstance.changeView(nextView);
+                this.button.textContent = this.nextCalendarView;
             }
         },
+
+        loadToggleButton() {
+            // Troup of buttons we want to insert into
+            const toolbarChunk = document.querySelector('.fc-toolbar-chunk:nth-child(3)');
+            this.button = document.createElement('button');
+            // To style it correctly
+            this.button.setAttribute('class', 'fc-button fc-button-primary');
+            this.button.textContent = this.nextCalendarView;
+            this.button.addEventListener('click', this.toggleView);
+
+            // Insert to the front
+            if (toolbarChunk.firstChild) {
+                toolbarChunk.insertBefore(this.button, toolbarChunk.firstChild);
+            } else {
+                toolbarChunk.appendChild(this.button);
+            }
+        },
+
+    
         
         addEventModal() {
             overlay.classList.remove("hidden");
@@ -278,6 +306,7 @@ const app = Vue.createApp({
             this.closeModal()
         },
         
+
         addAssignment() {
             
             const assignmentData = {
@@ -288,12 +317,7 @@ const app = Vue.createApp({
                 CourseID: this.selectedCourse
             };
             
-//            if (this.endDate < this.startDate) {
-//                dataStore.commit("error", ["End date cannot be before start date\n"])
-//                return
-//            } else {
-//                dataStore.commit("error", "")
-//            }
+
             
             // Send eventData to the backend API using Axios
             axios.post('/api/assignments/CreateAssignment', assignmentData)
@@ -304,6 +328,37 @@ const app = Vue.createApp({
                     console.error('Error adding assignment:', error);
                 });
                 
+
+        deleteEvent() {
+            axios.delete('/api/events/deleteEventByID', {
+                params: {
+                    EventID: this.modalEvent.id
+                }
+            })  
+            .then(response => {
+                console.log('Event deleted successfully:', response.data);
+                this.loadCalendar()
+            })
+            .catch(function (error) {
+                console.error('There was an error deleting the event:', error);
+            });
+            this.closeModal()
+        },
+        
+        deleteAssignment() {
+            axios.delete('/api/assignments/DeleteAssignmentByID', {
+                params: {
+                    AssignmentID: this.modalAssignment.id
+                }
+            })  
+            .then(response => {
+                console.log('Assignment deleted successfully:', response.data);
+                this.loadCalendar()
+            })
+            .catch(function (error) {
+                console.error('There was an error deleting the assignment:', error);
+            });
+
             this.closeModal()
         }
     }
