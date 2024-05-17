@@ -1,6 +1,7 @@
 var registerApi = "/api/accounts/createAccount";
 const app = Vue.createApp({
     mounted() {
+        dataStore.commit("error", [])
     },
     data() {
         return {

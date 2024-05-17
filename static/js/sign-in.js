@@ -17,7 +17,7 @@ const app = Vue.createApp({
     },
 
     mounted() {
-
+        dataStore.commit("error", [])
     },
 
     methods: {
