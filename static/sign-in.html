@@ -20,6 +20,7 @@
         <div class="form-container">
             <fieldset class="input">
                 <legend>Account Details</legend>
+                <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
                 <form @submit.prevent="signIn(account)" class="input-form">
                     <label for="username">Username:</label>
                     <input type="text" id="username" class="input-field" v-model="account.username" required>
