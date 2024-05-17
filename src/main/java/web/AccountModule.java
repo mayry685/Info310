@@ -103,6 +103,12 @@ public class AccountModule extends Jooby {
             }
         });
 
+        get("/api/accounts/exists/{username}", ctx -> {
+            String username = ctx.path("username").value();
+            boolean exists = dao.isUsernameTaken(username);
+            return exists;
+        });
+
 
     }
 }
