@@ -37,7 +37,7 @@ const app = Vue.createApp({
             assignmentDescription: '',
             dueDate: '',
             assignmentWeight: 0,
-            selectedCourse: ''
+            selectedCourse: '',
             button: null
 
         };
@@ -327,6 +327,8 @@ const app = Vue.createApp({
                 .catch(error => {
                     console.error('Error adding assignment:', error);
                 });
+            this.closeModal()
+        },
                 
 
         deleteEvent() {
