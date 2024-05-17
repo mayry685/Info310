@@ -11,7 +11,11 @@ const app = Vue.createApp({
 
     mounted() {
         this.loadCalendar(),
+
+        this.loadCourses()
+
         this.loadToggleButton()
+
     },
     
     data() {
@@ -19,15 +23,23 @@ const app = Vue.createApp({
             isEventModalOpen: false, // Indicates whether the modal is open or closed
             isAssignmentModalOpen: false, // Indicates whether the modal is open or closed
             isAddEventModalOpen: false,
+            isAddAssignmentModalOpen: false,
             modalEvent: {},      // Holds the details of the event currently displayed in the modal
             modalAssignment: {},      // Holds the details of the event currently displayed in the modal
+            courses: {},
             nextCalendarView: "Weekly Calendar",
             eventName: '',
             startDate: '',
             endDate: '',
             eventDescription: '',
             location: '',
+            assignmentName: '',
+            assignmentDescription: '',
+            dueDate: '',
+            assignmentWeight: 0,
+            selectedCourse: ''
             button: null
+
         };
     },
 
@@ -79,11 +91,6 @@ const app = Vue.createApp({
             // Render the calendar
             calendarInstance.render();
             
-            
-            
-            // Fetch assignments data from the API
-//            const url = '/api/assignments/searchByCourseID';
-
             // Sending the GET request to fetch assignments
             axios.get("/api/assignments/searchByAccountID", {
                 params: {
@@ -96,6 +103,7 @@ const app = Vue.createApp({
                     id: assignment.AssignmentID, // Unique identifier for the assignment
                     title: assignment.AssignmentName, // Title of the assignment
                     start: new Date(assignment.DueDate), // Due date of the assignment
+                    end: new Date(new Date(assignment.DueDate).setHours(23, 59, 59)), // End is same as start, this is just for the calendar to know when to end
                     description: assignment.AssignmentDescription, // Description of the assignment
                     weight: assignment.Weight, // Weight of the assignment
                     coursename: assignment.CourseName,
@@ -111,11 +119,21 @@ const app = Vue.createApp({
             });
         },
         
+        async loadCourses() {
+            try {
+                const response = await axios.get(`/api/courseList/${this.$store.state.signedInUser.AccountId}`);
+                this.courses = response.data;
+            } catch (error) {
+                console.error('Error loading courses:', error);
+            }
+        },
+        
         closeModal() {
             overlay.classList.add("hidden");
             this.isEventModalOpen = false
             this.isAssignmentModalOpen = false
             this.isAddEventModalOpen = false
+            this.isAddAssignmentModalOpen = false
             this.endDate = ''
             this.startDate = ''
             this.location = ''
@@ -229,34 +247,40 @@ const app = Vue.createApp({
             this.isAddEventModalOpen = true
         },
         
+        addAssignmentModal() {
+            overlay.classList.remove("hidden");
+            this.isAddAssignmentModalOpen = true
+        },
+        
+        formatDate(isoDate) {
+            const date = new Date(isoDate);
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+            const year = date.getFullYear();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            let second = date.getSeconds();
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+
+            // Convert hour from 24-hour format to 12-hour format
+            hour = hour % 12;
+            hour = hour ? hour : 12; // Handle midnight (0:00) as 12 AM
+
+            // Add leading zero if minute or second is less than 10
+            minute = minute < 10 ? '0' + minute : minute;
+            second = second < 10 ? '0' + second : second;
+
+            const formattedDate = `${month} ${day}, ${year}, ${hour}:${minute}:${second} ${ampm}`;
+            return formattedDate;
+        },
+        
         addEvent() {
-            function formatDate(isoDate) {
-                const date = new Date(isoDate);
-                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                const month = months[date.getMonth()];
-                const day = date.getDate();
-                const year = date.getFullYear();
-                let hour = date.getHours();
-                let minute = date.getMinutes();
-                let second = date.getSeconds();
-                const ampm = hour >= 12 ? 'PM' : 'AM';
-
-                // Convert hour from 24-hour format to 12-hour format
-                hour = hour % 12;
-                hour = hour ? hour : 12; // Handle midnight (0:00) as 12 AM
-
-                // Add leading zero if minute or second is less than 10
-                minute = minute < 10 ? '0' + minute : minute;
-                second = second < 10 ? '0' + second : second;
-
-                const formattedDate = `${month} ${day}, ${year}, ${hour}:${minute}:${second} ${ampm}`;
-                return formattedDate;
-            }
             
             const eventData = {
                 EventName: this.eventName,
-                StartDate: formatDate(this.startDate),
-                EndDate: formatDate(this.endDate),
+                StartDate: this.formatDate(this.startDate),
+                EndDate: this.formatDate(this.endDate),
                 EventDescription: this.eventDescription,
                 Location: this.location,
                 AccountID: dataStore.state.signedInUser.AccountId
@@ -282,6 +306,29 @@ const app = Vue.createApp({
             this.closeModal()
         },
         
+
+        addAssignment() {
+            
+            const assignmentData = {
+                AssignmentName: this.assignmentName,
+                DueDate: this.formatDate(this.dueDate),
+                AssignmentDescription: this.assignmentDescription,
+                Weight: this.assignmentWeight,
+                CourseID: this.selectedCourse
+            };
+            
+
+            
+            // Send eventData to the backend API using Axios
+            axios.post('/api/assignments/CreateAssignment', assignmentData)
+                .then(response => {
+                    this.loadCalendar()
+                })
+                .catch(error => {
+                    console.error('Error adding assignment:', error);
+                });
+                
+
         deleteEvent() {
             axios.delete('/api/events/deleteEventByID', {
                 params: {
@@ -311,6 +358,7 @@ const app = Vue.createApp({
             .catch(function (error) {
                 console.error('There was an error deleting the assignment:', error);
             });
+
             this.closeModal()
         }
     }

@@ -74,6 +74,41 @@
                     <button type="submit" class="btn-add">Add Event</button>
                 </form>
             </section>
+            
+            <section class="modal" v-if="isAddAssignmentModalOpen">
+                <div class="flex">
+                    <h2>Add Assignment</h2>
+                    <button @click="closeModal" class="btn-close">⨉</button>
+                </div>
+                <form @submit.prevent="addAssignment" class="vertical-form">
+                    <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
+                    <div class="form-group">
+                        <label for="assignmentName">Assignment Name:</label>
+                        <input type="text" id="assignmentName" v-model="assignmentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dueDate">Due Date:</label>
+                        <input type="datetime-local" id="dueDate" v-model="dueDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignmentDescription">Assignment Description:</label>
+                        <textarea id="assignmentDescription" v-model="assignmentDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignmentWeight">Weight:</label>
+                        <input type="number" id="assignmentWeight" v-model="assignmentWeight" step="0.01" min="0" max="999.99" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseDropdown">Course:</label>
+                        <select id="courseDropdown" v-model="selectedCourse" required>
+                            <option value="" disabled>Select a course</option>
+                            <option v-for="course in courses" :key="course.CourseID" :value="course.CourseID">{{ course.CourseCode }}</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-add">Add Assignment</button>
+                </form>
+            </section>
 
 
             <div @click="closeModal" class="overlay hidden"></div>
@@ -83,8 +118,9 @@
                 
                 <div id="secondnav">
                     <button @click="addEventModal" id="secondnavbtn" >Add Event</button>
-                
+                   <button @click="addAssignmentModal" id="toggle-view">Add Assignment</button>
                     <a href="paper-selection.html" id="secondnavlink" >Add Paper</a>
+
                 </div>
             
             <div id='calendar'></div> <!-- Calendar element -->
