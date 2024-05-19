@@ -138,4 +138,47 @@ public class EventTest {
         assertThat(events.toString() , is("[" + event2.toString() + "]"));
 
     }
+
+    @Test
+    public void testAddEvent() {
+        Collection<Event> events = eventsDao.getEvents();
+        assertThat(events.toString() , is("[" + event1.toString() + ", " + event2.toString() + "]"));
+
+        eventsDao.createEvent(event3);
+        events = eventsDao.getEvents();
+        assertThat(events.toString() , is("[" + event1.toString() + ", " + event2.toString() + ", " + event3.toString() + "]"));
+    }
+
+    @Test
+    public void testUpdateEventStatus() {
+        Collection<Event> events = eventsDao.getEvents();
+        assertThat(events.toString() , is("[" + event1.toString() + ", " + event2.toString() + "]"));
+
+        eventsDao.updateEventStatus(true, event1.getEventID());
+        event1.setCompleted(true);
+
+        events = eventsDao.getEvents();
+        assertThat(events.toString() , is("[" + event1.toString() + ", " + event2.toString() + "]"));
+
+        eventsDao.updateEventStatus(false, event2.getEventID());
+        event2.setCompleted(false);
+
+        events = eventsDao.getEvents();
+        assertThat(events.toString() , is("[" + event1.toString() + ", " + event2.toString() + "]"));
+    }
+
+    @Test
+    public void testUpdateEventDetails() {
+        Collection<Event> events = eventsDao.getEvents();
+        assertThat(events.toString() , is("[" + event1.toString() + ", " + event2.toString() + "]"));
+
+        event1.setEventName("Study2");
+        event1.setEventDescription("Learning time2");
+        event1.setLocation("Library2");
+
+        eventsDao.updateEventDetails(event1);
+
+        events = eventsDao.getEvents();
+        assertThat(events.toString() , is("[" + event1.toString() + ", " + event2.toString() + "]"));
+    }
 }
