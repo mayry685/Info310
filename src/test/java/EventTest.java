@@ -67,8 +67,6 @@ public class EventTest {
         courseDao.createCourse(course1.getCourseName(), course1.getCourseCode(), course1.getCourseDescription());
         courseDao.createCourse(course2.getCourseName(), course2.getCourseCode(), course2.getCourseDescription());
         
-
-
         event1 = new Event();
         event1.setEventID(1);
         Timestamp startDate1 = Timestamp.valueOf("2024-06-01 00:12:00");
