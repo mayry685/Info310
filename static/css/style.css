@@ -118,7 +118,7 @@ section ul li {
 
 /* Form styling */
 .form-container {
-    max-width: 80%;
+    max-width: 60%;
     margin: auto;
     margin-top: 5%;
     padding: var(--spacing);
