@@ -102,14 +102,13 @@ section ul li {
 }
 
 .index-section1{
-    display:inline-grid;
+    display:inline-block;
     width: 100%;
+    height: auto;
     padding: 4%;
     padding-bottom: 0%;
     text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns */
-    grid-template-rows: 1fr 1fr; /* Two rows */
+    grid-template-columns: 1fr 1fr; /* Two columns */ /* Two rows */
     gap: 20px; /* Gap between grid items */
     max-width: 800px; /* Adjust as needed */
     margin: 0 auto; /* Center the grid */

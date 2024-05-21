@@ -5,8 +5,8 @@
     justify-content: center;
     gap: 0.4rem;
     width: 50vw;
+    height: auto;
     padding: 1.3rem;
-    min-height: 250px;
     position: relative;
     background-color: white;
     border: none;
@@ -14,6 +14,7 @@
     z-index: 100;
     top: calc(50% - 25vh);
     left: calc(50% - 25vw);
+    overflow-y: scroll;
 }
 
 
@@ -107,4 +108,9 @@ textarea {
 
 button {
     margin-top: 1rem;
+}
+
+#paperSearch {
+    display: flex;
+    width:100%;
 }
