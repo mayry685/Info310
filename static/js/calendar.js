@@ -15,6 +15,8 @@ const app = Vue.createApp({
         this.loadCourses()
 
         this.loadToggleButton()
+        
+        dataStore.commit("error", [])
 
     },
     
