@@ -16,6 +16,7 @@ const app = Vue.createApp({
     mounted() {
         this.getCourses();
         this.getCourseLists();
+        dataStore.commit("error", [])
     },
         data() {
             return {

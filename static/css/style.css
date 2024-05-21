@@ -10,15 +10,21 @@
 main {
     max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    
 }
 
+body {font-family: "Lato", sans-serif;
+    background-color: rgba(243, 179, 11, 0.2);
+   
+
+}
 
 /* Navigation */
 nav {
-    background-color: #f3b30b; /* University of Otago Gold */
+    background-color: #003366; /* University of Otago Gold */
     padding: 1.5% 0;
     text-align: center;
+    
 }
 
 nav a {
@@ -36,11 +42,19 @@ nav a:hover {
 }
 
 /* Header */
-header {
+
+header{
     text-align: center;
-    padding: 5%;
-    margin-bottom: 30px;
-    
+    padding: 8%;
+  font-weight: 600;
+  color: #fdfdfe;
+  text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff, 0px 0px 10px #f3b30b,
+    0px 0px 20px #f3b30b;
+    background-color: rgba(243, 179, 11, 0.2);
+    background-image: url("header-img2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
 }
 
 .headers-divider{
@@ -50,12 +64,13 @@ header {
 }
 
 header h1 {
-    color: #00539f;
+    color: #00003E;
     margin-bottom: 2%;
+    font-size: 50px;
 }
 
 header p {
-    color: #333;
+    color: #00003E;
     font-weight: bold;
     font-style: italic;
 }
@@ -103,7 +118,7 @@ section ul li {
 
 /* Form styling */
 .form-container {
-    max-width: 80%;
+    max-width: 60%;
     margin: auto;
     margin-top: 5%;
     padding: var(--spacing);
@@ -116,6 +131,12 @@ section ul li {
     padding: var(--spacing);
     border-radius: var(--rounded-corner);
     box-shadow: var(--drop-shadow);
+}
+
+.input-form{
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 2%;
 }
 
 .input legend {
@@ -157,6 +178,23 @@ section ul li {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+.submit-button{
+    display: block;
+    align-content: center;
+    width: 40%;
+    margin-top: 30px;
+    margin-left:31%;
+    padding: 1%;
+    margin-bottom:2%;
+    background-color: #00539f;
+    color: white;
+    border:  none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
 }
 
 .input button:hover {
@@ -256,3 +294,118 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+
+/* Style the tab buttons */
+.tablink {
+    
+    color: white;
+    display: inline-block;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 2%;
+    font-size: 17px;
+    width: 33.33%;
+    justify-content: center;
+    
+  }
+
+
+  #task-link{
+    background-color:rgba(246, 198, 77, 0.714);
+
+  }
+  #priority-link{
+    background-color:#003366;
+
+  }
+
+  #progress-link{
+    background-color:#f3b30b;
+
+  }
+  
+  /* Change background color of buttons on hover */
+  .tablink :hover {
+    background-color: #777;
+  }
+  
+  /* Set default styles for tab content */
+  .tabcontent {
+    color: white;
+    display: none;
+    padding: 8%;
+    text-align: center;
+    font-size: larger;
+  }
+  
+  /* Style each tab content individually */
+  #task-management {
+    background-color: rgba(246, 198, 77, 0.714);
+
+}
+
+#task-link :hover{
+    background-color: rgb(255, 183, 0);
+}
+
+  #priority-Setting {background-color:#003366;}
+  #priority-link :hover {background-color:#0a7ff5;}
+  
+  #progress-Tracking {background-color:#f3b30b;}
+  #progress-link :hover {background-color:#ffdc82;}
+  
+  .fa-calendar-days{
+    padding-top: 3%;
+    margin-bottom: 3%;
+    font-size: 350%;
+  }
+
+  .fa-triangle-exclamation{
+    padding-top: 3%;
+    margin-bottom: 3%;
+    font-size: 350%;
+  }
+
+  .fa-graduation-cap{
+    padding-top: 3%;
+    margin-bottom: 3%;
+    font-size: 350%;
+  }
+
+  .tab-btn{
+    display:block;
+    color: #00003E;
+    padding: 2%;
+    margin-left: 35%;
+    margin-right: 35%;
+    text-decoration: none;
+    border: solid 2px white;
+    background-color: #fdfdfe;
+  }
+
+  .tab-btn:hover{
+    display:block;
+    color: white;
+    
+    margin-left: 35%;
+    margin-right: 35%;
+    text-decoration: none;
+    border: solid 2px white;
+    background-color: #00003E;
+  }
+
+  .create-acc-link{
+    display:block;
+    text-align: center;
+    margin: 2%;
+  }
+
+  .create-acc-link a{
+    text-decoration: none;
+    font-style: italic;
+    font-weight: bold;
+    
+  }
+  

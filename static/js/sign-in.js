@@ -3,21 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/javascript.js to edit this template
  */
 
+import { BasicAccessAuthentication } from './authentication.js';
+import { navigationMenu } from './navigation-menu.js';
+import { dataStore } from './data-store.js';
 
 var accountApi = '/api/accounts/';
-
 
 // create the Vue controller
 const app = Vue.createApp({
     mixins: [BasicAccessAuthentication],
     data() {
         return {
-            account: new Object()
+            account: {
+                username: '',
+                password: ''
+            }
         };
     },
 
     mounted() {
-
+        dataStore.commit("error", []);
     },
 
     methods: {
@@ -29,32 +34,34 @@ const app = Vue.createApp({
                 axios.get(accountApi + "validate?" + "username=" + this.account.username + "&password=" + this.account.password)
                     .then(response => {
                         if (response.data !== null) {
-                           
                             axios.get(accountApi + "searchByUsername?" + "username=" + this.account.username)
                                 .then(accountResponse => {
                                     dataStore.commit("user", accountResponse.data);
                                     window.location = "index.html";
                                     console.info(accountResponse);
-
-                                })
+                                });
                         } else {
                             alert("That was an incorrect username");
                         }
                     })
                     .catch(error => {
-                        console.error(error);
-                        alert("Incorrect Login Details");
+                        axios.get("api/accounts/usernames")
+                            .then(response => {
+                                var usernames = response.data;
+                                if (usernames.includes(this.account.username)) {
+                                    dataStore.commit("error", ["Password is incorrect"]);
+                                } else {
+                                    dataStore.commit("error", ["Username is incorrect"]);
+                                }
+                            });
                     });
             }
         }
     }
 });
 
-import { BasicAccessAuthentication } from './authentication.js';
 // import the navigation menu
-import { navigationMenu } from './navigation-menu.js';
 app.component('navmenu', navigationMenu);
-import { dataStore } from './data-store.js';
 app.use(dataStore);
 // attach the controller to the <main> tag
 app.mount("main");
