@@ -268,6 +268,8 @@ th {
     justify-content: center;
     
   }
+
+
   #task-link{
     background-color:rgba(246, 198, 77, 0.714);
 
@@ -283,7 +285,7 @@ th {
   }
   
   /* Change background color of buttons on hover */
-  .tablink:hover {
+  .tablink :hover {
     background-color: #777;
   }
   
@@ -302,9 +304,15 @@ th {
 
 }
 
+#task-link :hover{
+    background-color: rgb(255, 183, 0);
+}
+
   #priority-Setting {background-color:#003366;}
+  #priority-link :hover {background-color:#0a7ff5;}
   
   #progress-Tracking {background-color:#f3b30b;}
+  #progress-link :hover {background-color:#ffdc82;}
   
   .fa-calendar-days{
     padding-top: 3%;
