@@ -17,6 +17,9 @@
                 <h1 class="cal-title">Calendar</h1>
             </header>
 
+            <dialog id="eventModalDialog" style=" top: calc(50% - 25vh);
+            left: calc(50% - 25vw); border-radius: 15px;">
+
             <section class="modal" v-if="isEventModalOpen">
                 <div class="flex">
                     <h2>{{ modalEvent.title }}</h2>
@@ -30,6 +33,10 @@
                 
                 <button @click="deleteEvent" class="remove-button">Delete</button>
             </section>
+        </dialog>
+
+        <dialog id="AssignmentModalDialog" style=" top: calc(50% - 25vh);
+            left: calc(50% - 25vw); border-radius: 15px;">
 
             <section class="modal" v-if="isAssignmentModalOpen">
                 <div class="flex">
@@ -42,7 +49,11 @@
                 <p><strong>Weight:</strong> {{ modalAssignment.weight }}</p>
                 <button @click="deleteAssignment" class="remove-button">Delete</button>
             </section>
+
+            </dialog>
             
+            <dialog id="addEventModalDialog" style=" top: calc(50% - 25vh);
+            left: calc(50% - 25vw); border-radius: 15px;">
             <section class="modal" v-if="isAddEventModalOpen">
                 <div class="flex">
                     <h2>Add Event</h2>
@@ -74,7 +85,10 @@
                     <button type="submit" class="btn-add">Add Event</button>
                 </form>
             </section>
+            </dialog>
             
+            <dialog id="addAssignmentModalDialog" style=" top: calc(50% - 25vh);
+            left: calc(50% - 25vw); border-radius: 15px;">
             <section class="modal" v-if="isAddAssignmentModalOpen">
                 <div class="flex">
                     <h2>Add Assignment</h2>
@@ -109,6 +123,7 @@
                     <button type="submit" class="btn-add">Add Assignment</button>
                 </form>
             </section>
+            </dialog>
 
 
             <div @click="closeModal" class="overlay hidden"></div>
@@ -123,6 +138,8 @@
 
 
                 </div>
+
+                <hr class="headers-divder">
             
             <div id='calendar'></div> <!-- Calendar element -->
         </div>

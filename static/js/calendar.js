@@ -141,10 +141,22 @@ const app = Vue.createApp({
             this.location = ''
             this.eventDescription = ''
             this.eventName = ''
+            var dialog = document.querySelector("#eventModalDialog");
+            var assignmentDialog = document.querySelector("#AssignmentModalDialog");
+            dialog.close();
+            assignmentDialog.close();
+            addAssignmentDialog.close();
+            addEventDialog.close();
+
         },
 
         // Method to open the event modal and populate it with event details
         showEventModal(info) {
+
+           var dialog = document.querySelector("#eventModalDialog");
+           dialog.showModal();
+    
+
             // Get the event information
             const event = info.event;
 
@@ -169,6 +181,8 @@ const app = Vue.createApp({
             
             overlay.classList.remove("hidden");
             this.isEventModalOpen = true
+
+
         },
 
         showAssignmentModal(info) {
@@ -190,6 +204,8 @@ const app = Vue.createApp({
             
             overlay.classList.remove("hidden");
             this.isAssignmentModalOpen = true
+            var assignmentDialog = document.querySelector("#AssignmentModalDialog");
+           assignmentDialog.showModal();
         },
 
         toggleView() {
@@ -247,11 +263,15 @@ const app = Vue.createApp({
         addEventModal() {
             overlay.classList.remove("hidden");
             this.isAddEventModalOpen = true
+            var addEventDialog = document.querySelector("#addEventModalDialog");
+            addEventDialog.showModal();
         },
         
         addAssignmentModal() {
             overlay.classList.remove("hidden");
             this.isAddAssignmentModalOpen = true
+            var addAssignmentDialog = document.querySelector("#addAssignmentModalDialog");
+            addAssignmentDialog.showModal();
         },
         
         formatDate(isoDate) {
