@@ -3,6 +3,8 @@ const app = Vue.createApp({
   mixins: [BasicAccessAuthentication],
   mounted() {
 
+    this.openAttribute(null, 'priority-Setting')
+
   },
   data() {
     return {
