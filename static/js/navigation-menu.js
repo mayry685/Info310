@@ -18,7 +18,7 @@ export const navigationMenu = {
         <div v-if="signedInUser">
             <a class="nav-link" href=".">Home</a>
             <a class="nav-link" href="#" @click="signOut()">Sign Out</a> 
-            <a class="nav-link" href="calendar.html">Homepage</a>
+            <a class="nav-link" href="calendar.html">Calendar</a>
             <a class="nav-link" href="profile.html">Your Account</a>
             
         </div>

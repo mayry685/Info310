@@ -394,7 +394,7 @@ const app = Vue.createApp({
         addEvent() {
             var eventData;
 
-            if (this.selectedCourse == null) {
+            if (this.selectedCourse == null || this.selectedCourse == "") {
                 eventData = {
                     EventName: this.eventName,
                     StartDate: this.formatDate(this.startDate),
