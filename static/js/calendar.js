@@ -3,7 +3,7 @@ class CourseList {
         this.AccountID = account;
         this.CourseID = course;
     }
-}
+}   
 
 var enrolApi = "/api/courseList";
 var getCoursesApi = "/api/courses";
@@ -34,6 +34,18 @@ const app = Vue.createApp({
         this.getCourses();
 
         dataStore.commit("error", [])
+        
+//        document.querySelector("#eventModalDialog").addEventListener('click', this.handleBodyClick);
+        var dialog = document.getElementById('addEventModalDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'addEventModalDialog'));
+        dialog = document.getElementById('addAssignmentModalDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'addAssignmentModalDialog'));
+        dialog = document.getElementById('eventModalDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'eventModalDialog'));
+        dialog = document.getElementById('AssignmentModalDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'AssignmentModalDialog'));
+        dialog = document.getElementById('paperSelectionDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'paperSelectionDialog'));
 
     },
 
@@ -81,6 +93,21 @@ const app = Vue.createApp({
     },
     
     methods: {
+        
+        handleBackdropClick(event, id) {
+            const dialog = document.getElementById(id);
+            const rect = dialog.getBoundingClientRect();
+            // Check if click is outside the dialog
+            if (
+                event.clientX < rect.left ||
+                event.clientX > rect.right ||
+                event.clientY < rect.top ||
+                event.clientY > rect.bottom
+            ) {
+                this.closeModal();
+            }
+        },
+        
         loadCalendar() {
             // Get the calendar element
             var calendarEl = document.getElementById('calendar');
