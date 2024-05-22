@@ -141,6 +141,7 @@ const app = Vue.createApp({
                         description: event.EventDescription, // Description of the event
                         location: event.Location, // Location of the event
                         completed: event.Completed, // Whether the event is completed or not
+                        courseId: event.CourseID,
                         color: 'blue',
                         event: true
                     }));
@@ -230,23 +231,52 @@ const app = Vue.createApp({
                 this.showAssignmentModal(info);
                 return;
             }
+            
+            var courseId = event.extendedProps.courseId
+            if (courseId !== undefined) {
+                axios.get('/api/courses/searchByCourseId?id=' + courseId, {
+                })
+                .then(response => {
+                    // Extract the necessary details from the event object
+                    const modalEventData = {
+                        id: event.id,
+                        title: event.title,
+                        start: event.start,
+                        end: event.end,
+                        description: event.extendedProps.description,
+                        location: event.extendedProps.location,
+                        completed: event.extendedProps.completed,
+                        courseName: response.data.CourseName
+                    };
 
-            // Extract the necessary details from the event object
-            const modalEventData = {
-                id: event.id,
-                title: event.title,
-                start: event.start,
-                end: event.end,
-                description: event.extendedProps.description,
-                location: event.extendedProps.location,
-                completed: event.extendedProps.completed
-            };
+                    // Assign the modalEventData to modalEvent data property
+                    this.modalEvent = modalEventData;
 
-            // Assign the modalEventData to modalEvent data property
-            this.modalEvent = modalEventData;
+                    overlay.classList.remove("hidden");
+                    this.isEventModalOpen = true
+                })
+                .catch(error => {
+                    console.error('Error fetching course:', error);
+                });
+            } else {
+                const modalEventData = {
+                        id: event.id,
+                        title: event.title,
+                        start: event.start,
+                        end: event.end,
+                        description: event.extendedProps.description,
+                        location: event.extendedProps.location,
+                        completed: event.extendedProps.completed
+                    };
 
-            overlay.classList.remove("hidden");
-            this.isEventModalOpen = true
+                    // Assign the modalEventData to modalEvent data property
+                    this.modalEvent = modalEventData;
+
+                    overlay.classList.remove("hidden");
+                    this.isEventModalOpen = true
+            }
+
+            
 
 
         },
