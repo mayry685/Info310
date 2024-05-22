@@ -178,6 +178,7 @@
                     <button @click="addEventModal" id="secondnavbtn" >Add Event</button>
                     <button @click="addAssignmentModal" id="secondnavbtn">Add Assignment</button>
                     <button @click="paperSelectionModal" id="secondnavbtn">Add Paper</button>
+                    <button v-if="$store.state.signedInUser.Status=='Teacher'" @click="addAssignmentModal" id="secondnavbtn">Add Assignment</button>
 
 
                 </div>

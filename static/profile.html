@@ -4,8 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>User Profile</title>
-        <link rel="stylesheet" href="css/style.css">
+        
         <link rel="stylesheet" href="css/profile.css">
+        <link rel="stylesheet" href="css/style.css">
     </head>
     
     <body> 
@@ -13,8 +14,9 @@
             <navmenu></navmenu>
 
             <header>
-                <h1 class="profile-title">User Profile</h1>
+                <h1 class="profile-title">{{ profile.FirstName }} {{ profile.LastName }}</h1>
             </header>
+            
             <div class="profile-container">
                 <section class="profile">
                     <div class="profile-info" v-if="!isEditingProfile">
@@ -23,7 +25,7 @@
                         <p><strong>First Name:</strong> {{ profile.FirstName }}</p>
                         <p><strong>Last Name:</strong> {{ profile.LastName }}</p>
                         <p><strong>Username:</strong> {{ profile.UserName }}</p>
-                        <p><strong>Password:</strong> {{ profile.Password }}</p> <!-- Note: It's generally not recommended to display passwords -->
+                        <p ><strong>Password:</strong> ********</p> 
                         <p><strong>Email:</strong> {{ profile.Email }}</p>
                         <p><strong>Status:</strong> {{ profile.Status }}</p>
                     </div>
@@ -36,10 +38,10 @@
                         <input v-model="editedProfile.Password" placeholder="Password" type="password">
                         <input v-model="editedProfile.Email" placeholder="Email">
                         <input v-model="editedProfile.Status" placeholder="Status">
-                        <button @click="saveProfile">Save</button>
-                        <button @click="toggleEdit">Cancel</button>
+                        <button @click="saveProfile" class="submit-button" >Save</button>
+                        <button @click="toggleEdit" class="submit-button" >Cancel</button>
                     </div>
-                    <button v-else @click="toggleEdit">Edit</button>
+                    <button v-else @click="toggleEdit" class="submit-button" >Edit</button>
                 </section>
             </div>
 

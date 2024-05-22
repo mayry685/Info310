@@ -1,15 +1,17 @@
 /* CSS for User Profile */
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f2f2f2;
+    font-family: "Lato", sans-serif;
+    background-color: rgba(243, 179, 11, 0.2);
+    
+}
+main {
+    max-width: 100%;
+    margin: 0 auto;
+    
 }
 
-main {
-    padding: 20px;
-}
+
 
 .profile-container {
     flex: 1; /* Fill remaining vertical space */
@@ -18,10 +20,11 @@ main {
     justify-content: center; /* Center children horizontally */
     align-items: center; /* Center children vertically */
     flex-direction: column; /* Stack children vertically */
+    margin-top:3%;
 }
 
 .profile {
-    padding: 20px;
+    padding: 2%;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -29,7 +32,7 @@ main {
 }
 
 .profile-info p {
-    margin: 5px 0;
+    margin: 2%;
 }
 
 .edit-profile {
@@ -78,6 +81,13 @@ main {
 
 .edit-profile button.edit:hover {
     background-color: #218838;
+}
+
+.profile-legend{
+    float:left;
+    justify-content: left;;
+    
+
 }
 
 /* Media query for smaller screens */
