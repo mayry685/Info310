@@ -42,7 +42,7 @@ public class CourseModule extends Jooby {
             // Retrieve course data from the request body
             Course newCourse = ctx.body().to(Course.class);
             // Create the course using the DAO
-            Course createdCourse = dao.createCourse(newCourse.getCourseCode(), newCourse.getCourseName(), newCourse.getCourseDescription());
+            Course createdCourse = dao.createCourse(newCourse.getCourseName(), newCourse.getCourseCode(), newCourse.getCourseDescription());
             // Return the created course as JSON
             return createdCourse;
         });

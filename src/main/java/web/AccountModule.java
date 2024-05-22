@@ -46,7 +46,6 @@ public class AccountModule extends Jooby {
             return dao.getUsernames();
         });
         get("/api/accounts/validate", ctx -> {
-            System.out.println("validating");
             String username = ctx.query("username").value();
             String password = ctx.query("password").value();
             boolean valid = dao.credentialCheck(username, password);

@@ -4,14 +4,26 @@ const app = Vue.createApp({
   mounted() {
 
     this.openAttribute(null, 'priority-Setting')
+    this.load()
 
   },
   data() {
     return {
-      signedIn: this.account !== null
+      signedIn: this.signedInUser !== undefined
     };
   },
   methods: {
+    load() {
+      this.signedIn = this.signedInUser !== undefined;
+    },
+    redirect() {
+      this.load();
+      if (this.signedIn) {
+        window.location = "calendar.html";
+      } else {
+        window.location = "sign-in.html";
+      }
+    },
     openAttribute(evt, attributeName) {
       // Declare all variables
       var i, tabcontent, tablinks;
@@ -37,7 +49,7 @@ const app = Vue.createApp({
     }
   },
   computed: Vuex.mapState({
-    account: 'account'
+    signedInUser: 'signedInUser'
   })
 });
 

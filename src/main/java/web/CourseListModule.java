@@ -70,7 +70,6 @@ public class CourseListModule extends Jooby {
         delete("/api/courseList/delete/{courseListId}", ctx -> {
             //retrieve data from request body
             int courseListId = Integer.parseInt(ctx.path("courseListId").toString());
-            System.out.println(courseListId);
             //remove courseList from dao
             dao.deleteCourseListById(courseListId);
             //return as JSON
