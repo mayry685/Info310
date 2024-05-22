@@ -209,6 +209,13 @@ section ul li {
     box-sizing: border-box;
     margin-bottom: 10px; /* Adjust margin as needed */
 }
+#paper-search {
+    width: 80%;
+    display: flex;
+    margin:auto;
+    height: 30px;
+    margin-top: 5px;
+}
 
 /* Style for select element */
 .input-field[type="select"] {
@@ -227,10 +234,13 @@ section ul li {
     grid-template-columns: 1fr 1fr; /* Two columns */
     gap: 2px;
     margin: 4%;
+    justify-self: start;
+    list-style: none; /* Remove bullet points */
 }
 
-.courselist-field {
-    list-style: none; /* Remove bullet points */
+.courselist-field label {
+    justify-self: start;
+    max-width: 80%;
 }
 
 #drop-paper-btn {

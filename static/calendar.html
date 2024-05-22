@@ -131,23 +131,23 @@
                     <h2>Paper Selection</h2>
                     <button @click="closeModal" class="btn-close">⨉</button>
                 </div>
-                <div class="index-section1" style="display:grid; width:80%">
+                <div class="index-section1" style="display:grid; width:100%">
                     <fieldset class="input" id="paperSearch">
-                        <legend>Select Additional Papers</legend>
+                        <legend>Add Papers</legend>
                         <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
-                        <form @submit.prevent="" class="form-container">
-                            <label style="display: inline">Search Papers: </label>
-                            <input type="text" v-model="searchText" class="input-field" placeholder="Search papers...">
+                        <!--<form @submit.prevent="" class="form-container"> -->
+                            <!--<label style="display: inline">Search Papers: </label>-->
+                            <input type="text" id="paper-search" v-model="searchText" class="input-field" placeholder="Search papers...">
                             <div v-if="filteredCourses.length > 0">
                                 <ul>
                                     <li v-for="course in filteredCourses" :key="course.CourseId" class="courselist-field">
-                                        <label class="courselist-field">{{ course.CourseCode }}  -  {{course.CourseName }}</label>
+                                        <label class="courselist-field">{{ course.CourseCode }}</label>
                                         <button @click.prevent="enrol(course.CourseId)" class="input" id="add-paper-btn">+</button>
                                         
                                     </li>
                                 </ul>
                             </div>
-                        </form>
+                        <!--</form>-->
                     </fieldset>
 
                     <fieldset class="input">
@@ -158,7 +158,7 @@
                         </div>
                         <ul>
                         <li v-for="courseList in courseLists" class="courselist-field" >
-                            <label class="courselist-field">{{ courseList.CourseCode }}  -  {{courseList.CourseName }}</label>
+                            <label class="courselist-field">{{ courseList.CourseCode }}</label>
                             <button class ="input" id="drop-paper-btn" @click="drop(courseList.CourseListID)">X</button>
                             
                         </li>
