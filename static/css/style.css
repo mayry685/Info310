@@ -102,14 +102,13 @@ section ul li {
 }
 
 .index-section1{
-    display:inline-grid;
+    display:inline-block;
     width: 100%;
+    height: auto;
     padding: 4%;
     padding-bottom: 0%;
     text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns */
-    grid-template-rows: 1fr 1fr; /* Two rows */
+    grid-template-columns: 1fr 1fr; /* Two columns */ /* Two rows */
     gap: 20px; /* Gap between grid items */
     max-width: 800px; /* Adjust as needed */
     margin: 0 auto; /* Center the grid */
@@ -210,6 +209,13 @@ section ul li {
     box-sizing: border-box;
     margin-bottom: 10px; /* Adjust margin as needed */
 }
+#paper-search {
+    width: 80%;
+    display: flex;
+    margin:auto;
+    height: 30px;
+    margin-top: 5px;
+}
 
 /* Style for select element */
 .input-field[type="select"] {
@@ -228,18 +234,40 @@ section ul li {
     grid-template-columns: 1fr 1fr; /* Two columns */
     gap: 2px;
     margin: 4%;
+    justify-self: start;
+    list-style: none; /* Remove bullet points */
 }
 
-.courselist-field button {
+.courselist-field label {
+    justify-self: start;
+    max-width: 80%;
+}
+
+#drop-paper-btn {
     background-color: rgb(219, 3, 3);
+    color: black;
+    width: 20px;
+    height: 20px;
+    justify-self: end;
+    margin-right: 20%;
+    margin-top: 6%;
+}
+#drop-paper-btn button:hover {
+    background-color: darkred;
+}
+
+#add-paper-btn {
+    display: inline;
+    background-color: green;
     color: black;
     width: 22px;
     height: 22px;
     justify-self: end;
     margin-right: 20%;
+    margin-top: 6%;
 }
-.courselist-field button:hover {
-    background-color: darkred;
+#add-paper-btn button:hover {
+    background-color: darkgreen;
 }
 
 .courselist-field hr {

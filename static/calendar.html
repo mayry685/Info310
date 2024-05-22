@@ -53,7 +53,7 @@
             </dialog>
             
             <dialog id="addEventModalDialog" style=" top: calc(50% - 25vh);
-            left: calc(50% - 25vw); border-radius: 15px;">
+            left: calc(50% - 25vw); border-radius: 15px; max-height: 50vh;">
             <section class="modal" v-if="isAddEventModalOpen">
                 <div class="flex">
                     <h2>Add Event</h2>
@@ -88,7 +88,7 @@
             </dialog>
             
             <dialog id="addAssignmentModalDialog" style=" top: calc(50% - 25vh);
-            left: calc(50% - 25vw); border-radius: 15px;">
+            left: calc(50% - 25vw); border-radius: 15px; max-height: 50vh;">
             <section class="modal" v-if="isAddAssignmentModalOpen">
                 <div class="flex">
                     <h2>Add Assignment</h2>
@@ -124,6 +124,49 @@
                 </form>
             </section>
             </dialog>
+            
+            <dialog id="paperSelectionDialog" style=" top: calc(50% - 25vh); left: calc(50% - 25vw); border-radius: 15px;">
+                <section class="modal">
+                <div class="flex">
+                    <h2>Paper Selection</h2>
+                    <button @click="closeModal" class="btn-close">⨉</button>
+                </div>
+                <div class="index-section1" style="display:grid; width:100%">
+                    <fieldset class="input" id="paperSearch">
+                        <legend>Add Papers</legend>
+                        <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
+                        <!--<form @submit.prevent="" class="form-container"> -->
+                            <!--<label style="display: inline">Search Papers: </label>-->
+                            <input type="text" id="paper-search" v-model="searchText" class="input-field" placeholder="Search papers...">
+                            <div v-if="filteredCourses.length > 0">
+                                <ul>
+                                    <li v-for="course in filteredCourses" :key="course.CourseId" class="courselist-field">
+                                        <label class="courselist-field">{{ course.CourseCode }}</label>
+                                        <button @click.prevent="enrol(course.CourseId)" class="input" id="add-paper-btn">+</button>
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                        <!--</form>-->
+                    </fieldset>
+
+                    <fieldset class="input">
+                        <legend>Current Papers</legend>
+                        <p style="color: red; text-align: center" v-for="error in $store.state.error">{{ error }}</p>
+                        <div v-if="isEmptyCourseList()">
+                            <label>You have no selected papers.</label>
+                        </div>
+                        <ul>
+                        <li v-for="courseList in courseLists" class="courselist-field" >
+                            <label class="courselist-field">{{ courseList.CourseCode }}</label>
+                            <button class ="input" id="drop-paper-btn" @click="drop(courseList.CourseListID)">X</button>
+                            
+                        </li>
+                        </ul>
+                    </fieldset>
+                </div>
+                </section>
+            </dialog>
 
 
             <div @click="closeModal" class="overlay hidden"></div>
@@ -133,8 +176,9 @@
                 
                 <div id="secondnav">
                     <button @click="addEventModal" id="secondnavbtn" >Add Event</button>
+                    <button @click="addAssignmentModal" id="secondnavbtn">Add Assignment</button>
+                    <button @click="paperSelectionModal" id="secondnavbtn">Add Paper</button>
                     <button v-if="$store.state.signedInUser.Status=='Teacher'" @click="addAssignmentModal" id="secondnavbtn">Add Assignment</button>
-                    <button onclick="location.href='paper-selection.html'" id="secondnavbtn">Add Paper</button>
 
 
                 </div>

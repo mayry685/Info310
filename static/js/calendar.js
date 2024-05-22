@@ -1,3 +1,17 @@
+class CourseList {
+    constructor(account, course) {
+        this.AccountID = account;
+        this.CourseID = course;
+    }
+}   
+
+var enrolApi = "/api/courseList";
+var getCoursesApi = "/api/courses";
+var accountApi = "/api/accounts/searchByUsername";
+var getCourseListsApi = "/api/courseList/accountId";
+var deleteCourseListApi = "/api/courseList/delete/";
+
+
 
 var calendarInstance;
 var modal;
@@ -11,23 +25,38 @@ const app = Vue.createApp({
 
     mounted() {
         this.loadCalendar(),
-
-        this.loadCourses()
+                this.loadCourses()
 
         this.loadToggleButton()
-        
+
+        this.getCourseLists();
+
+        this.getCourses();
+
         dataStore.commit("error", [])
+        
+//        document.querySelector("#eventModalDialog").addEventListener('click', this.handleBodyClick);
+        var dialog = document.getElementById('addEventModalDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'addEventModalDialog'));
+        dialog = document.getElementById('addAssignmentModalDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'addAssignmentModalDialog'));
+        dialog = document.getElementById('eventModalDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'eventModalDialog'));
+        dialog = document.getElementById('AssignmentModalDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'AssignmentModalDialog'));
+        dialog = document.getElementById('paperSelectionDialog');
+        dialog.addEventListener('click', (event) => this.handleBackdropClick(event, 'paperSelectionDialog'));
 
     },
-    
+
     data() {
         return {
             isEventModalOpen: false, // Indicates whether the modal is open or closed
             isAssignmentModalOpen: false, // Indicates whether the modal is open or closed
             isAddEventModalOpen: false,
             isAddAssignmentModalOpen: false,
-            modalEvent: {},      // Holds the details of the event currently displayed in the modal
-            modalAssignment: {},      // Holds the details of the event currently displayed in the modal
+            modalEvent: {}, // Holds the details of the event currently displayed in the modal
+            modalAssignment: {}, // Holds the details of the event currently displayed in the modal
             courses: {},
             nextCalendarView: "Weekly Calendar",
             eventName: '',
@@ -40,12 +69,45 @@ const app = Vue.createApp({
             dueDate: '',
             assignmentWeight: 0,
             selectedCourse: '',
-            button: null
-
+            button: null,
+            signedIn: this.signedInUser !== null,
+            coursesPaperSelection: new Array(),
+            course: new Object(),
+            selectedCourse: new Object(),
+            courseLists: new Array(),
+            searchText: ""
         };
     },
-
+    
+    computed: {
+        filteredCourses() {
+            // Filter courses based on search text
+            return this.coursesPaperSelection.filter(course =>
+                course.CourseName.toLowerCase().includes(this.searchText.toLowerCase()) &&
+                        !this.courseLists.some(courseList => courseList.CourseID === course.CourseId)
+            );
+        },
+        ...Vuex.mapState({
+                signedInUser: 'signedInUser',
+        }),
+    },
+    
     methods: {
+        
+        handleBackdropClick(event, id) {
+            const dialog = document.getElementById(id);
+            const rect = dialog.getBoundingClientRect();
+            // Check if click is outside the dialog
+            if (
+                event.clientX < rect.left ||
+                event.clientX > rect.right ||
+                event.clientY < rect.top ||
+                event.clientY > rect.bottom
+            ) {
+                this.closeModal();
+            }
+        },
+        
         loadCalendar() {
             // Get the calendar element
             var calendarEl = document.getElementById('calendar');
@@ -69,58 +131,58 @@ const app = Vue.createApp({
                     AccountID: dataStore.state.signedInUser.AccountId
                 }
             })
-            .then((response) => {
-                // Assuming the API response contains events data in a suitable format
-                var events = response.data.map(event => ({
-                    id: event.EventID, // Unique identifier for the event
-                    title: event.EventName, // Title of the event
-                    start: new Date(event.StartDate), // Start date of the event
-                    end: new Date(event.EndDate), // End date of the event
-                    description: event.EventDescription, // Description of the event
-                    location: event.Location, // Location of the event
-                    completed: event.Completed, // Whether the event is completed or not
-                    color: 'blue',
-                    event: true
-                }));
+                    .then((response) => {
+                        // Assuming the API response contains events data in a suitable format
+                        var events = response.data.map(event => ({
+                                id: event.EventID, // Unique identifier for the event
+                                title: event.EventName, // Title of the event
+                                start: new Date(event.StartDate), // Start date of the event
+                                end: new Date(event.EndDate), // End date of the event
+                                description: event.EventDescription, // Description of the event
+                                location: event.Location, // Location of the event
+                                completed: event.Completed, // Whether the event is completed or not
+                                color: 'blue',
+                                event: true
+                            }));
 
-                // Add the events to the calendar
-                calendarInstance.addEventSource(events);
-            })
-            .catch((error) => {
-                console.error('Error fetching events:', error);
-            });
+                        // Add the events to the calendar
+                        calendarInstance.addEventSource(events);
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching events:', error);
+                    });
 
             // Render the calendar
             calendarInstance.render();
-            
+
             // Sending the GET request to fetch assignments
             axios.get("/api/assignments/searchByAccountID", {
                 params: {
                     AccountID: dataStore.state.signedInUser.AccountId
                 }
             })
-            .then((response) => {
-                // Assuming the API response contains assignments data in a suitable format
-                var assignments = response.data.map(assignment => ({
-                    id: assignment.AssignmentID, // Unique identifier for the assignment
-                    title: assignment.AssignmentName, // Title of the assignment
-                    start: new Date(assignment.DueDate), // Due date of the assignment
-                    end: new Date(new Date(assignment.DueDate).setHours(23, 59, 59)), // End is same as start, this is just for the calendar to know when to end
-                    description: assignment.AssignmentDescription, // Description of the assignment
-                    weight: assignment.Weight, // Weight of the assignment
-                    coursename: assignment.CourseName,
-                    color: 'green',
-                    event: false
-                }));
+                    .then((response) => {
+                        // Assuming the API response contains assignments data in a suitable format
+                        var assignments = response.data.map(assignment => ({
+                                id: assignment.AssignmentID, // Unique identifier for the assignment
+                                title: assignment.AssignmentName, // Title of the assignment
+                                start: new Date(assignment.DueDate), // Due date of the assignment
+                                end: new Date(new Date(assignment.DueDate).setHours(23, 59, 59)), // End is same as start, this is just for the calendar to know when to end
+                                description: assignment.AssignmentDescription, // Description of the assignment
+                                weight: assignment.Weight, // Weight of the assignment
+                                coursename: assignment.CourseName,
+                                color: 'green',
+                                event: false
+                            }));
 
-                // Add the assignments to the calendar
-                calendarInstance.addEventSource(assignments);
-            })
-            .catch((error) => {
-                console.error('Error fetching assignments:', error);
-            });
+                        // Add the assignments to the calendar
+                        calendarInstance.addEventSource(assignments);
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching assignments:', error);
+                    });
         },
-        
+
         async loadCourses() {
             try {
                 const response = await axios.get(`/api/courseList/${this.$store.state.signedInUser.AccountId}`);
@@ -129,7 +191,7 @@ const app = Vue.createApp({
                 console.error('Error loading courses:', error);
             }
         },
-        
+
         closeModal() {
             overlay.classList.add("hidden");
             this.isEventModalOpen = false
@@ -143,19 +205,23 @@ const app = Vue.createApp({
             this.eventName = ''
             var dialog = document.querySelector("#eventModalDialog");
             var assignmentDialog = document.querySelector("#AssignmentModalDialog");
+            var addEventDialog = document.querySelector("#addEventModalDialog");
+            var addAssignmentDialog = document.querySelector("#addAssignmentModalDialog");
+            var paperSelectionDialog = document.querySelector("#paperSelectionDialog");
             dialog.close();
             assignmentDialog.close();
             addAssignmentDialog.close();
             addEventDialog.close();
+            paperSelectionDialog.close();
 
         },
 
         // Method to open the event modal and populate it with event details
         showEventModal(info) {
 
-           var dialog = document.querySelector("#eventModalDialog");
-           dialog.showModal();
-    
+            var dialog = document.querySelector("#eventModalDialog");
+            dialog.showModal();
+
 
             // Get the event information
             const event = info.event;
@@ -164,7 +230,7 @@ const app = Vue.createApp({
                 this.showAssignmentModal(info);
                 return;
             }
-            
+
             // Extract the necessary details from the event object
             const modalEventData = {
                 id: event.id,
@@ -178,7 +244,7 @@ const app = Vue.createApp({
 
             // Assign the modalEventData to modalEvent data property
             this.modalEvent = modalEventData;
-            
+
             overlay.classList.remove("hidden");
             this.isEventModalOpen = true
 
@@ -188,7 +254,7 @@ const app = Vue.createApp({
         showAssignmentModal(info) {
             // Get the event information
             const event = info.event;
-            
+
             // Extract the necessary details from the event object
             const modalAssignmentData = {
                 id: event.id,
@@ -201,11 +267,11 @@ const app = Vue.createApp({
 
             // Assign the modalEventData to modalEvent data property
             this.modalAssignment = modalAssignmentData;
-            
+
             overlay.classList.remove("hidden");
             this.isAssignmentModalOpen = true
             var assignmentDialog = document.querySelector("#AssignmentModalDialog");
-           assignmentDialog.showModal();
+            assignmentDialog.showModal();
         },
 
         toggleView() {
@@ -258,22 +324,20 @@ const app = Vue.createApp({
             }
         },
 
-    
-        
         addEventModal() {
             overlay.classList.remove("hidden");
             this.isAddEventModalOpen = true
             var addEventDialog = document.querySelector("#addEventModalDialog");
             addEventDialog.showModal();
         },
-        
+
         addAssignmentModal() {
             overlay.classList.remove("hidden");
             this.isAddAssignmentModalOpen = true
             var addAssignmentDialog = document.querySelector("#addAssignmentModalDialog");
             addAssignmentDialog.showModal();
         },
-        
+
         formatDate(isoDate) {
             const date = new Date(isoDate);
             const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -296,9 +360,9 @@ const app = Vue.createApp({
             const formattedDate = `${month} ${day}, ${year}, ${hour}:${minute}:${second} ${ampm}`;
             return formattedDate;
         },
-        
+
         addEvent() {
-            
+
             const eventData = {
                 EventName: this.eventName,
                 StartDate: this.formatDate(this.startDate),
@@ -306,31 +370,30 @@ const app = Vue.createApp({
                 EventDescription: this.eventDescription,
                 Location: this.location,
                 AccountID: dataStore.state.signedInUser.AccountId
-                // Add more properties as needed
+                        // Add more properties as needed
             };
-            
+
             if (this.endDate < this.startDate) {
                 dataStore.commit("error", ["End date cannot be before start date\n"])
                 return
             } else {
                 dataStore.commit("error", "")
             }
-            
+
             // Send eventData to the backend API using Axios
             axios.post('/api/events/CreateEvent', eventData)
-                .then(response => {
-                    this.loadCalendar()
-                })
-                .catch(error => {
-                    console.error('Error adding event:', error);
-                });
-                
+                    .then(response => {
+                        this.loadCalendar()
+                    })
+                    .catch(error => {
+                        console.error('Error adding event:', error);
+                    });
+
             this.closeModal()
         },
-        
 
         addAssignment() {
-            
+
             const assignmentData = {
                 AssignmentName: this.assignmentName,
                 DueDate: this.formatDate(this.dueDate),
@@ -338,52 +401,130 @@ const app = Vue.createApp({
                 Weight: this.assignmentWeight,
                 CourseID: this.selectedCourse
             };
-            
 
-            
+
+
             // Send eventData to the backend API using Axios
             axios.post('/api/assignments/CreateAssignment', assignmentData)
-                .then(response => {
-                    this.loadCalendar()
-                })
-                .catch(error => {
-                    console.error('Error adding assignment:', error);
-                });
+                    .then(response => {
+                        this.loadCalendar()
+                    })
+                    .catch(error => {
+                        console.error('Error adding assignment:', error);
+                    });
             this.closeModal()
         },
-                
 
         deleteEvent() {
             axios.delete('/api/events/deleteEventByID', {
                 params: {
                     EventID: this.modalEvent.id
                 }
-            })  
-            .then(response => {
-                console.log('Event deleted successfully:', response.data);
-                this.loadCalendar()
             })
-            .catch(function (error) {
-                console.error('There was an error deleting the event:', error);
-            });
+                    .then(response => {
+                        console.log('Event deleted successfully:', response.data);
+                        this.loadCalendar()
+                    })
+                    .catch(function (error) {
+                        console.error('There was an error deleting the event:', error);
+                    });
             this.closeModal()
         },
-        
+
         deleteAssignment() {
             axios.delete('/api/assignments/DeleteAssignmentByID', {
                 params: {
                     AssignmentID: this.modalAssignment.id
                 }
-            })  
-            .then(response => {
-                console.log('Assignment deleted successfully:', response.data);
-                this.loadCalendar()
             })
-            .catch(function (error) {
-                console.error('There was an error deleting the assignment:', error);
-            });
+                    .then(response => {
+                        console.log('Assignment deleted successfully:', response.data);
+                        this.loadCalendar()
+                    })
+                    .catch(function (error) {
+                        console.error('There was an error deleting the assignment:', error);
+                    });
 
             this.closeModal()
+        },
+
+        paperSelectionModal() {
+            overlay.classList.remove("hidden");
+            this.isAddAssignmentModalOpen = true
+            var addAssignmentDialog = document.querySelector("#paperSelectionDialog");
+            addAssignmentDialog.showModal();
+        },
+
+        enrol(course) {
+            var signedInUser = dataStore.state.signedInUser;
+            this.selectedCourse = course;
+            console.info(this.selectedCourse);
+            if (typeof (this.selectedCourse) === "object") {
+
+                alert("You have not selected a paper.");
+            } else if (this.signedInUser !== undefined) {
+
+                var courseList = new CourseList(
+                        this.signedInUser.AccountId,
+                        this.selectedCourse);
+
+                axios.post(enrolApi, courseList, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                        .then(() => {
+//                    window.location = "paper-selection.html";
+                            this.loadCalendar();
+                            this.getCourses();
+
+                            this.getCourseLists();
+                        })
+                        .catch(error => {
+                            alert("You are already enrolled in this paper.");
+                        });
+            } else {
+                alert("Invalid Account");
+            }
+        },
+        drop(courseListId) {
+            axios.delete(`/api/courseList/delete/${courseListId}`)
+                    .then(() => {
+//                window.location = "paper-selection.html";
+                        this.loadCalendar();
+                        this.getCourses();
+
+                        this.getCourseLists();
+
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+        },
+
+        getCourses() {
+            axios.get(getCoursesApi)
+                    .then(response => {
+                        this.coursesPaperSelection = response.data;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("An error occurred - check the console");
+                    });
+        },
+        getCourseLists() {
+            var signedInUser = dataStore.state.signedInUser;
+            axios.get(`/api/courseList/${signedInUser.AccountId}`)
+                    .then(response => {
+                        this.courseLists = response.data;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+        },
+        isEmptyCourseList() {
+            return this.courseLists.length === 0;
         }
     }
 });
