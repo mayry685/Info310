@@ -85,7 +85,7 @@
                         <label for="courseDropdown">Course:</label>
                         <select id="courseDropdown" v-model="selectedCourse">
                             <option value="" disabled>Select a course</option>
-                            <option key="None" value=null>None</option>
+                            <option key="None" value="">None</option>
                             <option v-for="course in courses" :key="course.CourseID" :value="course.CourseID">{{ course.CourseCode }}</option>
                         </select>
                     </div>
