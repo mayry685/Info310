@@ -47,7 +47,7 @@
                 <p><strong>Description:</strong> {{ modalAssignment.description }}</p>
                 <p><strong>Course:</strong> {{ modalAssignment.courseName }}</p>
                 <p><strong>Weight:</strong> {{ modalAssignment.weight }}</p>
-                <button @click="deleteAssignment" class="remove-button">Delete</button>
+                <button v-if="$store.state.signedInUser.Status=='Teacher'" @click="deleteAssignment" class="remove-button">Delete</button>
             </section>
 
             </dialog>
@@ -81,7 +81,14 @@
                         <label for="location">Location:</label>
                         <input type="text" id="location" v-model="location" required>
                     </div>
-
+                    <div class="form-group"  v-if="$store.state.signedInUser.Status=='Teacher'">
+                        <label for="courseDropdown">Course:</label>
+                        <select id="courseDropdown" v-model="selectedCourse">
+                            <option value="" disabled>Select a course</option>
+                            <option key="None" value=null>None</option>
+                            <option v-for="course in courses" :key="course.CourseID" :value="course.CourseID">{{ course.CourseCode }}</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn-add">Add Event</button>
                 </form>
             </section>
@@ -176,9 +183,8 @@
                 
                 <div id="secondnav">
                     <button @click="addEventModal" id="secondnavbtn" >Add Event</button>
-                    <button @click="addAssignmentModal" id="secondnavbtn">Add Assignment</button>
-                    <button @click="paperSelectionModal" id="secondnavbtn">Add Paper</button>
                     <button v-if="$store.state.signedInUser.Status=='Teacher'" @click="addAssignmentModal" id="secondnavbtn">Add Assignment</button>
+                    <button @click="paperSelectionModal" id="secondnavbtn">Add Paper</button>
 
 
                 </div>
