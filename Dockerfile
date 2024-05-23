@@ -7,6 +7,8 @@ WORKDIR /usr/src/app
 # Clone the repository directly into the working directory
 RUN git clone https://github.com/mayry685/Info310.git .
 
+RUN git checkout --quiet release
+
 # Ensure the gradlew script has execute permission
 RUN chmod +x ./gradlew
 
