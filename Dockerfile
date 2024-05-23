@@ -4,13 +4,11 @@ FROM gradle:jdk21
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Clone the repository directly into the working directory
-RUN git clone https://github.com/mayry685/Info310.git .
-
-RUN git checkout --quiet release
+# Clone the repository and checkout the release branch directly
+RUN git clone --branch release --single-branch https://github.com/mayry685/Info310.git .
 
 # Ensure the gradlew script has execute permission
-RUN chmod +x ./gradlew
+RUN chmod +x /usr/src/app/gradlew
 
 # Build the Gradle project
 RUN ./gradlew build
@@ -20,4 +18,3 @@ EXPOSE 8087
 
 # Command to run the application
 CMD ["./gradlew", "run"]
-
