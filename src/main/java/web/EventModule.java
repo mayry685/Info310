@@ -62,7 +62,7 @@ public class EventModule extends Jooby{
 
         install(new GsonModule(new GsonBuilder()
         .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-            DateFormat df = new SimpleDateFormat("mm dd, yyyy, h:mm:ss a");
+            DateFormat df = new SimpleDateFormat("MMM dd, yyyy, h:mm:ss a");
 
             @Override
             public Date deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
@@ -75,7 +75,7 @@ public class EventModule extends Jooby{
             }
         })
         .registerTypeAdapter(Date.class, new JsonSerializer<Date>() {
-            DateFormat df = new SimpleDateFormat("mm dd, yyyy, h:mm:ss a");
+            DateFormat df = new SimpleDateFormat("MMM dd, yyyy, h:mm:ss a");
 
             @Override
             public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
