@@ -1,10 +1,22 @@
 package web;
 
-import ch.qos.logback.core.status.Status;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+
 import dao.EventsJdbiDAO;
 import domain.Event;
 import io.jooby.Jooby;
 import io.jooby.StatusCode;
+import io.jooby.gson.GsonModule;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.lang.reflect.Type;
+import ch.qos.logback.core.status.Status;
 
 
 public class EventModule extends Jooby{
@@ -44,6 +56,21 @@ public class EventModule extends Jooby{
            String accountID = ctx.query("AccountID").value();
            return eventsDAO.eventsByAccount(accountID);
         });
+
+        install(new GsonModule(new GsonBuilder()
+        .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+            DateFormat df = new SimpleDateFormat("MMM dd, yyyy, h:mm:ss a");
+
+            @Override
+            public Date deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
+                throws JsonParseException {
+            try {
+                return df.parse(json.getAsString());
+            } catch (ParseException e) {
+                throw new JsonParseException(e);
+            }
+            }
+        }).create()));
 
         post("/api/events/CreateEvent", ctx -> {
             Event event = ctx.body().to(Event.class);
