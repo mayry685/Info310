@@ -397,8 +397,8 @@ const app = Vue.createApp({
             if (this.selectedCourse == null || this.selectedCourse == "") {
                 eventData = {
                     EventName: this.eventName,
-                    StartDate: this.formatDate(this.startDate),
-                    EndDate: this.formatDate(this.endDate),
+                    StartDate: new Date(this.formatDate(this.startDate)),
+                    EndDate: new Date(this.formatDate(this.endDate)),
                     EventDescription: this.eventDescription,
                     Location: this.location,
                     AccountID: dataStore.state.signedInUser.AccountId
@@ -406,8 +406,8 @@ const app = Vue.createApp({
             } else {
                 eventData = {
                     EventName: this.eventName,
-                    StartDate: this.formatDate(this.startDate),
-                    EndDate: this.formatDate(this.endDate),
+                    StartDate: new Date(this.formatDate(this.startDate)),
+                    EndDate: new Date(this.formatDate(this.endDate)),
                     EventDescription: this.eventDescription,
                     Location: this.location,
                     CourseID: this.selectedCourse
@@ -437,7 +437,7 @@ const app = Vue.createApp({
 
             const assignmentData = {
                 AssignmentName: this.assignmentName,
-                DueDate: this.formatDate(this.dueDate),
+                DueDate: new Date(this.formatDate(this.dueDate)),
                 AssignmentDescription: this.assignmentDescription,
                 Weight: this.assignmentWeight,
                 CourseID: this.selectedCourse
