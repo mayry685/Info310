@@ -84,9 +84,11 @@ public class EventModule extends Jooby{
         }).create()));
 
         post("/api/events/CreateEvent", ctx -> {
+            System.out.println(SimpleDateFormat.getAvailableLocales());
             Event event = ctx.body().to(Event.class);
             Event createdEvent = eventsDAO.createEvent(event);
             ctx.setResponseCode(StatusCode.OK);
+            System.out.println(createdEvent.getStartDate());
             return createdEvent;
         });
 

@@ -5,7 +5,7 @@ FROM gradle:jdk21
 WORKDIR /usr/src/app
 
 # Clone the repository and checkout the release branch directly
-RUN git clone --branch release --single-branch https://github.com/mayry685/Info310.git .
+RUN git clone --branch docker --single-branch https://github.com/mayry685/Info310.git .
 
 # Ensure the gradlew script has execute permission
 RUN chmod +x /usr/src/app/gradlew
